@@ -1,0 +1,38 @@
+.frame{
+    border: solid 1px;
+    width: 500px;
+    margin: 32px;
+    padding: 10px;
+    list-style-type: none;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+}
+
+.iconNidNname{
+    display: flex;
+}
+
+.icon{
+    width: 50px;
+    height: 52px;
+    margin-left: 10px;
+    border-radius: 100%;
+}
+
+.userName{
+    margin-left: 10px;
+}
+
+.userId{
+    color: #666666;
+    font-size: 0.8rem;
+    margin-left: 10px;
+}
+
+.content{
+    /*border: 1px solid #ccc;*/
+    width: 300px;
+    max-height: 100px;
+    margin-top: 10px;
+    margin-left: 10px;
+}

@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import SignIn from "./SignIn"
 
 const Home = () => {
   const [message, setMessage] = useState("Loading...")
@@ -16,6 +17,7 @@ const Home = () => {
   return(
       <>
         <h1>{message}</h1>
+          <SignIn />
       </>
   )
 }
