@@ -16,7 +16,7 @@ const SignIn = () => {
                     <p>OR</p>
                 </div>
                 <div className={s.boxLarge}>
-                    <Link href="/">
+                    <Link href="/SignUp">
                         <p><input type="submit" value="SIGN UP" className={s.signup} /></p>
                     </Link>
                 </div>
