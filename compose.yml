@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:15.3
+    environment:
+      - POSTGRES_DATABASE=ppg
+      - POSTGRES_USER=ppg
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_ROOT_PASSWORD=root
+    volumes:
+      - data:/var/lib/postgresql
+    ports:
+#    localhost:55432, container内?:5432
+    - 55432:5432
+
+  adminer:
+    image: adminer
+    ports:
+#    localhost:8081
+    - 8081:8080
+
+volumes:
+  data:

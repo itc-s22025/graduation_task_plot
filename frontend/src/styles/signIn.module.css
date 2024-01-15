@@ -1,0 +1,84 @@
+.all{
+    background-color: #EE6E18;
+    height: 100vh;
+}
+
+.image{
+    max-width: 800px;
+    min-width: 200px;
+    max-height: 10vw;
+    min-height: 100px;
+    width: 35%;
+    height: 80%;
+    position: relative;
+    left: 30vw;
+    top: 4vh;
+}
+
+.boxLarge{
+    background-color: #F8F4F0;
+    width:30vw;
+    padding: 10px 40px 12px;
+    position: relative;
+    top:12vh;
+    left:32vw;
+    border: 1px solid;
+    border-color: #EE6E18;
+    border-radius: 8px;
+    text-align: center;
+
+}
+
+.box{
+    font-size:16px;
+    display: block;
+    list-style-type: none;
+    resize: none;
+    padding: 10px;
+    margin: 10px auto;
+    width: 25vw;
+}
+
+.SignIn{
+    font-weight: 400;
+    color: #EE6E18;
+    font-size: 2rem;
+}
+
+.signin{
+    font-size: 16px;
+    color: #FFF;
+    background-color: #EE6E18;
+    border-radius: 8px;
+    border: 0px;
+    margin:10px auto;
+    padding: 12px 13px;
+    width: 25vw;
+}
+
+.signup{
+    width: 27vw;
+    /*position: relative;*/
+    top: 2vh;
+    margin: 0px auto;
+    background-color: #F8F4F0;
+    padding: 0px 20px 0px 0px;
+    border: 0px;
+    /* border-color: #EE6E18;*/
+    /*border-radius: 8px;*/
+    text-align: center;
+    font-size: 16px;
+    color: #EE6E18;
+}
+
+.or{
+    font-size: 16px;
+    color: #FFF;
+    text-align: center;
+    position: relative;
+    top: 12vh;
+    left: 44vw;
+    padding: 30px 30px;
+    margin-left: 10px;
+    width: 35px;
+}
