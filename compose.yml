@@ -1,11 +1,8 @@
 services:
   db:
-    image: postgres:15.3
+    image: postgres:13.13
     environment:
-      - POSTGRES_DATABASE=ppg
-      - POSTGRES_USER=ppg
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_ROOT_PASSWORD=root
+      POSTGRES_PASSWORD: password
     volumes:
       - data:/var/lib/postgresql
     ports:

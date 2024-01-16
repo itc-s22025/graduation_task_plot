@@ -10,11 +10,10 @@ const Post = () => {
     const handleLikeClick = () => {
         setLikecount(likecount + 1 )
     }
-
     const handleRpClick = () => {
         setLikecount(likecount + 1 )
     }
-    const [user, setUser] = useState([])
+
 
     const listItems = people.map(person =>
         <li key={person.id} className={s.frame}>

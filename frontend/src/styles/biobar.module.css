@@ -1,0 +1,20 @@
+.all{
+    display: flex;
+    width: 800px;
+    background-color: #F8F4F0;
+}
+
+.box{
+    border: #fff solid 1px;
+    width: 34%;
+    height: 50px;
+    font-size: 1.6rem;
+    color: #EE6E18;
+    padding-left: 10px;
+    padding-top: 5px;
+}
+
+.box:hover{
+    background-color: #EE6E18;
+    color: #F8F4F0;
+}
