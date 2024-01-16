@@ -16,35 +16,28 @@ const Home = () => {
         )
     }, [])
 
-    useEffect(() => {
-        fetch("http://localhost:3002/api/user").then(
-            res => res.json()
-        ).then(
-            data => {
-                console.log(data)
-                setUser(data.user)
-            }
-        )
-    })
+    // useEffect(() => {
+    //     fetch("http://localhost:3002/api/signin").then(
+    //         res => res.json()
+    //     ).then(
+    //         data => {
+    //             console.log(data[0])
+    //             setUser(data.id)
+    //         }
+    //     )
+    // }, []);
 
 
     return (
         <>
             <h1>HOME</h1>
-            <p>
+            <ul>
             {people.map((person, index) => (
-                <div key={index}>
+                <li key={index}>
                     {person}
-                </div>
+                </li>
             ))}
-            </p>
-            <p>
-                {user.map((id, name, imageId) => {
-                    <div key={id}>
-                        {name}
-                    </div>
-                })}
-            </p>
+            </ul>
             <Post/>
         </>
     )
