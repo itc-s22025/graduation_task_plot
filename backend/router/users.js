@@ -17,15 +17,6 @@ router.use(
 );
 
 
-// function check(req, res){
-//     if(req.session.login === undefined){
-//         req.session.back = '/';
-//         return true
-//     }else {
-//         return false
-//     }
-// }
-
 router.get("/signin", async (req, res, next) => {
     try {
         const users = await prisma.user.findMany();
@@ -37,27 +28,7 @@ router.get("/signin", async (req, res, next) => {
 
 
 router.post("/signin", async (req, res, next) => {
-    // await prisma.user.findMany({
-    //     where:{
-    //         id: req.body.id,
-    //         password: req.body.password,
-    //     }
-    // }).then(usr => {
-    //     if (usr != null && usr[0] != null){
-    //         req.session.login = usr[0];
-    //         var back = req.session.back;
-    //         if (back == null){
-    //             back = '/Home';
-    //         }
-    //         res.redirect(back)
-    //     }else {
-    //         var data = {
-    //             msg: "名前かパスワードに問題があります。。。"
-    //         }
-    //         res.render('SignIn', data)
-    //     }
-    // });
-    //
+
     const {id, password} = req.body;
     const user = await prisma.user.findMany({
         where: {
@@ -65,7 +36,7 @@ router.post("/signin", async (req, res, next) => {
             password: password,
         },
     });
-    res.redirect("/Home")
+    res.redirect("/")
 
     if (!user || !bcrypt.compareSync(password, user.password)){
         return res.status(401).json({error: 'INVALID CREDENTIALS...;_;'});
