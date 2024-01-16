@@ -7,32 +7,34 @@ const main = async () => {
     // 一人目
     salt = scrypt.generateSalt();
     await prisma.user.upsert({
-        where: {name: "taro"},
+        where: {username: "tarotaro"},
         update: {},
         create: {
-            id: "user1",
+            username: "tarotaro",
             name: "taro",
             password: scrypt.calcHash("yamada", salt),
             salt,
             gender: "Male",
             dateOfBirth: "2000-01-01T01:01:01+09:00",
             profileImg: "",
+            bio: "5㌔減めざしてがんばります(^_^)❗",
         }
     });
 
     //二人目
     salt = scrypt.generateSalt();
     await prisma.user.upsert({
-        where: {name: "hanako"},
+        where: {username: "hanakokko"},
         update: {},
         create: {
-            id: "user2",
+            username: "hanakokko",
             name: "hanako",
             password: scrypt.calcHash("flower", salt),
             salt,
             gender: "Female",
             dateOfBirth: "2000-04-02T01:01:01+09:00",
             profileImg: "",
+            bio: "毎日継続",
         }
     });
 };

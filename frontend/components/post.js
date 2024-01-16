@@ -1,6 +1,6 @@
 import {people} from "./data";
 import {getImageUrl} from "./utils";
-import s from "../src/styles/podt.module.css"
+import s from "../src/styles/post.module.css"
 import {useState, useEffect} from "react";
 
 const Post = () => {
@@ -10,11 +10,10 @@ const Post = () => {
     const handleLikeClick = () => {
         setLikecount(likecount + 1 )
     }
-
     const handleRpClick = () => {
         setLikecount(likecount + 1 )
     }
-    const [user, setUser] = useState([])
+
 
     const listItems = people.map(person =>
         <li key={person.id} className={s.frame}>

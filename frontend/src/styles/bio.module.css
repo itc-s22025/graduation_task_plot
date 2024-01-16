@@ -50,7 +50,7 @@
     color: #6E665C;
     font-size: 1rem;
     margin-left: 10px;
-    margin-top: 5px;
+    margin-top: 11px;
     width: 170px;
 }
 
@@ -58,7 +58,7 @@
     font-size: 0.9rem;
     display: flex;
     margin-left: 15px;
-    margin-top: 8px;
+    margin-top: 12px;
 }
 
 .follower{
@@ -67,7 +67,7 @@
 
 .follow{
     margin-left: 20px;
-    margin-top: 5px;
+    margin-top: 6px;
     height: 40px;
     width: 150px;
     text-align: center;
@@ -78,7 +78,7 @@
 }
 
 .content{
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
     width: 550px;
     height: 250px;
     margin-top: 15px;

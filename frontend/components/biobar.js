@@ -1,6 +1,8 @@
 import s from '../src/styles/biobar.module.css'
 
 const BioBar = () => {
+
+
     return(
         <>
             <div className={s.all}>
