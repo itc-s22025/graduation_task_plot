@@ -2,13 +2,14 @@ import s from '../styles/signIn.module.css'
 import Link from 'next/link'
 
 const SignIn = () => {
+
     return(
         <>
             <main className={s.all}>
                 <div className={s.boxLarge}>
                     <h1 className={s.SignIn}>SignIn</h1>
-                    <p><input type="text" placeholder= "User ID" className={s.box}/></p>
-                    <p><input type="password" minLength="8" placeholder="Password" required className={s.box}/></p>
+                    <p><input type="text" placeholder= "User ID" name="id" className={s.box}/></p>
+                    <p><input type="password" minLength="8" placeholder="Password" name="password" required className={s.box}/></p>
                     <p><input type="submit" value="SIGN IN" className={s.signin} /></p>
                 </div>
                 <div className={s.or}>
