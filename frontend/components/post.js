@@ -1,6 +1,6 @@
 import {people} from "./data";
 import {getImageUrl} from "./utils";
-import s from "../src/styles/post.module.css"
+import s from "../src/styles/podt.module.css"
 import {useState, useEffect} from "react";
 
 const Post = () => {
