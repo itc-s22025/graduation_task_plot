@@ -1,6 +1,6 @@
 .frame{
     border: solid 1px #aaa;
-    width: 500px;
+    width: 700px;
     max-height: 300px;
     margin: 32px;
     padding: 10px;
@@ -37,7 +37,7 @@
 
 .content{
     /*border: 1px solid #ccc;*/
-    width: 300px;
+    width: 480px;
     max-height: 100px;
     margin-top: 10px;
     margin-left: 10px;

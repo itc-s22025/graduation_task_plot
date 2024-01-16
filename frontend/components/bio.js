@@ -1,12 +1,12 @@
-import {people} from "./data";
 import s from "../src/styles/bio.module.css";
-import {getImageUrl} from "./utils";
 import {useEffect, useState} from "react";
 
 const Bio = () => {
+    const [icon, setIcon] = useState("")
     const [name, setName] = useState("")
     const [userId, setUserId] = useState("")
     const [bio, setBio] = useState("")
+
 
     useEffect(() => {
         fetch("http://localhost:3002/api/signin").then(
@@ -14,6 +14,7 @@ const Bio = () => {
         ).then(
             data => {
                 console.log(data)
+                setIcon(data[0].profileImg)
                 setName(data[0].name)
                 setUserId(data[0].username)
                 setBio(data[0].bio)
@@ -21,12 +22,23 @@ const Bio = () => {
         )
     }, []);
 
+    const getImageUrl = (data) =>{
+        const img = 'https://i.imgur.com/' + data + 's.jpg'
+        return (
+            img
+        );
+    }
+
     return(
         <>
 
             <div className={s.frame}>
                 <div className={s.iconNidNname}>
-                    <div className={s.icon}></div>
+                    <img
+                        src={getImageUrl(icon)}
+                        alt={name}
+                        className={s.icon}
+                    />
 
                     <div>
                         <div className={s.nameNidNfosNfollow}>
