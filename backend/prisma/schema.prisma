@@ -8,15 +8,26 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  // shadowDatabaseUrl = env("SHADOW_DB_URL")
 }
 
 model User {
-  id        String   @id
-  name      String   @unique
-  password  String
-  gender    String
-  birth     DateTime @default(now())
+  id          String   @id
+  name        String   @unique @db.VarChar(64)
+  password    Bytes
+  salt        Bytes
+  gender      String
+  dateOfBirth DateTime @default(now())
+  profileImg  String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  post        Post[]
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  text      String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
