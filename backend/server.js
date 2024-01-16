@@ -18,17 +18,6 @@ const People = {
     people: ["john", "emma"]
 }
 
-const User = {
-    user: [{
-    id: "user1",
-    name: 'Creola Katherine Johnson',
-    imageId: 'MK3eW3A'
-}, {
-    id: "user2",
-    name: 'Mario José Molina-Pasquel Henríquez',
-    imageId: 'mynHUSa'
-}]
-}
 
 const usersRouter = require('./router/users');
 
@@ -51,10 +40,6 @@ app.get("/api/data", (req, res, next) => {
 //home_post
 app.get("/api/home", (req, res, next) => {
     res.json(People)
-})
-
-app.get("/api/user", (req, res, next) => {
-    res.json(User)
 })
 
 

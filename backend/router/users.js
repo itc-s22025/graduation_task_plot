@@ -16,7 +16,6 @@ router.use(
     })
 );
 
-
 router.get("/signin", async (req, res, next) => {
     try {
         const users = await prisma.user.findMany();
@@ -26,9 +25,8 @@ router.get("/signin", async (req, res, next) => {
     }
 })
 
-
+//ログインのエンドポイント
 router.post("/signin", async (req, res, next) => {
-
     const {id, password} = req.body;
     const user = await prisma.user.findMany({
         where: {
@@ -36,12 +34,10 @@ router.post("/signin", async (req, res, next) => {
             password: password,
         },
     });
-    res.redirect("/")
 
     if (!user || !bcrypt.compareSync(password, user.password)){
         return res.status(401).json({error: 'INVALID CREDENTIALS...;_;'});
     }
-
     //認証が成功したら、セッションにユーザー情報を保存
     req.session.user = {id: user.id};
 
