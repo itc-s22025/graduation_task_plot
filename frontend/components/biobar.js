@@ -4,9 +4,9 @@ const BioBar = () => {
     return(
         <>
             <div className={s.all}>
-                <p>POST</p>
-                <p>MEDIA</p>
-                <p>LIKES</p>
+                <p className={s.box}>POST</p>
+                <p className={s.box}>MEDIA</p>
+                <p className={s.box}>LIKES</p>
             </div>
         </>
     )
