@@ -1,8 +1,11 @@
 import {people} from "./data";
 import {getImageUrl} from "./utils";
 import s from "../src/styles/post.module.css"
+import {useState, useEffect} from "react";
 
 const Post = () => {
+    const [user, setUser] = useState([])
+
     const listItems = people.map(person =>
         <li key={person.id} className={s.frame}>
                 <div className={s.iconNidNname}>
@@ -16,7 +19,7 @@ const Post = () => {
                             <b>{person.name}</b>
                         </p>
                         <p className={s.userId}>@{person.id}</p>
-                        <p className={s.content}>Hi,there<br/>
+                        <p className={s.content}>Hi,there.<br/>
                             this is {person.name}.
                         </p>
                     </div>

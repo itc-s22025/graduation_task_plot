@@ -1,6 +1,7 @@
 .frame{
-    border: solid 1px;
+    border: solid 1px #aaa;
     width: 500px;
+    max-height: 300px;
     margin: 32px;
     padding: 10px;
     list-style-type: none;
@@ -16,6 +17,7 @@
     width: 50px;
     height: 52px;
     margin-left: 10px;
+    border: solid 1px #ccc;
     border-radius: 100%;
 }
 
