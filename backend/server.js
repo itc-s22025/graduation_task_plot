@@ -55,33 +55,34 @@ app.get("/api/home", (req, res, next) => {
 
 app.get("/api/user", (req, res, next) => {
     res.json(User)
-  
+})
+
 
 //prismaからデータとれてるかテスト用
-app.get("/test", async (req, res, next) => {
-    try {
-        const users = await prisma.user.findMany();
-        res.status(200).json(users);
-    }catch (error){
-        res.status(500).json({msg: error.msg});
-    }
-})
+    app.get("/test", async (req, res, next) => {
+        try {
+            const users = await prisma.user.findMany();
+            res.status(200).json(users);
+        } catch (error) {
+            res.status(500).json({msg: error.msg});
+        }
+    })
 
 //get user by id
-app.get("/user/:id", async (req, res, next) =>{
-    try {
-        const user = await prisma.user.findUnique({
-            where: {
-                id: req.params.id
-            },
-        });
-        res.status(200).json(user);
-    }catch (error) {
-        res.status(500).json({msg:error.msg});
-    }
-})
+    app.get("/user/:id", async (req, res, next) => {
+        try {
+            const user = await prisma.user.findUnique({
+                where: {
+                    id: req.params.id
+                },
+            });
+            res.status(200).json(user);
+        } catch (error) {
+            res.status(500).json({msg: error.msg});
+        }
+    })
 
-  
-app.listen(port, () => {
-    console.log(`サーバーを${port}で起動したよーーーん`);
-});
+
+    app.listen(port, () => {
+        console.log(`サーバーを${port}で起動したよーーーん`);
+    });
