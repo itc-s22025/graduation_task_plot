@@ -1,0 +1,43 @@
+.bg {
+    display: flex;
+    position: fixed;
+    top: 0vw;
+    max-width: 100%;
+    background-color: #F8F4F0;
+    justify-content: center;
+    border-color: #D2CCCC;
+    border-width: thin;
+    width: 20%;
+    height: 100vh;
+}
+.box {
+    position: relative;
+    top: 80px;
+    display: flex;
+    max-width: 15vw;
+    margin: 20px;
+    list-style: none;
+    padding: 10px;
+    border: solid 1px gray;
+    background-color: #ffffff;
+    box-sizing: border-box;
+}
+.box a:hover {
+    color: blue;
+}
+.box a {
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+    padding: 7px;
+    margin: 10px;
+}
+.icon {
+    min-width: 37px;
+    display: flex;
+    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    margin: 8px;
+    padding: 2px;
+}

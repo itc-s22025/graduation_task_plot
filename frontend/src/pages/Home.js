@@ -1,5 +1,8 @@
 import Post from "../../components/post"
 import {useState, useEffect} from "react";
+import FrameLayout from "../../components/frameLayout";
+import Header from "../../components/header";
+import s from "../../src/styles/center.module.css"
 
 const Home = () => {
     const [people, setPeople] = useState([])
@@ -30,15 +33,18 @@ const Home = () => {
 
     return (
         <>
-            <h1>HOME</h1>
-            <ul>
-            {people.map((person, index) => (
-                <li key={index}>
-                    {person}
-                </li>
-            ))}
-            </ul>
-            <Post/>
+            <Header title="HOME" />
+            <FrameLayout center={<Post/>}/>
+            {/*<ul>*/}
+            {/*{people.map((person, index) => (*/}
+            {/*    <li key={index}>*/}
+            {/*        {person}*/}
+            {/*    </li>*/}
+            {/*))}*/}
+            {/*</ul>*/}
+            {/*<div className={s.box}>*/}
+            {/*<Post/>*/}
+            {/*</div>*/}
         </>
     )
 }

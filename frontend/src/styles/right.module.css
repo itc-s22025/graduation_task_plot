@@ -1,0 +1,12 @@
+.bg {
+    position: fixed;
+    top:0px;
+    right: 0%;
+    border-color: #D2CCCC;
+    border-width: thin;
+    background-color:#F8F4F0;
+    color: black;
+    display: flex;
+    height: 100vh;
+    width: 20%;
+}
