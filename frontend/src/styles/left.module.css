@@ -18,13 +18,12 @@
     margin: 20px;
     list-style: none;
     padding: 10px;
-    border: solid 1px gray;
+    border: solid 1px #968C7F;
+    border-radius: 8px;
     background-color: #ffffff;
     box-sizing: border-box;
 }
-.box a:hover {
-    color: blue;
-}
+
 .box a {
     text-decoration: none;
     color: black;
@@ -32,6 +31,11 @@
     padding: 7px;
     margin: 10px;
 }
+
+.box a:hover {
+    color: #EE6E18;
+}
+
 .icon {
     min-width: 37px;
     display: flex;

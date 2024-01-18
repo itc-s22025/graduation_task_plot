@@ -13,7 +13,7 @@ const Nav = () => {
                            objectFit="cover"
                            className={s.icon}/>
 
-                    <Link href="../src/pages/Home.js" legacyBehavior>
+                    <Link href="/Home" legacyBehavior>
                         <a>Home</a>
                     </Link>
                 </li>
@@ -27,7 +27,7 @@ const Nav = () => {
                            objectFit="cover"
                            className={s.icon}/>
 
-                    <Link href="../src/pages/Profile.js" legacyBehavior>
+                    <Link href="/Profile" legacyBehavior>
                         <a>Profile</a>
                     </Link>
                 </li>

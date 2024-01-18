@@ -52,7 +52,7 @@ const Bio = () => {
                                     <p className={s.follower}>34 Follower</p>
                                 </div>
                             </div>
-                            <p className={s.follow}> Follow</p>
+                            <p className={s.edit}> Edit</p>
                         </div>
                         <p className={s.content}>{bio}<br/>テキストテキストテキスト</p>
                     </div>
