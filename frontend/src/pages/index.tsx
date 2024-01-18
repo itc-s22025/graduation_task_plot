@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import SignIn from "@/pages/SignIn";
+import SignIn from "./SignIn"
 
 const Home = () => {
   const [message, setMessage] = useState("Loading...")
