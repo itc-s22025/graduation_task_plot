@@ -1,61 +1,69 @@
 const router = require('express').Router();
-const session = require('express-session');
-const bcrypt = require('bcrypt');
-const crypto = require('crypto');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
 const {PrismaClient} = require('@prisma/client');
 const prisma = new PrismaClient();
+//pwdハッシュ化に使ったやつ
+const scrypt = require('../util/scrypt');
+//ハッシュ化でバイナリ化したパスワードをチェックするやつ
+const {timingSageEqual} = require('node:crypto');
 
-// ランダムな文字列を生成
-const randomString = crypto.randomBytes(64).toString('hex');
 
-router.use(
-    session({
-        secret: randomString,
-        resave: false,
-        saveUninitialized: false
+//認証処理
+passport.use(new LocalStrategy(
+    //user名とパスワードが何という名前で渡ってくるか
+    {usernameField: "username", passwordField: "password"},
+    async (username, password, callback) => {
+        try {
+            const user = await prisma.user.findUnique({
+                where: {username: username}
+            });
+            if (!user) {
+                //指定されたユーザーIDが存在しない場合
+                return callback(null, false, {message: "ユーザー名もしくはパスワードが違います"});
+            }
+            const hashedPassword = scrypt.calcHash(password, user.salt);
+            if (!timingSageEqual(user.password, hashedPassword)) {
+                return callback(null, false, {message: "ユーザー名もしくはパスワードが違います"});
+            }
+            //ユーザー名もパスワードも正しい場合
+            return callback(null, user);
+        } catch (e) {
+            return callback(e);
+        }
+    }
+));
+
+//認証が通った後、セッションを使ってユーザー情報を管理
+passport.serializeUser((user, done) => {
+    process.nextTick(() => {
+        //idとusernameだけ取り出して保存
+        done(null, {id: user.id, username: user.username});
     })
-);
+});
 
+//表示
 router.get("/signin", async (req, res, next) => {
     try {
         const users = await prisma.user.findMany();
         res.status(200).json(users);
-    }catch (error){
+    } catch (error) {
         res.status(500).json({msg: error.msg});
     }
-})
-
-//ログインのエンドポイント
-router.post("/signin", async (req, res, next) => {
-    const {id, password} = req.body;
-    const user = await prisma.user.findMany({
-        where: {
-            id: id,
-            password: password,
-        },
-    });
-
-    if (!user || !bcrypt.compareSync(password, user.password)){
-        return res.status(401).json({error: 'INVALID CREDENTIALS...;_;'});
-    }
-    //認証が成功したら、セッションにユーザー情報を保存
-    req.session.user = {id: user.id};
-
-    return res.status(200).json({success: true});
-
 });
 
+// ログイン情報のルーティング passport.authenticateが全部やってくれる
+router.post("/signin", passport.authenticate("local", {
+    //認証通った場合
+    successReturnToOrRedirect: "/Home",
+    //失敗した場合
+    failureRedirect: "/",
+    //失敗したときのメッセージ　上で指定したmessageがでる
+    failureMessage: true,
+    //これないとreturntoが効かない？
+    keepSessionInfo: true
+}))
 
-// ユーザーが認証されているかどうかを確認するミドルウェア
-const isAuthenticated = (req, res, next) => {
-    if (!req.session.user) {
-        return res.status(401).json({ error: '認証済みじゃないです' });
-    }
-};
-
-// ログイン状態を確認するエンドポイント
-router.get('/check-auth', isAuthenticated, (req, res) => {
-    res.status(200).json({ success: true, user: req.session.user });
-});
 
 module.exports = router;
+
