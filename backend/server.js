@@ -1,9 +1,11 @@
 const express = require('express');
 const app = express();
-
+//prisma
 const {PrismaClient} = require('@prisma/client');
 const prisma = new PrismaClient();
-
+//session
+const session = require('express-session');
+const passport = require('passport');
 //cors
 const cors = require('cors');
 const port = 3002;
@@ -23,13 +25,30 @@ const usersRouter = require('./router/users');
 
 app.use(cors());
 
+//sessionの設定
+app.use(session({
+    secret: "#vyexY>ycq*C43W9B8T2M8R(",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {maxAge: 60 * 60 * 1000}
+}));
+
+//passportの全体向け設定
+app.use(passport.authenticate("session"));
+app.use((req, res, next) => {
+    const messages = req.session.messages || [];
+    res.locals.messages = messages;
+    res.locals.hasMessages = !!messages.length;
+    req.session.messages = [];
+    next();
+});
 
 //users
 app.use("/api", usersRouter);
 
 
 app.get("/", (req, res, next) => {
-    res.send("HELLO, THIS IS ROOT PAGE OF BACKEND!");
+    res.json({msg:"HELLO, THIS IS ROOT PAGE OF BACKEND!"});
 });
 
 app.get("/api/data", (req, res, next) => {
@@ -71,3 +90,4 @@ app.get("/api/home", (req, res, next) => {
     app.listen(port, () => {
         console.log(`サーバーを${port}で起動したよーーーん`);
     });
+
