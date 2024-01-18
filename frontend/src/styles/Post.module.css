@@ -1,0 +1,136 @@
+/*.all{
+        background-color: #FFFFFF;
+        height: 100vh;
+}
+
+.boxLarge{
+        width:40vw;
+        padding: 400px 40px 12px;
+        position: relative;
+        top:12vh;
+        left:32vw;
+        border: 1px solid;
+        border-color: #000000;
+        text-align: center;
+}
+
+.name{
+        font-size: 30px;
+        position: absolute;
+        top: 15px;
+        left: 80px;
+}
+
+.container{
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        display: flex;
+        grid-gap: 30px;
+}
+
+.cancel{
+        padding: 8px 20px 8px 20px;
+        border: 1px solid;
+        border-radius: 8px;
+        color: #EE6E18;
+}
+
+.post{
+        padding: 8px 30px 8px 30px;
+        border: 1px solid;
+        border-radius: 8px;
+        background-color: #EE6E18;
+        color: #FFFFFF;
+}*/
+
+/* src/App.css */
+
+.boxLarge{
+        width:40vw;
+        padding: 150px 40px 12px;
+        position: relative;
+        top:12vh;
+        left:32vw;
+        border: 1px solid;
+        border-color: #000000;
+        text-align: center;
+}
+
+.all{
+        background-color: #FFFFFF;
+        height: 100vh;
+}
+
+.App {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+}
+
+.textarea {
+        width: 500px;
+        height: 150px;
+        margin-top: -30px;
+        margin-bottom: 40px;
+        align-items: center;
+        outline: none;
+        border-color: #000000;
+}
+
+.button {
+        position: absolute;
+        top: 20px;
+        right: 17px;
+        display: flex;
+        grid-gap: 30px;
+}
+
+.cancel{
+        padding: 8px 20px 8px 20px;
+        border: 1px solid;
+        border-radius: 8px;
+        color: #EE6E18;
+}
+
+.post{
+        padding: 8px 30px 8px 30px;
+        border: 1px solid;
+        border-radius: 8px;
+        background-color: #EE6E18;
+        color: #FFFFFF;
+}
+
+.name{
+        font-size: 30px;
+        position: absolute;
+        top: 15px;
+        left: 80px;
+}
+
+.icons_container {
+        position: absolute;
+        bottom: 20px;
+        left: 40px;
+        display: flex;
+        grid-gap: 30px;
+}
+.icons {
+        width: 24px;
+        height: 24px;
+        margin-right: 20px;
+        margin-left: 10px;
+}
+
+.selectedImage {
+        height: 200px;
+        width: 200px;
+        max-width: 100%;
+        margin-top: 5px;
+        margin-right: 300px;
+        margin-bottom: 60px;
+        bottom: 60px;
+        object-fit: cover;
+
+}

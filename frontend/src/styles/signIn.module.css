@@ -59,6 +59,7 @@
 .signup{
     width: 27vw;
     /*position: relative;*/
+
     top: 2vh;
     margin: 0px auto;
     background-color: #F8F4F0;
@@ -66,6 +67,7 @@
     border: 0px;
     /* border-color: #EE6E18;*/
     /*border-radius: 8px;*/
+
     text-align: center;
     font-size: 16px;
     color: #EE6E18;
