@@ -3,6 +3,8 @@
     width: 704px;
     height: 400px;
     margin: 32px;
+    margin-top: 100px;
+    margin-left: 30vw;
     padding: 10px;
     list-style-type: none;
     border-radius: 10px;
@@ -65,7 +67,7 @@
     margin-left: 10px;
 }
 
-.follow{
+.edit{
     margin-left: 20px;
     margin-top: 6px;
     height: 40px;
@@ -75,6 +77,10 @@
     color: #fff;
     border-radius: 10px;
     padding: 7px;
+}
+
+.edit:hover{
+    background-color: #ec6102;
 }
 
 .content{
