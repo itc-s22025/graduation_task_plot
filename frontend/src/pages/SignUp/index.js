@@ -5,6 +5,7 @@ const Index = () => {
     return(
         <>
             <main className={s.all}>
+                <img src="/fitchatlogo.png" className={s.image}/>
                 <div className={s.boxLarge}>
                     <h1 className={s.signUp}>SignUp</h1>
                     <p><input type="text" placeholder="User ID" className={s.box}/></p>
@@ -13,6 +14,7 @@ const Index = () => {
                     <Link href="/SignUp/Detail">
                         <p><input type="submit" value="NEXT" className={s.next} /></p>
                     </Link>
+
 
                 </div>
             </main>

@@ -4,6 +4,7 @@ const Detail = () => {
     return(
         <>
             <main className={s.all}>
+                <img src="/fitchatlogo.png" className={s.image}/>
                 <div className={s.boxLarge}>
                     <h1 className={s.signUp}>SignUp</h1>
 
