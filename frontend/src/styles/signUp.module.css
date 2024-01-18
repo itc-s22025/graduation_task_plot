@@ -4,14 +4,13 @@
 }
 
 .image{
-    max-width: 800px;
-    min-width: 200px;
-    max-height: 10vw;
+    max-width: 28vw;
+    max-height: 20vw;
     min-height: 100px;
-    width: 30%;
-    height: 18%;
+    width: 40%;
+    height: 14vw;
     position: relative;
-    left: 32vw;
+    left: 33vw;
     top: 4vh;
 }
 
@@ -20,8 +19,8 @@
     width:30vw;
     padding: 10px 40px 12px;
     position: relative;
-    top:12vh;
-    left:32vw;
+    top:8vh;
+    left:33vw;
     border: 1px solid;
     border-color: #EE6E18;
     border-radius: 8px;

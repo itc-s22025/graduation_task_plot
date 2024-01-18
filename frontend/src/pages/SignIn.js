@@ -32,6 +32,7 @@ const SignIn = () => {
     return (
         <>
             <main className={s.all}>
+                <img src="/orangelogo.png" className={s.image}/>
                 <div className={s.boxLarge}>
                     <h1 className={s.SignIn}>SignIn</h1>
 
