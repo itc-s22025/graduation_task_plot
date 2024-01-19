@@ -2,14 +2,16 @@ import Post from "../../components/post"
 import {useState, useEffect} from "react";
 import FrameLayout from "../../components/frameLayout";
 import Header from "../../components/header";
-import s from "../../src/styles/center.module.css"
+import {hidden} from "next/dist/lib/picocolors";
+import scrollbar from "../../components/scrollbar";
 
 const Home = () => {
     const [people, setPeople] = useState([])
     const [user, setUser] = useState([])
 
+
     useEffect(() => {
-        fetch("http://localhost:3002/api/home").then(
+        fetch("http://localhost:3000/api/home").then(
             res => res.json()
         ).then(
             data => {
@@ -18,6 +20,23 @@ const Home = () => {
             }
         )
     }, [])
+
+    useEffect(() => {
+        const handleScrollBoxWidth =() => {
+            const scrollBox = document.getElementById("srollBox");
+            if (scrollBox) {
+                const scrollBar = scrollBox.offsetWidth - scrollBox.clientWidth;
+                scrollBox.style.width = `calc(100% + ${scrollBar}px)`;
+
+            }
+        };
+
+        handleScrollBoxWidth();
+        window.addEventListener("resize", handleScrollBoxWidth);
+        return () => {
+        window.removeEventListener("resize", handleScrollBoxWidth);
+        };
+    }, []);
 
     // useEffect(() => {
     //     fetch("http://localhost:3002/api/signin").then(
@@ -42,9 +61,7 @@ const Home = () => {
             {/*    </li>*/}
             {/*))}*/}
             {/*</ul>*/}
-            {/*<div className={s.box}>*/}
             {/*<Post/>*/}
-            {/*</div>*/}
         </>
     )
 }

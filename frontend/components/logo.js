@@ -5,7 +5,7 @@ const Logo = () => {
         <>
             <div className={s.bg}>
                 <p className={s.pl}>＋</p>
-                <img src="/Mascle.png"
+                <img src="img/Mascle.png"
                       alt="icon"
                        height={35}
                        width={35}

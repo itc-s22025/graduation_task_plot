@@ -6,11 +6,11 @@ const Nav = () => {
         <nav className={s.bg}>
             <ul>
                 <li className={s.box}>
-                    <img src="/homeIcon.png"
+                    <img src="img/homeIcon.png"
                            alt="icon"
                            width={38}
                            height={38}
-                           objectFit="cover"
+                           // objectFit="cover"
                            className={s.icon}/>
 
                     <Link href="../src/pages/Home.js" legacyBehavior>
@@ -19,12 +19,12 @@ const Nav = () => {
                 </li>
 
                 <li className={s.box}>
-                    <img src="/resumeIcon.png"
+                    <img src="img/resumeIcon.png"
                            alt="icon"
                            // whttps://github.com/itc-s22025/graduation_task_plot.gitidth={38}
                            height={38}
                            width={38}
-                           objectFit="cover"
+                           // objectFit="cover"
                            className={s.icon}/>
 
                     <Link href="../src/pages/Profile.js" legacyBehavior>
@@ -33,11 +33,11 @@ const Nav = () => {
                 </li>
 
                 <li className={s.box}>
-                    <img src="/notification.png"
+                    <img src="img/notification.png"
                            alt="icon"
                            width={38}
                            height={38}
-                           objectFit="cover"
+                           // objectFit="cover"
                            className={s.icon}/>
 
                     <Link href="/" legacyBehavior>
@@ -46,11 +46,11 @@ const Nav = () => {
                 </li>
 
                 <li className={s.box}>
-                    <img src="/settingIcon.png"
+                    <img src="img/settingIcon.png"
                            alt="icon"
                            width={38}
                            height={38}
-                           objectFit="cover"
+                           // objectFit="cover"
                            className={s.icon}/>
 
                     <Link href="/" legacyBehavior>
@@ -59,11 +59,11 @@ const Nav = () => {
                 </li>
 
                 <li className={s.box}>
-                    <img src="/keepIcon.png"
+                    <img src="img/keepIcon.png"
                            alt="icon"
                            width={38}
                            height={38}
-                           objectFit="cover"
+                           // objectFit="cover"
                            className={s.icon}/>
 
                     <Link href="/" legacyBehavior>
