@@ -1,8 +1,15 @@
+import Header from "../../../components/header";
+import FrameLayout from "../../../components/frameLayout";
+import s from "../../styles/accountInfo.module.css";
 
 const Language = () => {
     return(
         <>
-            <h1>LANG</h1>
+            <Header title="Change Password" />
+            <FrameLayout />
+            <div className={s.all}>
+                <h1>Languages</h1>
+            </div>
         </>
     )
 }
