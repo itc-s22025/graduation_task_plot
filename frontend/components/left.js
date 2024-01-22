@@ -61,8 +61,8 @@ const Nav = () => {
                 <li className={s.box}>
                     <img src="/keepIcon.png"
                            alt="icon"
-                           width={38}
-                           height={38}
+                           width={28}
+                           height={34}
                            objectFit="cover"
                            className={s.icon}/>
 
