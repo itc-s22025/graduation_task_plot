@@ -53,8 +53,8 @@ const Nav = () => {
                            objectFit="cover"
                            className={s.icon}/>
 
-                    <Link href="/" legacyBehavior>
-                        <a>Setting</a>
+                    <Link href="/Settings" legacyBehavior>
+                        <a>Settings</a>
                     </Link>
                 </li>
 

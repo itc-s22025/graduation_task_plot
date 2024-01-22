@@ -1,0 +1,31 @@
+.all{
+    position: absolute;
+    left: 32vw;
+    top: 100px;
+}
+
+.frame{
+    border: #968C7F 1px solid;
+    border-radius: 8px;
+    width: 38vw;
+    padding: 30px;
+    font-size: 1.5rem;
+}
+
+.box{
+    border: #968C7F 1px solid;
+    display: flex;
+    height: 70px;
+}
+
+.each{
+    width: 10vw;
+    border-bottom: #968C7F 2px solid;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.input{
+    margin-top: 10px;
+    height: 40px;
+}
