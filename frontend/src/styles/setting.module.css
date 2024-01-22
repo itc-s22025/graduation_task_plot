@@ -18,10 +18,9 @@
     color: #555555;
 }
 .img{
-    width: 3vw;
-    height: 3vw;
+    width: 5vw;
+    height: 5vw;
     border: 1px solid #968C7F;
     border-radius: 8px;
     margin-right: 20px;
-    margin-top: 10px;
 }
