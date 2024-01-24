@@ -1,0 +1,204 @@
+/*.all{
+        background-color: #FFFFFF;
+        height: 100vh;
+}
+
+.boxLarge{
+        width:40vw;
+        padding: 400px 40px 12px;
+        position: relative;
+        top:12vh;
+        left:32vw;
+        border: 1px solid;
+        border-color: #000000;
+        text-align: center;
+}
+
+.name{
+        font-size: 30px;
+        position: absolute;
+        top: 15px;
+        left: 80px;
+}
+
+.container{
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        display: flex;
+        grid-gap: 30px;
+}
+
+.cancel{
+        padding: 8px 20px 8px 20px;
+        border: 1px solid;
+        border-radius: 8px;
+        color: #EE6E18;
+}
+
+.post{
+        padding: 8px 30px 8px 30px;
+        border: 1px solid;
+        border-radius: 8px;
+        background-color: #EE6E18;
+        color: #FFFFFF;
+}*/
+
+/* src/App.css */
+
+.boxLarge{
+        width:56vw;
+        padding: 150px 40px 12px;
+        position: relative;
+        top:12vh;
+        left:22vw;
+        border: 1px solid;
+        border-color: #000000;
+        border-radius: 8px;
+        text-align: center;
+
+}
+
+.all{
+        background-color: #FFFFFF;
+        height: 100vh;
+}
+
+.App {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+}
+
+.textarea {
+        width: 750px;
+        height: 150px;
+        margin-top: -40px;
+        margin-bottom: 30px;
+        margin-right: 600px;
+        align-items: center;
+        outline: none;
+        border-color: #FFFFFF;
+        padding-left: 10px;
+        font-size: 20px;
+}
+
+.button {
+        position: absolute;
+        top: 20px;
+        right: 17px;
+        display: flex;
+        grid-gap: 30px;
+}
+
+.cancel{
+        padding: 8px 20px 8px 20px;
+        border: 1px solid;
+        border-radius: 8px;
+        color: #EE6E18;
+}
+
+.post{
+        padding: 8px 30px 8px 30px;
+        border: 1px solid;
+        border-radius: 8px;
+        background-color: #EE6E18;
+        color: #FFFFFF;
+}
+
+.name{
+        font-size: 30px;
+        position: absolute;
+        top: 15px;
+        left: 80px;
+}
+
+.icons_container {
+        position: absolute;
+        bottom: 20px;
+        left: 40px;
+        display: flex;
+        grid-gap: 30px;
+}
+.icons {
+        width: 24px;
+        height: 24px;
+        margin-right: 20px;
+        margin-left: 10px;
+}
+
+.selectedImage {
+        height: 200px;
+        width: 200px;
+        max-width: 100%;
+        max-height: 100%;
+        margin-top: 1px;
+        margin-right: 600px;
+        margin-bottom: 60px;
+        bottom: 60px;
+        object-fit: cover;
+
+}
+
+.imageContainer {
+        position: relative;
+        display: inline-block;
+}
+
+
+.cross {
+        height: 25px;
+        width: 25px;
+        position: relative;
+        margin-right: 550px;
+        top: -260px;
+        left: 80px;
+        cursor: pointer;
+        z-index: 1;
+}
+.menu {
+        height: 30px;
+        margin-bottom: 80px;
+}
+.trainingmenu {
+        width: 750px;
+        height: 50px;
+        line-height: 45px;
+        outline: none;
+        font-size: 15px;
+        text-align: left;
+        padding-left: 20px;
+        border-color: #FFFFFF;
+        background-color: #F8F4F0;
+}
+
+.menucontainer {
+        display: flex;
+}
+
+.number {
+        margin-left: 20px;
+        outline: none;
+        position: relative;
+        bottom: 45px;
+        left: 200px;
+        border-color: #FFFFFF;
+        text-align: center;
+        font-size: 13px;
+        background-color: #FFFFFF;
+        padding: 6px 50px 6px 20px;
+}
+
+.time {
+        position: relative;
+        outline: none;
+        bottom: 45px;
+        left: 210px;
+        font-size: 13px;
+        border-color: #FFFFFF;
+        text-align: center;
+        background-color: #FFFFFF;
+        padding: 6px 30px 6px 20px;
+}
+
