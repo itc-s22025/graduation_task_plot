@@ -65,5 +65,17 @@ router.post("/signin", passport.authenticate("local", {
 }))
 
 
+//ポストデータのやつ api/postsに一旦表示
+router.get("/posts", async (req, res, next) => {
+    try {
+        const posts = await prisma.post.findMany();
+        res.status(200).json(posts);
+    }catch (e) {
+        res.status(500).json({msg: e.msg});
+    }
+});
+
+
+
 module.exports = router;
 
