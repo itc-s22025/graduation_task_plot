@@ -10,20 +10,19 @@ const passport = require('passport');
 const cors = require('cors');
 const port = 3002;
 
+app.use(cors());
 
+//テストデータ
 const Data = {
     message: 'hello, this is message...'
 }
-
-
 const People = {
     people: ["john", "emma"]
 }
 
-
+//ここから
 const usersRouter = require('./router/users');
 
-app.use(cors());
 
 //sessionの設定
 app.use(session({
