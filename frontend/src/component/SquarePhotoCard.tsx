@@ -18,7 +18,7 @@ const SquarePhotoCard = (props: PropsType) => {
         height: "50px",
         border: "none",
         position: "absolute",
-        top: "15px",
+        top: "18px",
         left: "10px",
         bottom: "150px",
         borderRadius: "8px",
