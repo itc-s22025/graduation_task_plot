@@ -5,20 +5,20 @@ import FrameLayout from "../../../components/frameLayout";
 
 const Info = () => {
     const [name, setName] = useState("")
-    const [username, setUsername] = useState("")
+    const [userName, setUserName] = useState("")
     const [gender, setGender] = useState("")
     const [filter, setFilter] = useState(false)
 
     useEffect(() => {
-        fetch("http://localhost:3002/api/signin").then(
+        fetch("http://localhost:3002/users/signin").then(
             res => res.json()
         ).then(
             data => {
-                console.log(data[1].name)
-                setName(data[1].name)
-                setUsername(data[1].username)
-                setGender(data[1].gender)
-                if (data[1].filter === false){
+                console.log(data[0].name)
+                setName(data[0].name)
+                setUserName(data[0].userName)
+                setGender(data[0].gender)
+                if (data[0].filter === false){
                     setFilter("適応しない")
                 }else {
                     setFilter("適応する")
@@ -40,7 +40,7 @@ const Info = () => {
                     </div>
                     <div className={s.box}>
                         <p className={s.each}><b>user ID:</b>　　　@</p>
-                        <input type="text" name="username" value={username} className={s.input}/>
+                        <input type="text" name="username" value={userName} className={s.input}/>
                     </div>
                     <div className={s.box}>
                         <p className={s.each}><b>gender:</b></p>

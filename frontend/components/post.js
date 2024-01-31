@@ -6,30 +6,33 @@ import {useState, useEffect} from "react";
 const Post = () => {
     const [icon, setIcon] = useState("")
     const [name, setName] = useState("")
-    const [userId, setUserId] = useState("")
-    const [bio, setBio] = useState("")
+    const [userName, setUserName] = useState("")
+    const [text, setText] = useState("")
+    const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        fetch("http://localhost:3002/users/signin").then(
-            res => res.json()
-        ).then(
-            data => {
-                data.map(user => {
-                    console.log("user:", user)
-                })
-                setData(data)
-                console.log("name:", name)
-                console.log(data)
+        const fetchData = async () => {
+            try {
+                const res = await fetch("http://localhost:3002/api/all");
+                const data = await res.json()
+                console.log("入ってきたデータ：", data)
+                setData(data);
+                setPosts(data);
+                console.log("POSTS: ", posts);
+            } catch (e) {
+                console.log(e)
             }
-        )
+        }
+        fetchData();
     }, []);
 
-    const setData = (udata) => {
-        setIcon(udata[0].profileImg)
-        setName(udata[0].name)
-        setUserId(udata[0].username)
-        setBio(udata[0].bio)
+    const setData = (post) => {
+        // setIcon(udata[0].profileImg)
+        setName(post.latestPosts[0].user.name)
+        setUserName(post.latestPosts[0].user.userName)
+        setText(post.latestPosts[0].text)
     }
+
 
     const getImage = (data) => {
         return ('https://i.imgur.com/' + data + 's.jpg');
@@ -88,7 +91,7 @@ const Post = () => {
                 <div className={s.iconNidNname}>
                     <img
                         src={getImage(icon)}
-                        alt={name}
+                        alt={userName}
                         className={s.icon}
                     />
 
@@ -97,11 +100,11 @@ const Post = () => {
                             <div className={s.nameNidNfos}>
                                 <div className={s.nameNid}>
                                     <p className={s.userName}><b>{name}</b></p>
-                                    <p className={s.userId}>@{userId}</p>
+                                    <p className={s.userId}>@{userName}</p>
                                 </div>
                             </div>
                         </div>
-                        <p className={s.content}>{bio}<br/>テキストテキストテキスト</p>
+                        <p className={s.content}>{text}<br/>テキストテキストテキスト</p>
                     </div>
                 </div>
             </div>

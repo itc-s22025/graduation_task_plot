@@ -36,7 +36,7 @@ const Bio = () => {
                 <div className={s.iconNidNname}>
                     <img
                         src={getImageUrl(icon)}
-                        alt={name}
+                        alt={userName}
                         className={s.icon}
                     />
 
@@ -54,7 +54,7 @@ const Bio = () => {
                             </div>
                             <p className={s.edit}> Edit</p>
                         </div>
-                        <p className={s.content}>{bio}<br/>テキストテキストテキスト</p>
+                        <p className={s.content}>{bio}</p>
                     </div>
                 </div>
             </div>
