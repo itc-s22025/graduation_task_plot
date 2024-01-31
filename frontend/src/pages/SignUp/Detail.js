@@ -1,5 +1,4 @@
 import s from '../../styles/signUpDetail.module.css'
-<<<<<<< HEAD
 import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 
