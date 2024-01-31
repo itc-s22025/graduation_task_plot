@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import s from '../styles/signIn.module.css';
@@ -5,27 +6,30 @@ import Link from 'next/link';
 
 const SignIn = () => {
     const router = useRouter();
-    const [userId, setUserId] = useState('');
+    const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async () => {
+        try {
+            const res = await fetch("http://localhost:3002/users/signin", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userName, password
+                })
+            })
+            if (res.status === 200) {
+                console.log("ろぐいんできた!!!!!!!!")
+                router.push("/Home")
+            } else {
+                console.log("できなかった........")
+                // router.push("/SignIn")
+            }
+        } catch (e) {
+            console.error("ERRORRRRRRR:::: ".e)
 
-        // バックエンドに認証情報を確認するリクエストを送信
-        const response = await fetch('http://localhost:3002/api/signin', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ userId, password }),
-        });
-
-        if (response.status === 200) {
-            // 認証情報が正しい場合は/Homeにリダイレクト
-            router.push('/Home');
-        } else {
-            // 認証失敗時の処理、エラーメッセージの表示など
-            console.error('Authentication failed');
         }
     };
 
@@ -36,31 +40,24 @@ const SignIn = () => {
                 <div className={s.boxLarge}>
                     <h1 className={s.SignIn}>SignIn</h1>
 
-                    <form onSubmit={handleSubmit}>
-                        <p>
-                            <input
-                                type="text"
-                                placeholder="User ID"
-                                className={s.box}
-                                value={userId}
-                                onChange={(e) => setUserId(e.target.value)}
-                            />
-                        </p>
-                        <p>
-                            <input
-                                type="password"
-                                minLength="4"
-                                placeholder="ChangePwd"
-                                required
-                                className={s.box}
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                        </p>
-                        <p>
-                            <input type="submit" value="SIGN IN" className={s.signin} />
-                        </p>
-                    </form>
+                        <input
+                            type="text"
+                            placeholder="User ID"
+                            className={s.box}
+                            value={userName}
+                            onChange={(e) => setUserName(e.target.value)}
+                        />
+                        <input
+                            type="password"
+                            minLength="4"
+                            placeholder="ChangePwd"
+                            required
+                            className={s.box}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <input type="submit" value="SIGN IN" onClick={handleSubmit} className={s.signin}/>
+    
                 </div>
                 <div className={s.or}>
                     <p>OR</p>
@@ -68,7 +65,9 @@ const SignIn = () => {
                 <div className={s.boxLarge}>
                     <Link href="/SignUp">
                         <p>
-                            <input type="submit" value="SIGN UP" className={s.signup} />
+
+                            <input type="submit" value="SIGN UP" className={s.signup}/>
+
                         </p>
                     </Link>
                 </div>

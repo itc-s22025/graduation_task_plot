@@ -11,20 +11,21 @@ datasource db {
 }
 
 model User {
-  id          Int      @id @default(autoincrement())
-  username    String   @unique @db.VarChar(64)
-  name        String
-  password    Bytes
-  salt        Bytes
-  gender      String
-  dateOfBirth DateTime @default(now())
-  filter      Boolean  @default(false)
-  profileImg  String
-  bio         String   @db.VarChar(300)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  post        Post[]
-  likes       Likes[]
+  id         Int      @id @default(autoincrement())
+  userName   String   @unique @db.VarChar(64)
+  name       String
+  password   Bytes
+  salt       Bytes
+  gender     String
+  bMonth     String
+  bYear      Int
+  filter     Boolean  @default(false)
+  profileImg String?
+  bio        String   @default("Hello, Guys! Let's work out with me!") @db.VarChar(300)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  post       Post[]
+  likes      Likes[]
 }
 
 model Post {

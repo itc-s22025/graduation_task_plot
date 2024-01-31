@@ -1,20 +1,37 @@
 import s from '../../styles/signUp.module.css'
-import Link from 'next/link'
+import {useRouter} from "next/router";
+import {useState} from "react";
 
 const Index = () => {
-    return(
+    const [userName, setUserName] = useState("");
+    const [password, setPassword] = useState("");
+    const router = useRouter();
+
+    const handleNextClick = () => {
+        router.push({
+                pathname: '/SignUp/Detail',
+                query: {userName, password},
+            },
+            undefined,
+            {shallow: true});
+    };
+
+    return (
         <>
             <main className={s.all}>
                 <img src="/fitchatlogo.png" className={s.image}/>
                 <div className={s.boxLarge}>
                     <h1 className={s.signUp}>SignUp</h1>
-                    <p><input type="text" placeholder="User ID" className={s.box}/></p>
-                    <p><input type="password" minLength="8" placeholder="ChangePwd" required className={s.box}/></p>
+                    <div>
+                        <input type="text" name="userid" placeholder="User ID" value={userName}
+                               onChange={(ev) => setUserName(ev.target.value)} className={s.box}/>
+                    </div>
+                    <div>
+                        <input type="password" name="password" minLength="6" placeholder="password" value={password} required
+                               onChange={(ev) => setPassword(ev.target.value)} className={s.box}/>
+                    </div>
 
-                    <Link href="/SignUp/Detail">
-                        <p><input type="submit" value="NEXT" className={s.next} /></p>
-                    </Link>
-
+                    <input type="submit" value="NEXT" onClick={handleNextClick} className={s.next}/>
 
                 </div>
             </main>
