@@ -10,7 +10,7 @@ const Post = () => {
     const [bio, setBio] = useState("")
 
     useEffect(() => {
-        fetch("http://localhost:3002/api/signin").then(
+        fetch("http://localhost:3002/users/signin").then(
             res => res.json()
         ).then(
             data => {

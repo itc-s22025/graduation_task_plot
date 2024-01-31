@@ -4,19 +4,19 @@ import {useEffect, useState} from "react";
 const Bio = () => {
     const [icon, setIcon] = useState("")
     const [name, setName] = useState("")
-    const [userId, setUserId] = useState("")
+    const [userName, setUserName] = useState("")
     const [bio, setBio] = useState("")
 
 
     useEffect(() => {
-        fetch("http://localhost:3002/api/signin").then(
+        fetch("http://localhost:3002/users/signin").then(
             res => res.json()
         ).then(
             data => {
                 console.log(data)
                 setIcon(data[0].profileImg)
                 setName(data[0].name)
-                setUserId(data[0].username)
+                setUserName(data[0].userName)
                 setBio(data[0].bio)
             }
         )
@@ -45,7 +45,7 @@ const Bio = () => {
                             <div className={s.nameNidNfos}>
                                 <div className={s.nameNid}>
                                     <p className={s.userName}><b>{name}</b></p>
-                                    <p className={s.userId}>@{userId}</p>
+                                    <p className={s.userId}>@{userName}</p>
                                 </div>
                                 <div className={s.foNwer}>
                                     <p>12 Following</p>
