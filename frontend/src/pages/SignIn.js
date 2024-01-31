@@ -1,5 +1,6 @@
-import {useState} from 'react';
-import {useRouter} from 'next/router';
+
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 import s from '../styles/signIn.module.css';
 import Link from 'next/link';
 
@@ -28,6 +29,7 @@ const SignIn = () => {
             }
         } catch (e) {
             console.error("ERRORRRRRRR:::: ".e)
+
         }
     };
 
@@ -55,7 +57,7 @@ const SignIn = () => {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                         <input type="submit" value="SIGN IN" onClick={handleSubmit} className={s.signin}/>
-
+    
                 </div>
                 <div className={s.or}>
                     <p>OR</p>
@@ -63,7 +65,9 @@ const SignIn = () => {
                 <div className={s.boxLarge}>
                     <Link href="/SignUp">
                         <p>
+
                             <input type="submit" value="SIGN UP" className={s.signup}/>
+
                         </p>
                     </Link>
                 </div>

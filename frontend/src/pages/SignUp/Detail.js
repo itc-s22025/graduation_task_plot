@@ -1,4 +1,5 @@
 import s from '../../styles/signUpDetail.module.css'
+<<<<<<< HEAD
 import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 
@@ -199,6 +200,7 @@ const Detail = () => {
                                 <option>Other</option>
                             </select>
                         </label>
+
                     </div>
                     <div className={s.ul}>
                         <label className={s.li}>Filter</label>
@@ -213,6 +215,7 @@ const Detail = () => {
                     </div>
 
                     <p><input type="submit" value="SIGN UP" onClick={handleSubmit} className={s.signUpButton}/></p>
+
                 </div>
             </main>
         </>

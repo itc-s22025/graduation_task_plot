@@ -33,7 +33,6 @@ const Index = () => {
 
                     <input type="submit" value="NEXT" onClick={handleNextClick} className={s.next}/>
 
-
                 </div>
             </main>
         </>
