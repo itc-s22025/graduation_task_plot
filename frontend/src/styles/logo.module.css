@@ -1,0 +1,32 @@
+.bg{
+    background-color: #FE6E18;
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    position: fixed;
+    right: 23vw;
+    top: 85vh;
+    border-radius: 100%;
+    border: 2px solid #fff;
+}
+.icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 100%;
+    display: flex;
+    position: absolute;
+    left: 0px;
+    align-items: center;
+    justify-content: center;
+    margin-left: 15px;
+    margin-bottom: 15px;
+}
+.pl{
+    font-size: 25px;
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    margin-left: 55px;
+}

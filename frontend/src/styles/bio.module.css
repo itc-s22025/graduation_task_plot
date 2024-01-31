@@ -1,0 +1,93 @@
+.frame{
+    border: solid 2px #fff;
+    width: 704px;
+    height: 400px;
+    margin: 32px;
+    margin-top: 100px;
+    margin-left: 30vw;
+    padding: 10px;
+    list-style-type: none;
+    border-radius: 10px;
+    background-color: #F8F4F0;
+}
+
+.iconNidNname{
+    display: flex;
+}
+
+.nameNidNconNlike{
+    display: flex;
+}
+
+.icon{
+    width: 80px;
+    height: 81px;
+    margin-left: 10px;
+    margin-top: 5px;
+    border: solid 1px #ccc;
+    border-radius: 100%;
+}
+
+.nameNidNfosNfollow{
+    display: flex;
+    height: 80px;
+}
+
+.nameNid{
+    display: flex;
+}
+
+.nameNidNfos{
+    width: 400px;
+}
+
+.userName{
+    margin-left: 15px;
+    margin-top: 5px;
+    width: 200px;
+    font-size: 1.5rem;
+}
+
+.userId{
+    color: #6E665C;
+    font-size: 1rem;
+    margin-left: 10px;
+    margin-top: 11px;
+    width: 170px;
+}
+
+.foNwer{
+    font-size: 0.9rem;
+    display: flex;
+    margin-left: 15px;
+    margin-top: 12px;
+}
+
+.follower{
+    margin-left: 10px;
+}
+
+.edit{
+    margin-left: 20px;
+    margin-top: 6px;
+    height: 40px;
+    width: 150px;
+    text-align: center;
+    background-color: #EE6E18;
+    color: #fff;
+    border-radius: 10px;
+    padding: 7px;
+}
+
+.edit:hover{
+    background-color: #ec6102;
+}
+
+.content{
+    /*border: 1px solid #ccc;*/
+    width: 550px;
+    height: 250px;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+

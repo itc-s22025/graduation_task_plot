@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "User" ALTER COLUMN "filter" DROP DEFAULT,
+ALTER COLUMN "profileImg" SET DEFAULT '',
+ALTER COLUMN "bio" SET DEFAULT '頑張りま〜す';

@@ -1,0 +1,26 @@
+.ul{
+    width: 38vw;
+    display: inline-flex;
+    flex-direction: column;
+    position: absolute;
+    left: 32vw;
+    padding-top: 100px;
+    border: 1px solid #ccc;
+}
+.box{
+    width: 100%;
+    margin-top: 50px;
+    padding: 30px;
+    background-color: #F8F4F0;
+    border: #968C7F 2px solid;
+    border-radius: 8px;
+    font-size: 2rem;
+    color: #555555;
+}
+.img{
+    width: 5vw;
+    height: 5vw;
+    border: 1px solid #968C7F;
+    border-radius: 8px;
+    margin-right: 20px;
+}

@@ -1,0 +1,56 @@
+.all{
+    background-color: #F8F4F0;
+    height:98vh ;
+}
+
+.image{
+    max-width: 28vw;
+    max-height: 20vw;
+    min-height: 100px;
+    width: 40%;
+    height: 14vw;
+    position: relative;
+    left: 33vw;
+    top: 4vh;
+}
+
+.boxLarge{
+    background-color: #fff;
+    width:30vw;
+    padding: 10px 40px 12px;
+    position: relative;
+    top:8vh;
+    left:33vw;
+    border: 1px solid;
+    border-color: #EE6E18;
+    border-radius: 8px;
+    text-align: center;
+
+}
+
+.box{
+    font-size:16px;
+    display: block;
+    list-style-type: none;
+    resize: none;
+    padding: 10px;
+    margin: 10px auto;
+    width: 25vw;
+}
+
+.signUp{
+    font-weight: 400;
+    color: #EE6E18;
+    font-size: 2rem;
+}
+
+.next{
+    font-size: 16px;
+    color: #FFF;
+    background-color: #EE6E18;
+    border-radius: 8px;
+    border: 0px;
+    margin:10px auto;
+    padding:12px 13px;
+    width: 25vw;
+}

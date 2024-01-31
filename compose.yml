@@ -1,0 +1,19 @@
+services:
+  db:
+    image: postgres:13.13
+    environment:
+      POSTGRES_PASSWORD: password
+    volumes:
+      - data:/var/lib/postgresql
+    ports:
+#    localhost:55432, container内?:5432
+    - 55432:5432
+
+  adminer:
+    image: adminer
+    ports:
+#    localhost:8081
+    - 8081:8080
+
+volumes:
+  data:

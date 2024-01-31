@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "User" ALTER COLUMN "profileImg" SET DEFAULT '',
+ALTER COLUMN "bio" SET DEFAULT '';
