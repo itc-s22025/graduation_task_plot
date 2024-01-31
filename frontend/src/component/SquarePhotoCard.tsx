@@ -1,13 +1,14 @@
 import { CSSProperties } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 
-interface PropsType  {
+type PropsType =  {
     src: string;
     altText?: string;
     imgWrapperStyle?: CSSProperties;
     imgStyle?: CSSProperties;
-}
+};
 
 
 const SquarePhotoCard = (props: PropsType) => {
