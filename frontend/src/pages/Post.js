@@ -1,4 +1,3 @@
-
 import React, { useRef, useState } from 'react';
 import s from '../styles/Post.module.css';
 import SquarePhotoCard from "../component/SquarePhotoCard";
@@ -58,7 +57,7 @@ function App() {
 
 
     return (
-        <div>
+        <>
             <Header title="Post"　/>
             <FrameLayout />
             <div className={s.all}>
@@ -129,7 +128,7 @@ function App() {
                     </div>
                 </div>
             </div>
-        </div>
+    </>
     );
 }
 
