@@ -35,15 +35,36 @@ const Post = () => {
         return ('https://i.imgur.com/' + data + 's.jpg');
     }
 
-    const [likecount, setLikecount] = useState(0)
-    const [rpcount, setRpcount] = useState(0)
+    const [likecount, setLikecount] = useState({});
+    const [rpcount, setRpcount] = useState({});
 
-    const handleLikeClick = () => {
-        setLikecount(likecount + 1)
-    }
-    const handleRpClick = () => {
-        setRpcount(rpcount + 1)
-    }
+    const handleLikeClick = (postId) => {
+        if (!likecount[postId]) {
+            setLikecount((prevCounts) => ({
+                ...prevCounts,
+                [postId]: (prevCounts[postId] || 0) + 1
+            }));
+        } else {
+            setLikecount((prevCounts) => ({
+                ...prevCounts,
+                [postId]: 0,
+            }));
+        }
+    };
+
+    const handleRpClick = (post) => {
+        if (!rpcount[post]) {
+            setRpcount((prevCounts) => ({
+                ...prevCounts,
+                    [post]: (prevCounts[post] || 0) + 1
+            }));
+        } else {
+            setRpcount((prevCounts) => ({
+                ...prevCounts,
+                    [post]: 0,
+            }));
+        }
+    };
 
     const listItems = people.map(person =>
         <li key={person.id} className={s.frame}>
@@ -69,8 +90,8 @@ const Post = () => {
 
                 </div>
                 <div className={s.likeNrp}>
-                    <span className={s.like} onClick={handleLikeClick}>♡ {likecount} </span>
-                    <span className={s.repost} onClick={handleRpClick}>☆ {rpcount} </span>
+                    <span className={s.like} onClick={() => handleLikeClick(person.id)}>♡ {likecount[person.id] || 0 } </span>
+                    <span className={s.repost} onClick={() => handleRpClick(person.id)}>☆ {rpcount[person.id] || 0 } </span>
                 </div>
             </div>
         </li>
