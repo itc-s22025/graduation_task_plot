@@ -9,7 +9,13 @@ const Bio = () => {
 
 
     useEffect(() => {
-        fetch("http://localhost:3002/users/signin").then(
+        fetch("http://localhost:3002/users/signin",{
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }).then(
             res => res.json()
         ).then(
             data => {

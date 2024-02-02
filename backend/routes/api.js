@@ -28,7 +28,7 @@ router.get("/all", async (req, res, next) => {
             include: {
                 user: true
             },
-            take: 2,
+            take: 5,
         });
         res.json({latestPosts});
         console.log(latestPosts)

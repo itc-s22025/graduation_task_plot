@@ -13,25 +13,27 @@ const Post = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch("http://localhost:3002/api/all");
-                const data = await res.json()
-                console.log("入ってきたデータ：", data)
-                setData(data);
-                setPosts(data);
-                console.log("POSTS: ", posts);
+                const res = await fetch("http://localhost:3002/api/all", {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                }).then(
+                    response => response.json()
+                ).then(
+                    data => {
+                        console.log("DATA", data)
+                        setPosts(data.latestPosts)
+                        console.log("ぽすつ：", posts)
+                    }
+                )
             } catch (e) {
                 console.log(e)
             }
         }
         fetchData();
     }, []);
-
-    const setData = (post) => {
-        // setIcon(udata[0].profileImg)
-        setName(post.latestPosts[0].user.name)
-        setUserName(post.latestPosts[0].user.userName)
-        setText(post.latestPosts[0].text)
-    }
 
 
     const getImage = (data) => {
@@ -48,6 +50,25 @@ const Post = () => {
         setRpcount(rpcount + 1)
     }
 
+    const postItems = posts.map(post =>
+        <li key={post.id} className={s.frame}>
+            <div className={s.iconNidNname}>
+                <img src={getImageUrl(post.user)} alt={post.user.userName} className={s.icon}/>
+                <div>
+                    <div className={s.nameNidNconNlike}>
+                        <b className={s.userName}>{post.user.name}</b>
+                        <p className={s.userId}>@{post.user.userName}</p>
+                    </div>
+                    <p className={s.content}>{post.text}</p>
+                </div>
+                <div className={s.likeNrp}>
+                    <span className={s.like} onClick={handleLikeClick}>♡ {likecount} </span>
+                    <span className={s.repost} onClick={handleRpClick}>☆ {rpcount} </span>
+                </div>
+            </div>
+        </li>
+    );
+
     const listItems = people.map(person =>
         <li key={person.id} className={s.frame}>
             <div className={s.iconNidNname}>
@@ -58,18 +79,14 @@ const Post = () => {
                 />
                 <div>
                     <div className={s.nameNidNconNlike}>
-                        <div>
-                            <p className={s.userName}>
-                                <b>{person.name}</b>
-                            </p>
-                            <p className={s.userId}>@{person.id}</p>
-                        </div>
-
+                        <p className={s.userName}>
+                            <b>{person.name}</b>
+                        </p>
+                        <p className={s.userId}>@{person.id}</p>
                     </div>
                     <p className={s.content}>Hi,there.<br/>
                         this is {person.name}.
                     </p>
-
                 </div>
                 <div className={s.likeNrp}>
                     <span className={s.like} onClick={handleLikeClick}>♡ {likecount} </span>
@@ -83,31 +100,14 @@ const Post = () => {
     return (
         <>
 
+            {/*<article>*/}
+            {/*    <ul>{listItems}</ul>*/}
+            {/*</article>*/}
+
             <article>
-                <ul>{listItems}</ul>
+                <ul>{postItems}</ul>
             </article>
 
-            <div className={s.frame}>
-                <div className={s.iconNidNname}>
-                    <img
-                        src={getImage(icon)}
-                        alt={userName}
-                        className={s.icon}
-                    />
-
-                    <div>
-                        <div className={s.nameNidNfosNfollow}>
-                            <div className={s.nameNidNfos}>
-                                <div className={s.nameNid}>
-                                    <p className={s.userName}><b>{name}</b></p>
-                                    <p className={s.userId}>@{userName}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <p className={s.content}>{text}<br/>テキストテキストテキスト</p>
-                    </div>
-                </div>
-            </div>
 
         </>
     )
