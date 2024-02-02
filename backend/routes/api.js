@@ -5,18 +5,18 @@ const {check, validationResult} = require('express-validator');
 const router = express.Router();
 const prisma = new PrismaClient();
 
-//ログインしてるか　してなかったら他のデータ取れない
-// router.use((req, res, next) => {
-//     if (!req.user){
-//         res.status(400).json({message: "ログインしてないです"});
-//         return
-//     }
-//     next();
-// })
-// router.get("/check", (req, res, next) => {
-//     res.json({message: "OKEY", result: req.user.userid});
-// });
-//ここまで
+// ログインしてるか　してなかったら他のデータ取れない
+router.use((req, res, next) => {
+    if (!req.user){
+        res.status(400).json({message: "ログインしてないです"});
+        return
+    }
+    next();
+})
+router.get("/check", (req, res, next) => {
+    res.json({message: "ログインできたよ", result: req.user.userName});
+});
+// ここまで
 
 //直近データ取得
 router.get("/all", async (req, res, next) => {

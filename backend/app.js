@@ -15,7 +15,12 @@ const usersRouter = require('./routes/users');
 const apiRouter = require('./routes/api');
 
 const app = express();
-app.use(cors());
+//cors
+app.use(cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+    sameSite: "None",
+}));
 
 app.use(logger('dev'));
 app.use(express.json());
