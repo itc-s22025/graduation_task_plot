@@ -2,6 +2,7 @@ import s from "../src/styles/bio.module.css";
 import {useEffect, useState} from "react";
 
 const Bio = () => {
+    const [user, setUser] = useState([])
     const [icon, setIcon] = useState("")
     const [name, setName] = useState("")
     const [userName, setUserName] = useState("")
@@ -9,40 +10,43 @@ const Bio = () => {
 
 
     useEffect(() => {
-        fetch("http://localhost:3002/users/signin",{
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        }).then(
-            res => res.json()
-        ).then(
-            data => {
-                console.log(data)
-                setIcon(data[0].profileImg)
-                setName(data[0].name)
-                setUserName(data[0].userName)
-                setBio(data[0].bio)
+        const fetchDeta = async () => {
+            try {
+                const res = await fetch("http://localhost:3002/api/user", {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                }).then(
+                    response => response.json()
+                ).then(
+                    data => {
+                        console.log("BIODATA---", data.user)
+                        setUser(data.user)
+                    }
+                )
+            } catch (e) {
+                console.error(e)
             }
-        )
+        }
+        fetchDeta()
     }, []);
 
-    const getImageUrl = (data) =>{
-        const img = 'https://i.imgur.com/' + data + 's.jpg'
-        return (
-            img
-        );
+
+    const getImage = (data) => {
+        return ('https://i.imgur.com/' + data + 's.jpg');
     }
 
-    return(
+
+    return (
         <>
 
-            <div className={s.frame}>
+            <div className={s.frame} key={user.id}>
                 <div className={s.iconNidNname}>
                     <img
-                        src={getImageUrl(icon)}
-                        alt={userName}
+                        src={getImage(icon)}
+                        alt={user.userName}
                         className={s.icon}
                     />
 
@@ -50,8 +54,8 @@ const Bio = () => {
                         <div className={s.nameNidNfosNfollow}>
                             <div className={s.nameNidNfos}>
                                 <div className={s.nameNid}>
-                                    <p className={s.userName}><b>{name}</b></p>
-                                    <p className={s.userId}>@{userName}</p>
+                                    <p className={s.userName}><b>{user.name}</b></p>
+                                    <p className={s.userId}>@{user.userName}</p>
                                 </div>
                                 <div className={s.foNwer}>
                                     <p>12 Following</p>
@@ -60,7 +64,7 @@ const Bio = () => {
                             </div>
                             <p className={s.edit}> Edit</p>
                         </div>
-                        <p className={s.content}>{bio}</p>
+                        <p className={s.content}>{user.bio}</p>
                     </div>
                 </div>
             </div>

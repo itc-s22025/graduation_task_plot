@@ -14,9 +14,29 @@ router.use((req, res, next) => {
     next();
 })
 router.get("/check", (req, res, next) => {
-    res.json({message: "ログインできたよ", result: req.user.userName});
+    res.json({message: "ログインできたよ", result: req.user});
 });
 // ここまで
+
+
+//userデータ取得
+router.get("/user", async (req, res, next) => {
+    try {
+        const user = await prisma.user.findUnique({
+            where: {
+                id: +req.user.id
+            },
+            include: {
+                post: true
+            }
+        });
+        res.json({user})
+    }catch (e) {
+        console.log(e)
+    } finally {
+        await prisma.$disconnect();
+    }
+})
 
 //直近データ取得
 router.get("/all", async (req, res, next) => {
@@ -28,7 +48,7 @@ router.get("/all", async (req, res, next) => {
             include: {
                 user: true
             },
-            take: 5,
+            // take: 5,
         });
         res.json({latestPosts});
         console.log(latestPosts)

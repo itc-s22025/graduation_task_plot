@@ -4,10 +4,6 @@ import s from "../src/styles/post.module.css"
 import {useState, useEffect} from "react";
 
 const Post = () => {
-    const [icon, setIcon] = useState("")
-    const [name, setName] = useState("")
-    const [userName, setUserName] = useState("")
-    const [text, setText] = useState("")
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
