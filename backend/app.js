@@ -12,9 +12,15 @@ const passportConfig = config(passport);
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const apiRouter = require('./routes/api');
 
 const app = express();
-app.use(cors());
+//cors
+app.use(cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+    sameSite: "None",
+}));
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -48,6 +54,7 @@ app.use(passportConfig);
 //router
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/api', apiRouter);
 
 
 module.exports = app;

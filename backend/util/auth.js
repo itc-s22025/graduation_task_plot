@@ -38,10 +38,10 @@ const config = (passport) => {
     // データベースに問い合わせてユーザ名:パスワードをチェックして認証する部分
     passport.use(new LocalStrategy({
         usernameField: "userName", passwordField: "password"
-    }, async (userName, password, done) => {
+    }, async (username, password, done) => {
         try {
             const user = await prisma.user.findUnique({
-                where: {userName: userName}
+                where: {userName: username}
             });
             if (!user) {
                 // そんなユーザいないよの場合

@@ -21,3 +21,66 @@
     background-color: #EE6E18;
     color: #F8F4F0;
 }
+
+.frame{
+    border: solid 1px #aaa;
+    width: 700px;
+    min-height: 100px;
+    max-height: 300px;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    margin-left: 30vw;
+    padding: 10px;
+    list-style-type: none;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+}
+
+.iconNidNname{
+    display: flex;
+}
+
+.nameNidNconNlike{
+    display: flex;
+}
+
+.icon{
+    width: 50px;
+    height: 52px;
+    margin-left: 10px;
+    border: solid 1px #ccc;
+    border-radius: 100%;
+}
+
+.userName{
+    margin-left: 10px;
+}
+
+.userId{
+    color: #666666;
+    font-size: 0.8rem;
+    margin-left: 10px;
+}
+
+.content{
+    /*border: 1px solid #ccc;*/
+    width: 480px;
+    max-height: 100px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.likeNrp{
+    padding-top: 0px;
+    height: 100%;
+}
+
+.like{
+    margin-left: 40px;
+    color: #EE6E18;
+}
+
+.repost{
+    margin-left: 40px;
+    color: #4a93a0;
+}
