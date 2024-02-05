@@ -4,7 +4,7 @@ import SquarePhotoCard from "../component/SquarePhotoCard";
 import FrameLayout from "../../components/frameLayout";
 import Header from "../../components/header";
 
-function App() {
+function Post() {
     const [tweet, setTweet] = useState('');
     const [selectedImage, setSelectedImage] = useState(null);
     const [inMenuVisible, setIsMenuVisible] = useState(false);
@@ -58,7 +58,7 @@ function App() {
 
     return (
         <>
-            <Header title="Post"　/>
+            <Header title="Post" />
             <FrameLayout />
             <div className={s.all}>
                 <div className={s.container}>
@@ -128,8 +128,8 @@ function App() {
                     </div>
                 </div>
             </div>
-    </>
+        </>
     );
 }
 
-export default App;
+export default Post;

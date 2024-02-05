@@ -3,7 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 
-type PropsType =  {
+interface PropsType2 {
     src: string;
     altText?: string;
     imgWrapperStyle?: CSSProperties;
@@ -11,7 +11,7 @@ type PropsType =  {
 };
 
 
-const SquarePhotoCard = (props: PropsType) => {
+const SquarePhotoCard = (props: PropsType2) => {
     const { src, altText, imgWrapperStyle, imgStyle } = props;
 
         const defaultStyle = {
