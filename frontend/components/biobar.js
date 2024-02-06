@@ -1,6 +1,7 @@
 import s from '../src/styles/biobar.module.css'
 import {useEffect, useState} from "react";
 import {getImageUrl} from "./utils";
+import {Tab, Tabs, TabList, TabPanel} from "react-tabs";
 
 const BioBar = () => {
     const [posts, setPosts] = useState([])
@@ -37,6 +38,7 @@ const BioBar = () => {
         return ('https://i.imgur.com/' + data + 's.jpg');
     }
 
+
     const postItems = posts.map(post =>
         <li key={post.id} className={s.frame}>
             <div className={s.iconNidNname}>
@@ -50,24 +52,34 @@ const BioBar = () => {
                 </div>
                 <div className={s.likeNrp}>
                     <span className={s.like}>♡ {likecount} </span>
-                    <span className={s.repost} >☆ {rpcount} </span>
+                    <span className={s.repost}>☆ {rpcount} </span>
                 </div>
             </div>
         </li>
     );
 
 
-    return(
+    return (
         <>
-            <div className={s.all}>
-                <p className={s.box}>POST</p>
-                <p className={s.box}>MEDIA</p>
-                <p className={s.box}>LIKES</p>
-            </div>
+            <Tabs>
+                <TabList className={s.all}>
+                    <Tab className={s.box}>POST</Tab>
+                    <Tab className={s.box}>MEDIA</Tab>
+                    <Tab className={s.box}>LIKES</Tab>
+                </TabList>
 
-            <article>
-                {postItems}
-            </article>
+                <TabPanel>
+                    <article>
+                        {postItems}
+                    </article>
+                </TabPanel>
+                <TabPanel>
+                    <h1>media</h1>
+                </TabPanel>
+                <TabPanel>
+                    <h1>Likes</h1>
+                </TabPanel>
+            </Tabs>
         </>
     )
 }

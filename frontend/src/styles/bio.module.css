@@ -73,14 +73,14 @@
     height: 40px;
     width: 150px;
     text-align: center;
-    background-color: #EE6E18;
+    background-color: #ff6700;
     color: #fff;
     border-radius: 10px;
     padding: 7px;
 }
 
 .edit:hover{
-    background-color: #ec6102;
+    background-color: #ff5900;
 }
 
 .content{
