@@ -6,8 +6,37 @@ import {Tab, Tabs, TabList, TabPanel} from "react-tabs";
 const BioBar = () => {
     const [posts, setPosts] = useState([])
     const [user, setUser] = useState({})
-    const [likecount, setLikecount] = useState(0)
-    const [rpcount, setRpcount] = useState(0)
+    const [likecount, setLikecount] = useState({});
+    const [rpcount, setRpcount] = useState({});
+
+    const handleLikeClick = (postId) => {
+        if (!likecount[postId]) {
+            setLikecount((prevCounts) => ({
+                ...prevCounts,
+                [postId]: (prevCounts[postId] || 0) + 1
+            }));
+        } else {
+            setLikecount((prevCounts) => ({
+                ...prevCounts,
+                [postId]: 0,
+            }));
+        }
+    };
+
+    const handleRpClick = (post) => {
+        if (!rpcount[post]) {
+            setRpcount((prevCounts) => ({
+                ...prevCounts,
+                [post]: (prevCounts[post] || 0) + 1
+            }));
+        } else {
+            setRpcount((prevCounts) => ({
+                ...prevCounts,
+                [post]: 0,
+            }));
+        }
+    };
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -50,10 +79,10 @@ const BioBar = () => {
                     </div>
                     <p className={s.content}>{post.text}</p>
                 </div>
-                <div className={s.likeNrp}>
-                    <span className={s.like}>♡ {likecount} </span>
-                    <span className={s.repost}>☆ {rpcount} </span>
-                </div>
+            </div>
+            <div className={s.likeNrp}>
+                <span className={s.like} onClick={() => handleLikeClick(post.id)}>♡ {likecount[post.id] || 0} </span>
+                <span className={s.repost} onClick={() => handleRpClick(post.id)}>☆ {rpcount[post.id] || 0} </span>
             </div>
         </li>
     );
