@@ -47,16 +47,20 @@
 }
 
 .likeNrp{
+    /*border: 1px solid;*/
     padding-top: 0px;
     height: 100%;
+    width: 50%;
 }
 
 .like{
+    /*border: 1px solid #ccc;*/
     margin-left: 40px;
     color: #EE6E18;
 }
 
 .repost{
+    /*border: 1px solid #ccc;*/
     margin-left: 40px;
     color: #4a93a0;
 }
