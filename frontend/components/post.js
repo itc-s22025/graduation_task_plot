@@ -70,7 +70,10 @@ const Post = () => {
     const postItems = posts.map(post =>
         <li key={post.id} className={s.frame}>
             <div className={s.iconNidNname}>
-                <img src={getImageUrl(post.user)} alt={post.user.userName} className={s.icon}/>
+                <img
+                    src={getImageUrl(post.user)}
+                    alt={post.user.userName}
+                    className={s.icon}/>
                 <div>
                     <div className={s.nameNidNconNlike}>
                         <b className={s.userName}>{post.user.name}</b>
@@ -79,8 +82,8 @@ const Post = () => {
                     <p className={s.content}>{post.text}</p>
                 </div>
                 <div className={s.likeNrp}>
-                    <span className={s.like} onClick={handleLikeClick}>♡ {likecount} </span>
-                    <span className={s.repost} onClick={handleRpClick}>☆ {rpcount} </span>
+                    <span className={s.like} onClick={() => handleLikeClick(post.id)}>♡ {likecount[post.id] || 0 } </span>
+                    <span className={s.repost} onClick={() => handleRpClick(post.id)}>☆ {rpcount[post.id] || 0 } </span>
                 </div>
             </div>
         </li>
@@ -102,7 +105,7 @@ const Post = () => {
                         <p className={s.userId}>@{person.id}</p>
                     </div>
                     <p className={s.content}>Hi,there.<br/>
-                        this is {person.name}.
+                        {/*this is {person.name}.*/}
                     </p>
                 </div>
                 <div className={s.likeNrp}>
@@ -116,10 +119,6 @@ const Post = () => {
 
     return (
         <>
-
-            {/*<article>*/}
-            {/*    <ul>{listItems}</ul>*/}
-            {/*</article>*/}
 
             <article>
                 <ul>{postItems}</ul>
