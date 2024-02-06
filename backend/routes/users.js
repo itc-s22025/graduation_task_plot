@@ -69,5 +69,14 @@ router.post("/signup", [
   }
 });
 
+//post内容とりあえず表示するだけ
+router.get('/post', async (req, res, next) => {
+  try {
+    const users = await prisma.post.findMany();
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({msg: error.msg});
+  }
+})
 
 module.exports = router;

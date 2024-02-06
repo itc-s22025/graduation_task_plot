@@ -14,7 +14,6 @@ const Profile = () => {
             <div>
                 <Bio />
                 <BioBar />
-                <Post />
             </div>
         </>
     )
