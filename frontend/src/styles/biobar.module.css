@@ -79,6 +79,9 @@
 .likeNrp{
     padding-top: 0px;
     height: 100%;
+    /*margin-top: 10px;*/
+    /*margin-bottom: 5px;*/
+    margin-left: 30px;
 }
 
 .like{

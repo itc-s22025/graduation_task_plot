@@ -57,12 +57,12 @@ const Post = () => {
         if (!rpcount[post]) {
             setRpcount((prevCounts) => ({
                 ...prevCounts,
-                    [post]: (prevCounts[post] || 0) + 1
+                [post]: (prevCounts[post] || 0) + 1
             }));
         } else {
             setRpcount((prevCounts) => ({
                 ...prevCounts,
-                    [post]: 0,
+                [post]: 0,
             }));
         }
     };
@@ -81,11 +81,12 @@ const Post = () => {
                     </div>
                     <p className={s.content}>{post.text}</p>
                 </div>
-                <div className={s.likeNrp}>
-                    <span className={s.like} onClick={() => handleLikeClick(post.id)}>♡ {likecount[post.id] || 0 } </span>
-                    <span className={s.repost} onClick={() => handleRpClick(post.id)}>☆ {rpcount[post.id] || 0 } </span>
-                </div>
             </div>
+            <div className={s.likeNrp}>
+                <span className={s.like} onClick={() => handleLikeClick(post.id)}>♡ {likecount[post.id] || 0} </span>
+                <span className={s.repost} onClick={() => handleRpClick(post.id)}>☆ {rpcount[post.id] || 0} </span>
+            </div>
+
         </li>
     );
 
@@ -109,8 +110,10 @@ const Post = () => {
                     </p>
                 </div>
                 <div className={s.likeNrp}>
-                    <span className={s.like} onClick={() => handleLikeClick(person.id)}>♡ {likecount[person.id] || 0 } </span>
-                    <span className={s.repost} onClick={() => handleRpClick(person.id)}>☆ {rpcount[person.id] || 0 } </span>
+                    <span className={s.like}
+                          onClick={() => handleLikeClick(person.id)}>♡ {likecount[person.id] || 0} </span>
+                    <span className={s.repost}
+                          onClick={() => handleRpClick(person.id)}>☆ {rpcount[person.id] || 0} </span>
                 </div>
             </div>
         </li>
