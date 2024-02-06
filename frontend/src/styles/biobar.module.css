@@ -1,5 +1,6 @@
 .all{
     display: flex;
+    list-style-type: none;
     width: 800px;
     margin-top: 100px;
     margin-left: 27vw;
@@ -12,13 +13,18 @@
     height: 50px;
 
     font-size: 1.6rem;
-    color: #EE6E18;
+    color: #ff6700;
     padding-left: 10px;
     padding-top: 5px;
 }
 
 .box:hover{
-    background-color: #EE6E18;
+    /*background-color: rgba(255, 99, 0, 0.76);*/
+    /*color: #F8F4F0;*/
+}
+
+.box:focus{
+    background-color: #ff6700;
     color: #F8F4F0;
 }
 

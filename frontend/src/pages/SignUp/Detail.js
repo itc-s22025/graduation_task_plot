@@ -8,10 +8,10 @@ const Detail = () => {
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [name, setName] = useState("new user");
-    const [bMonth, setBMonth] = useState("");
-    const [bYear, setBYear] = useState();
-    const [gender, setGender] = useState("");
-    const [filter, setFilter] = useState(false);
+    const [bMonth, setBMonth] = useState("Jan");
+    const [bYear, setBYear] = useState(1950);
+    const [gender, setGender] = useState("male");
+    const [filter, setFilter] = useState(true);
 
     //useEffect
     useEffect(() => {
@@ -84,7 +84,6 @@ const Detail = () => {
         <>
             <main className={s.all}>
                 <img src="/fitchatlogo.png" className={s.image}/>
-                <p>userid: {userName}</p>
                 <div className={s.boxLarge}>
                     <h1 className={s.signUp}>SignUp</h1>
                     <div className={s.ul}>
