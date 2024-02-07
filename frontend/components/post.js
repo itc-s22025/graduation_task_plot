@@ -53,16 +53,17 @@ const Post = () => {
         }
     };
 
-    const handleRpClick = (post) => {
-        if (!rpcount[post]) {
+
+    const handleRpClick = (posts) => {
+        if (!rpcount[posts]) {
             setRpcount((prevCounts) => ({
                 ...prevCounts,
-                [post]: (prevCounts[post] || 0) + 1
+                [posts]: (prevCounts[posts] || 0) + 1
             }));
         } else {
             setRpcount((prevCounts) => ({
                 ...prevCounts,
-                [post]: 0,
+                [posts]: 0,
             }));
         }
     };
@@ -117,12 +118,11 @@ const Post = () => {
                 </div>
             </div>
         </li>
-    );
+)
 
 
     return (
         <>
-
             <article>
                 <ul>{postItems}</ul>
             </article>
