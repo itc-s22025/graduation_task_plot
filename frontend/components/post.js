@@ -68,7 +68,8 @@ const Post = () => {
         }
     };
 
-    const postItems = posts.map(post =>
+    const postItems = posts && posts.length > 0 && (
+        posts.map(post =>
         <li key={post.id} className={s.frame}>
             <div className={s.iconNidNname}>
                 <img
@@ -89,9 +90,11 @@ const Post = () => {
             </div>
 
         </li>
+        )
     );
 
-    const listItems = people.map(person =>
+    const listItems = people && people.length > 0 && (
+        people.map(person =>
         <li key={person.id} className={s.frame}>
             <div className={s.iconNidNname}>
                 <img
@@ -118,7 +121,8 @@ const Post = () => {
                 </div>
             </div>
         </li>
-)
+        )
+);
 
 
     return (

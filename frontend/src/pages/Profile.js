@@ -6,7 +6,9 @@ import FrameLayout from "../../components/frameLayout";
 import Header from "../../components/header";
 
 
+
 const Profile = () => {
+
     return(
         <>
             <Header title="Profile"/>

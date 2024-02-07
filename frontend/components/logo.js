@@ -5,7 +5,7 @@ import Link from "next/link"
 
 const Logo = () => {
     const handleClick = () => {
-        console.log('Mascle Clicked')
+        console.log('Mascle clicked')
     }
     return (
         <>
