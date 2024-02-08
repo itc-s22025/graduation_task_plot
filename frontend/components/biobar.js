@@ -68,7 +68,8 @@ const BioBar = () => {
     }
 
 
-    const postItems = posts.map(post =>
+    const postItems = posts && posts.length > 0 && (
+        posts.map(post =>
         <li key={post.id} className={s.frame}>
             <div className={s.iconNidNname}>
                 <img src={getImage(post.user)} alt={user.userName} className={s.icon}/>
@@ -85,6 +86,7 @@ const BioBar = () => {
                 <span className={s.repost} onClick={() => handleRpClick(post.id)}>☆ {rpcount[post.id] || 0} </span>
             </div>
         </li>
+        )
     );
 
 

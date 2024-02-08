@@ -1,5 +1,7 @@
 import s from "../src/styles/bio.module.css";
 import {useEffect, useState} from "react";
+// import Edit from '../'
+
 
 const Bio = () => {
     const [user, setUser] = useState([])
@@ -41,7 +43,6 @@ const Bio = () => {
 
     return (
         <>
-
             <div className={s.frame} key={user.id}>
                 <div className={s.iconNidNname}>
                     <img
