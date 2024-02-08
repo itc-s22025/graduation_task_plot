@@ -26,6 +26,7 @@ function Post() {
             const selectedImage = URL.createObjectURL(files[0]);
             setSelectedImage(selectedImage);
         }
+        console.log(files)
     };
 
     const handleTweetSubmit = () => {
@@ -51,7 +52,7 @@ function Post() {
         const shouldDelete = window.confirm("本当に削除してもいいですか？");
         if (shouldDelete) {
             // 削除後の処理をここに追加する
-            console.log("Post deleted!");
+            window.location.href = '/Home';
         }
     };
 
