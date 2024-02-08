@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 // ログインしてるか　してなかったら他のデータ取れない
 router.use((req, res, next) => {
     if (!req.user){
-        res.status(400).json({message: "ログインしてないです"});
+        res.status(400).json({message: "ログインしてないですけど"});
         return
     }
     next();
@@ -58,6 +58,5 @@ router.get("/all", async (req, res, next) => {
         await prisma.$disconnect();
     }
 });
-
 
 module.exports = router;
