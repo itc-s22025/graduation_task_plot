@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 // ログインしてるか　してなかったら他のデータ取れない
 router.use((req, res, next) => {
-    if (!req.user){
+    if (!req.user) {
         res.status(400).json({message: "ログインしてないですけど"});
         return
     }
@@ -40,4 +40,31 @@ router.get("/all", async (req, res, next) => {
     }
 });
 
+router.post("/create", [
+    check("text").notEmpty()
+], async (req, res, next) => {
+    const isValid = validationResult(req).isEmpty()
+    if (!isValid) {
+        res.status(400).json({message: "何か入力して〜;_;"});
+        return
+    }
+    const {text} = req.body;
+    await prisma.post.create({
+        data: {
+            text,
+            userId: +req.user.id
+        }
+    });
+    res.status(201).json({message: "createできたよ〜"})
+})
+
+//表示　とりあえず
+router.get("/create", async (req, res, next) => {
+    try {
+        const users = await prisma.post.findMany();
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({msg: error.msg});
+    }
+})
 module.exports = router;

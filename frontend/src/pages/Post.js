@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import s from '../styles/Post.module.css';
 import SquarePhotoCard from "../component/SquarePhotoCard";
 import FrameLayout from "../../components/frameLayout";
@@ -8,7 +8,60 @@ function Post() {
     const [tweet, setTweet] = useState('');
     const [selectedImage, setSelectedImage] = useState(null);
     const [inMenuVisible, setIsMenuVisible] = useState(false);
+    //userデータ反映
+    const [name, setName] = useState('')
+    const [userName, setUserName] = useState('')
+
     const inputRef = useRef(null);
+
+    useEffect(() => {
+        getUserData()
+    }, []);
+
+    const getUserData = async () => {
+        try {
+            const res = await fetch("http://localhost:3002/users/signin", {
+                method: "GET",
+                credentials: "include",
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }) .then(
+                res => res.json()
+            ).then(
+                data => {
+                    console.log("Postのデータだよ：", data)
+                    setName(data.user.name)
+                    setUserName(data.user.userName)
+                }
+            )
+
+        } catch (e) {
+          console.log(e)
+        }
+    }
+
+    const handleToPost = async () => {
+        try {
+            const res = await fetch("http://localhost:3002/posts/create", {
+                method: 'POST',
+                credentials: "include",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    tweet, selectedImage,
+                })
+            })
+            if (res.status === 200){
+                console.log("できた", res)
+            }else {
+                console.log("できてない", res)
+            }
+        } catch (e) {
+            console.error("エラーでてます: ".e)
+        }
+    }
 
     const handleTweetChange = (event) => {
         const inputText = event.target.value;
@@ -64,12 +117,16 @@ function Post() {
             <div className={s.all}>
                 <div className={s.container}>
                     <div className={s.boxLarge}>
-                        <p className={s.name}>Name</p>
+                        <div className={s.iconimage}>
+                            <img src="test" alt={name}/>
+                        </div>
+                        <p className={s.name}>{name}</p>
                         <textarea
                             className={s.textarea}
                             placeholder="Type today's muscle..."
                             value={tweet}
                             onChange={handleTweetChange}
+                            onClick={handleToPost}
                         />
                         {inMenuVisible && (
                             <div className={s.menu}>
@@ -95,16 +152,17 @@ function Post() {
                             </div>
                         )}
 
-                        {selectedImage ? (
-                            <div className={s.imageContainer}>
-                                <img src={selectedImage} alt="Selected Image" className={s.selectedImage} />
-                                <div className={s.removeButton} onClick={handleRemoveImage}>
-                                    <img src='/images/crossline.png' className={s.cross} />
-                                </div>
-                            </div>
-                        ) : (
-                            <SquarePhotoCard img src="/images/_ (5).jpeg" alt={"Some description"} />
-                        )}
+                        {/*{selectedImage ? (*/}
+                        {/*    <div className={s.imageContainer}>*/}
+                        {/*        <img src={selectedImage} alt="Selected Image" className={s.selectedImage} />*/}
+                        {/*        <div className={s.removeButton} onClick={handleRemoveImage}>*/}
+                        {/*            <img src='/images/crossline.png' className={s.cross} />*/}
+                        {/*        </div>*/}
+                        {/*    </div>*/}
+                        {/*) : (*/}
+                        {/*    <SquarePhotoCard img src="/images/_ (5).jpeg" alt={"Some description"} />*/}
+                        {/*)}*/}
+
                         <div className={s.button}>
                             <button className={s.cancel} onClick={handleRemovePost}>Cancel</button>
                             <button className={s.post} onClick={handleTweetSubmit}>Post</button>
