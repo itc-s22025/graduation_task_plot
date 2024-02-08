@@ -40,10 +40,10 @@
 }
 
 .save{
-    border: none;
+    border: 1px solid #EE6E18;
     border-radius: 8px;
     outline: none;
-    background-color: #EE6E18;
+    background-color: #ff6700;
     color: #F8F4F0;
     height: 50px;
     width: 130px;
@@ -52,3 +52,28 @@
     padding-top: 3px;
     font-size: 1.5rem;
 }
+
+.logout{
+    border: 2px solid #EE6E18;
+    border-radius: 8px;
+    outline: none;
+    background-color: #F8F4F0;
+    color: #EE6E18;
+    height: 50px;
+    width: 130px;
+    margin-top: 20px;
+    margin-left:30vw;
+    padding-top: 3px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.logout:hover{
+    background-color: #ff6700;
+    color: #FFFFFF;
+}
+
+.logout:active{
+    background-color: #ec6102;
+}
+

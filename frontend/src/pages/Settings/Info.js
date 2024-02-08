@@ -4,35 +4,73 @@ import Header from "../../../components/header";
 import FrameLayout from "../../../components/frameLayout";
 
 const Info = () => {
+    const [info, setInfo] = useState([])
     const [name, setName] = useState("")
     const [userName, setUserName] = useState("")
     const [gender, setGender] = useState("")
     const [filter, setFilter] = useState(false)
 
     useEffect(() => {
-        fetch("http://localhost:3002/users/signin").then(
-            res => res.json()
-        ).then(
-            data => {
-                console.log(data[0].name)
-                setName(data[0].name)
-                setUserName(data[0].userName)
-                setGender(data[0].gender)
-                if (data[0].filter === false){
-                    setFilter("適応しない")
-                }else {
-                    setFilter("適応する")
-                }
-            }
-        )
+        main()
     }, []);
 
-    return(
+    const main = async () => {
+        try {
+            fetch("http://localhost:3002/users/signin", {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+                .then(
+                    res => res.json()
+                ).then(
+                data => {
+                    console.log(data)
+                    // setInfo(data)
+                    setName(data.user.name)
+                    setUserName(data.user.userName)
+                    setGender(data.user.gender)
+                    setFilter(data.user.filter)
+                    if (filter === false){
+                        setFilter("適応しない")
+                    }else {
+                        setFilter("適応する")
+                    }
+                })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const handleLogout = async () => {
+        try {
+            const res = await fetch("http://localhost:3002/users/logout", {
+                method: 'POST',
+                credentials: 'include',
+            }).then(
+                res => {
+                    if (!res.ok) {
+                        window.location.href = "/"
+                    } else {
+                        throw new Error('ログアウト失敗した...')
+                        console.log(res)
+                    }
+                })
+        } catch (e) {
+            console.log('error--->', e)
+        }
+    };
+
+
+    return (
         <>
-            <Header title="Account Information" />
-            <FrameLayout />
+            <Header title="Account Information"/>
+            <FrameLayout/>
+
             <div className={s.all}>
-                <h1>{name}'s Information</h1>
+                <h1>{name} 's Information</h1>
                 <div className={s.frame}>
                     <div className={s.box}>
                         <p className={s.each}><b>name:</b></p>
@@ -52,6 +90,7 @@ const Info = () => {
                     </div>
                 </div>
                 <input type="submit" value="SAVE" className={s.save}/>
+                <button className={s.logout} onClick={handleLogout}>LOGOUT</button>
             </div>
         </>
     )
