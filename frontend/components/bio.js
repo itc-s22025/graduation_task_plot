@@ -12,7 +12,7 @@ const Bio = () => {
     useEffect(() => {
         const fetchDeta = async () => {
             try {
-                const res = await fetch("http://localhost:3002/api/user", {
+                const res = await fetch("http://localhost:3002/users/signin", {
                     method: 'GET',
                     credentials: 'include',
                     headers: {

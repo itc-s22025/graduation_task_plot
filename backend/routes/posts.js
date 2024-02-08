@@ -19,25 +19,6 @@ router.get("/check", (req, res, next) => {
 // ここまで
 
 
-//userデータ取得
-router.get("/user", async (req, res, next) => {
-    try {
-        const user = await prisma.user.findUnique({
-            where: {
-                id: +req.user.id
-            },
-            include: {
-                post: true
-            }
-        });
-        res.json({user})
-    }catch (e) {
-        console.log(e)
-    } finally {
-        await prisma.$disconnect();
-    }
-})
-
 //直近データ取得
 router.get("/all", async (req, res, next) => {
     try {

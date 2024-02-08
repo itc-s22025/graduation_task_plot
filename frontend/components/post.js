@@ -9,7 +9,7 @@ const Post = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch("http://localhost:3002/api/all", {
+                const res = await fetch("http://localhost:3002/posts/all", {
                     method: 'GET',
                     credentials: 'include',
                     headers: {
@@ -89,36 +89,6 @@ const Post = () => {
 
         </li>
     );
-
-    const listItems = people.map(person =>
-        <li key={person.id} className={s.frame}>
-            <div className={s.iconNidNname}>
-                <img
-                    src={getImageUrl(person)}
-                    alt={person.name}
-                    className={s.icon}
-                />
-                <div>
-                    <div className={s.nameNidNconNlike}>
-                        <p className={s.userName}>
-                            <b>{person.name}</b>
-                        </p>
-                        <p className={s.userId}>@{person.id}</p>
-                    </div>
-                    <p className={s.content}>Hi,there.<br/>
-                        {/*this is {person.name}.*/}
-                    </p>
-                </div>
-                <div className={s.likeNrp}>
-                    <span className={s.like}
-                          onClick={() => handleLikeClick(person.id)}>♡ {likecount[person.id] || 0} </span>
-                    <span className={s.repost}
-                          onClick={() => handleRpClick(person.id)}>☆ {rpcount[person.id] || 0} </span>
-                </div>
-            </div>
-        </li>
-    );
-
 
     return (
         <>

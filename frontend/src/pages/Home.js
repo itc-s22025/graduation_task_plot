@@ -5,8 +5,6 @@ import Header from "../../components/header";
 import s from "../../src/styles/center.module.css"
 
 const Home = () => {
-    const [people, setPeople] = useState([])
-    const [user, setUser] = useState([])
 
 
     return (
