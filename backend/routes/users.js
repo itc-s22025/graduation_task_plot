@@ -94,12 +94,12 @@ router.get("/signin", async (req, res, next) => {
 });
 
 //logout
-router.get("/logout", (req, res, next) => {
+router.post("/logout", (req, res, next) => {
   req.logout((err) => {
     if (err) {
       return next(err);
     }
-    res.redirect("/users/login");
+    res.redirect("/users");
   });
 });
 

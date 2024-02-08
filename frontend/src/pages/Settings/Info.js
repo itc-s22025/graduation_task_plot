@@ -44,6 +44,25 @@ const Info = () => {
         }
     }
 
+    const handleLogout = async () => {
+        try {
+            const res = await fetch("http://localhost:3002/users/logout", {
+                method: 'POST',
+                credentials: 'include',
+            }).then(
+                res => {
+                    if (!res.ok) {
+                        window.location.href = "/"
+                    } else {
+                        throw new Error('ログアウト失敗した...')
+                        console.log(res)
+                    }
+                })
+        } catch (e) {
+            console.log('error--->', e)
+        }
+    };
+
 
     return (
         <>
@@ -71,7 +90,7 @@ const Info = () => {
                     </div>
                 </div>
                 <input type="submit" value="SAVE" className={s.save}/>
-                <input type="submit" value="LOGOUT" className={s.logout}/>
+                <button className={s.logout} onClick={handleLogout}>LOGOUT</button>
             </div>
         </>
     )
