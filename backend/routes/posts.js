@@ -43,19 +43,24 @@ router.get("/all", async (req, res, next) => {
 router.post("/create", [
     check("text").notEmpty()
 ], async (req, res, next) => {
-    const isValid = validationResult(req).isEmpty()
-    if (!isValid) {
-        res.status(400).json({message: "何か入力して〜;_;"});
-        return
+    try {
+    const result = validationResult(req)
+    if (!result.isEmpty()) {
+        const errors = result.array();
+        console.log(errors)
+        return res.status(400).json({message: errors});
     }
-    const {text} = req.body;
+    // const {text} = req.body;
     await prisma.post.create({
         data: {
-            text,
+            text: req.body.text,
             userId: +req.user.id
         }
     });
-    res.status(201).json({message: "createできたよ〜"})
+    res.status(201).json({message: "createできたよ〜"})}
+    catch (e) {
+        console.error(e)
+    }
 })
 
 //表示　とりあえず

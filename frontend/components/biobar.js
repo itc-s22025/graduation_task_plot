@@ -103,10 +103,14 @@ const BioBar = () => {
                     </article>
                 </TabPanel>
                 <TabPanel>
-                    <h1>media</h1>
+                    <article>
+                        {postItems}
+                    </article>
                 </TabPanel>
                 <TabPanel>
-                    <h1>Likes</h1>
+                    <article>
+                        {postItems}
+                    </article>
                 </TabPanel>
             </Tabs>
         </>

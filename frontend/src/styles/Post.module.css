@@ -70,8 +70,16 @@
         padding: 15px 30px 15px 30px;
         border: 1px solid;
         border-radius: 8px;
-        background-color: #EE6E18;
+        background-color: #ff6700;
         color: #FFFFFF;
+}
+
+.post:hover{
+        background-color: #ee5b00;
+}
+
+.post:active{
+        background-color: #ff6700;
 }
 
 .name{

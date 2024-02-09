@@ -10,7 +10,6 @@ function Post() {
     const [inMenuVisible, setIsMenuVisible] = useState(false);
     //userデータ反映
     const [name, setName] = useState('')
-    const [userName, setUserName] = useState('')
 
     const inputRef = useRef(null);
 
@@ -26,40 +25,15 @@ function Post() {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            }) .then(
+            }).then(
                 res => res.json()
             ).then(
                 data => {
-                    console.log("Postのデータだよ：", data)
                     setName(data.user.name)
-                    setUserName(data.user.userName)
                 }
             )
-
         } catch (e) {
-          console.log(e)
-        }
-    }
-
-    const handleToPost = async () => {
-        try {
-            const res = await fetch("http://localhost:3002/posts/create", {
-                method: 'POST',
-                credentials: "include",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    tweet, selectedImage,
-                })
-            })
-            if (res.status === 200){
-                console.log("できた", res)
-            }else {
-                console.log("できてない", res)
-            }
-        } catch (e) {
-            console.error("エラーでてます: ".e)
+            console.log(e)
         }
     }
 
@@ -82,7 +56,27 @@ function Post() {
         console.log(files)
     };
 
-    const handleTweetSubmit = () => {
+    const handleTweetSubmit = async () => {
+        try {
+            const res = await fetch("http://localhost:3002/posts/create", {
+                method: 'POST',
+                credentials: "include",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    text: tweet, image: selectedImage,
+                })
+            })
+            if (res.status === 201) {
+                console.log("できた", res)
+                window.location.href = "/Home"
+            } else {
+                console.log("できてない", res)
+            }
+        } catch (e) {
+            console.error("エラーでてます: ".e)
+        }
         console.log('Tweet submitted:', tweet);
         console.log('Selected Images:', selectedImage);
     };
@@ -112,13 +106,13 @@ function Post() {
 
     return (
         <>
-            <Header title="Post" />
-            <FrameLayout />
+            <Header title="Post"/>
+            <FrameLayout/>
             <div className={s.all}>
                 <div className={s.container}>
                     <div className={s.boxLarge}>
                         <div className={s.iconimage}>
-                            <img src="test" alt={name}/>
+                            <img src="" alt={name}/>
                         </div>
                         <p className={s.name}>{name}</p>
                         <textarea
@@ -126,7 +120,6 @@ function Post() {
                             placeholder="Type today's muscle..."
                             value={tweet}
                             onChange={handleTweetChange}
-                            onClick={handleToPost}
                         />
                         {inMenuVisible && (
                             <div className={s.menu}>
@@ -147,21 +140,21 @@ function Post() {
                                         className={s.add_trainingmenu}
                                         placeholder="Add More"
                                     />
-                                    <img src='/images/add_more.png' className={s.add_more} />
+                                    <img src='/images/add_more.png' className={s.add_more}/>
                                 </div>
                             </div>
                         )}
 
-                        {/*{selectedImage ? (*/}
-                        {/*    <div className={s.imageContainer}>*/}
-                        {/*        <img src={selectedImage} alt="Selected Image" className={s.selectedImage} />*/}
-                        {/*        <div className={s.removeButton} onClick={handleRemoveImage}>*/}
-                        {/*            <img src='/images/crossline.png' className={s.cross} />*/}
-                        {/*        </div>*/}
-                        {/*    </div>*/}
-                        {/*) : (*/}
-                        {/*    <SquarePhotoCard img src="/images/_ (5).jpeg" alt={"Some description"} />*/}
-                        {/*)}*/}
+                        {selectedImage ? (
+                            <div className={s.imageContainer}>
+                                <img src={selectedImage} alt="Selected Image" className={s.selectedImage} />
+                                <div className={s.removeButton} onClick={handleRemoveImage}>
+                                    <img src='/images/crossline.png' className={s.cross} />
+                                </div>
+                            </div>
+                        ) : (
+                             <SquarePhotoCard img src="" alt={name} />
+                         )}
 
                         <div className={s.button}>
                             <button className={s.cancel} onClick={handleRemovePost}>Cancel</button>
@@ -175,13 +168,13 @@ function Post() {
                                 className={s.imageInput}
                                 onChange={handleImageSelect}
                                 ref={inputRef}
-                                style={{ display: 'none' }}
+                                style={{display: 'none'}}
                                 multiple
                             />
-                            <img src="/images/link.png" className={s.icons} />
-                            <img src="/images/dumbbell.png" className={s.icons} onClick={handleDumbbellClick} />
+                            <img src="/images/link.png" className={s.icons}/>
+                            <img src="/images/dumbbell.png" className={s.icons} onClick={handleDumbbellClick}/>
                             <label htmlFor="imageInput" className={s.icons} onClick={handleLabelClick}>
-                                <img src="/images/image.png" className={s.icons} />
+                                <img src="/images/image.png" className={s.icons}/>
                             </label>
                         </div>
                     </div>
