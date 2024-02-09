@@ -11,6 +11,7 @@ const Bio = () => {
 
     useEffect(() => {
         const fetchDeta = async () => {
+            // 'http://localhost:3002/profile/1'
             try {
                 const res = await fetch("http://localhost:3002/users/signin", {
                     method: 'GET',

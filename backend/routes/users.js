@@ -118,4 +118,8 @@ router.get('/post', async (req, res, next) => {
   }
 })
 
+router.get('/user/:userId', async (req, res, next) => {
+  console.log(req.query.userId)
+})
+
 module.exports = router;

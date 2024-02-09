@@ -2,9 +2,12 @@ import {people} from "./data";
 import {getImageUrl} from "./utils";
 import s from "../src/styles/post.module.css"
 import {useState, useEffect} from "react";
+import {useRouter} from "next/router";
+
 
 const Post = () => {
     const [posts, setPosts] = useState([])
+    const router = useRouter()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -71,12 +74,13 @@ const Post = () => {
         <li key={post.id} className={s.frame}>
             <div className={s.iconNidNname}>
                 <img
+                    onClick={() => {router.push(`/user/${post.user.id}`)}}
                     src={getImageUrl(post.user)}
                     alt={post.user.userName}
                     className={s.icon}/>
                 <div>
                     <div className={s.nameNidNconNlike}>
-                        <b className={s.userName}>{post.user.name}</b>
+                        <b onClick={() => {router.push(`/user/${post.user.id}`)}} className={s.userName}>{post.user.name}</b>
                         <p className={s.userId}>@{post.user.userName}</p>
                     </div>
                     <p className={s.content}>{post.text}</p>
