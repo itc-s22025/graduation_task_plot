@@ -7,12 +7,11 @@ import {useRouter} from "next/router";
 
 const Post = () => {
     const [posts, setPosts] = useState([])
-    const router = useRouter()
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch("http://localhost:3002/posts/all", {
+                const res = await fetch("http://localhost:3002/api/all", {
                     method: 'GET',
                     credentials: 'include',
                     headers: {
@@ -74,13 +73,12 @@ const Post = () => {
         <li key={post.id} className={s.frame}>
             <div className={s.iconNidNname}>
                 <img
-                    onClick={() => {router.push(`/user/${post.user.id}`)}}
                     src={getImageUrl(post.user)}
                     alt={post.user.userName}
                     className={s.icon}/>
                 <div>
                     <div className={s.nameNidNconNlike}>
-                        <b onClick={() => {router.push(`/user/${post.user.id}`)}} className={s.userName}>{post.user.name}</b>
+                        <b className={s.userName}>{post.user.name}</b>
                         <p className={s.userId}>@{post.user.userName}</p>
                     </div>
                     <p className={s.content}>{post.text}</p>
@@ -92,7 +90,39 @@ const Post = () => {
             </div>
 
         </li>
+        )
     );
+
+    const listItems = people && people.length > 0 && (
+        people.map(person =>
+        <li key={person.id} className={s.frame}>
+            <div className={s.iconNidNname}>
+                <img
+                    src={getImageUrl(person)}
+                    alt={person.name}
+                    className={s.icon}
+                />
+                <div>
+                    <div className={s.nameNidNconNlike}>
+                        <p className={s.userName}>
+                            <b>{person.name}</b>
+                        </p>
+                        <p className={s.userId}>@{person.id}</p>
+                    </div>
+                    <p className={s.content}>Hi,there.<br/>
+                        {/*this is {person.name}.*/}
+                    </p>
+                </div>
+                <div className={s.likeNrp}>
+                    <span className={s.like}
+                          onClick={() => handleLikeClick(person.id)}>♡ {likecount[person.id] || 0} </span>
+                    <span className={s.repost}
+                          onClick={() => handleRpClick(person.id)}>☆ {rpcount[person.id] || 0} </span>
+                </div>
+            </div>
+        </li>
+    );
+
 
     return (
         <>

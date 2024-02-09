@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 // ログインしてるか　してなかったら他のデータ取れない
 router.use((req, res, next) => {
     if (!req.user){
-        res.status(400).json({message: "ログインしてないですけど"});
+        res.status(400).json({message: "ログインしてないです"});
         return
     }
     next();
@@ -18,6 +18,25 @@ router.get("/check", (req, res, next) => {
 });
 // ここまで
 
+
+//userデータ取得
+router.get("/user", async (req, res, next) => {
+    try {
+        const user = await prisma.user.findUnique({
+            where: {
+                id: +req.user.id
+            },
+            include: {
+                post: true
+            }
+        });
+        res.json({user})
+    }catch (e) {
+        console.log(e)
+    } finally {
+        await prisma.$disconnect();
+    }
+})
 
 //直近データ取得
 router.get("/all", async (req, res, next) => {
@@ -39,5 +58,8 @@ router.get("/all", async (req, res, next) => {
         await prisma.$disconnect();
     }
 });
+
+router.put('/updateProfile', require('../pages/api/updateProfile'));
+
 
 module.exports = router;
