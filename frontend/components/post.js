@@ -1,10 +1,9 @@
-import {people} from "./data";
-import {getImageUrl} from "./utils";
 import s from "../src/styles/post.module.css"
 import {useState, useEffect} from "react";
 
 const Post = () => {
-    const [posts, setPosts] = useState([])
+    const [posts, setPosts] = useState([]);
+    const [selectedPost, setSelectedPost] = useState(null); //追加
 
     useEffect(() => {
         const fetchData = async () => {
@@ -31,6 +30,23 @@ const Post = () => {
         fetchData();
     }, []);
 
+
+    const onUserClick = async (userName) => {
+        try {
+            const res = fetch(`http://localhost:3002/users/${userName}`, {
+                method: 'GET',
+                credentials: "include"
+            }).then(
+                response => response.json()
+            ).then(
+                data => {
+                    console.log(data)
+                }
+            )
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
     const getImage = (data) => {
         return ('https://i.imgur.com/' + data + 's.jpg');
@@ -67,13 +83,20 @@ const Post = () => {
         }
     };
 
+    const handlePostItemClick = (post) => {
+        // 追加：ポストアイテムをクリックした時の処理
+        setSelectedPost(post);
+    };
+
     const postItems = posts.map(post =>
-        <li key={post.id} className={s.frame}>
+        <li key={post.id} className={s.frame} onClick={() => handlePostItemClick(post)}>
             <div className={s.iconNidNname}>
                 <img
-                    src={getImageUrl(post.user)}
+                    src={getImage(post.user)}
                     alt={post.user.userName}
-                    className={s.icon}/>
+                    className={s.icon}
+                    onClick={onUserClick}
+                />
                 <div>
                     <div className={s.nameNidNconNlike}>
                         <b className={s.userName}>{post.user.name}</b>
@@ -83,8 +106,10 @@ const Post = () => {
                 </div>
             </div>
             <div className={s.likeNrp}>
-                <span className={s.like} onClick={() => handleLikeClick(post.id)}>♡ {likecount[post.id] || 0} </span>
-                <span className={s.repost} onClick={() => handleRpClick(post.id)}>☆ {rpcount[post.id] || 0} </span>
+                    <span className={s.like}
+                          onClick={() => handleLikeClick(post.id)}>♡ {likecount[post.id] || 0} </span>
+                <span className={s.repost}
+                      onClick={() => handleRpClick(post.id)}>☆ {rpcount[post.id] || 0} </span>
             </div>
 
         </li>
@@ -93,9 +118,38 @@ const Post = () => {
     return (
         <>
 
+
             <article>
                 <ul>{postItems}</ul>
             </article>
+
+            {selectedPost && (
+                <div className={s.popup}>
+                    <div className={s.popupContent}>
+                        <span className={s.close} onClick={() => setSelectedPost(null)}>&times;</span>
+                        <div className={s.iconNidNname}>
+                            <img
+                                src=""
+                                alt={selectedPost.user.userName}
+                                className={s.selectedIcon}
+                            />
+                            <div>
+                                <div className={s.nameNidNconNlike}>
+                                    <b className={s.selectedUserName}>{selectedPost.user.name}</b>
+                                    <p className={s.selectedUserId}>@{selectedPost.user.userName}</p>
+                                </div>
+                                <p className={s.selectedContent}>{selectedPost.text}</p>
+                            </div>
+                        </div>
+                        <div className={s.likeNrp}>
+                    <span className={s.selectedLike}
+                          onClick={() => handleLikeClick(selectedPost.id)}>♡ {likecount[selectedPost.id] || 0} </span>
+                            <span className={s.selectedRepost}
+                                  onClick={() => handleRpClick(selectedPost.id)}>☆ {rpcount[selectedPost.id] || 0} </span>
+                        </div>
+                    </div>
+                </div>
+            )}
 
 
         </>
