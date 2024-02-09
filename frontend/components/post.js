@@ -1,7 +1,10 @@
 import s from "../src/styles/post.module.css"
 import {useState, useEffect} from "react";
+import {useRouter} from "next/router.js";
 
 const Post = () => {
+    const router = useRouter();
+
     const [posts, setPosts] = useState([]);
     const [myName, setMyName] = useState("");
     const [userName, setUserName] = useState("");
@@ -70,7 +73,12 @@ const Post = () => {
             if (userName === myName){
                 window.location.href = '/Profile'
             }else {
-                console.log(userName)
+            console.log(userName)
+            router.push({
+                    pathname: '/Other',
+                    query: {userName},
+                },
+                {shallow: true});
             }
         } catch (e) {
             console.log(e)
@@ -113,7 +121,6 @@ const Post = () => {
     };
 
     const handlePostItemClick = (post) => {
-        // 追加：ポストアイテムをクリックした時の処理
         setSelectedPost(post);
     };
 
