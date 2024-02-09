@@ -1,5 +1,6 @@
 import s from "../src/styles/bio.module.css";
 import {useEffect, useState} from "react";
+import {useRouter} from 'next/router'
 
 const Bio = () => {
     const [user, setUser] = useState([])
@@ -7,6 +8,7 @@ const Bio = () => {
     const [name, setName] = useState("")
     const [userName, setUserName] = useState("")
     const [bio, setBio] = useState("")
+    const router = useRouter();
 
     useEffect(() => {
         const fetchDeta = async () => {
@@ -40,7 +42,8 @@ const Bio = () => {
     const handleEditClick = () => {
         // router.push('./edit');
         console.log("onclick")
-        window.location.href = "/Profile/edit"
+        // window.location.href = "/Profile/edit"
+        router.push('/Profile/edit');
     };
 
     return (

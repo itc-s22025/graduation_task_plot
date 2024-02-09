@@ -41,7 +41,8 @@ const Index = () => {
             <FrameLayout></FrameLayout>
 
                 <div>
-                <Bio user={user}/>
+                    {/*<Bio user={user}/>*/}
+                    <Bio />
                 <BioBar/>
                 </div>
             )

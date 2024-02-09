@@ -59,5 +59,7 @@ router.get("/all", async (req, res, next) => {
     }
 });
 
+router.put('/updateProfile', require('../pages/api/updateProfile'));
+
 
 module.exports = router;

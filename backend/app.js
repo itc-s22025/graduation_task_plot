@@ -11,7 +11,7 @@ const passport = require('passport');
 const passportConfig = config(passport);
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const usersRouter = require('./routes/users').router;
 const apiRouter = require('./routes/api');
 
 const app = express();
