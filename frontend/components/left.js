@@ -37,7 +37,7 @@ const Nav = () => {
 
                          className={s.icon}/>
 
-                    <Link href="/" legacyBehavior>
+                    <Link href="/Notifications" legacyBehavior>
                         <a>Notifications</a>
                     </Link>
                 </li>
