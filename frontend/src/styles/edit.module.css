@@ -50,3 +50,18 @@
 .saveButton:hover {
     background-color: #0056b3;
 }
+.edit{
+    margin-left: 20px;
+    margin-top: 6px;
+    height: 40px;
+    width: 150px;
+    text-align: center;
+    background-color: #ff6700;
+    color: #fff;
+    border-radius: 10px;
+    padding: 7px;
+}
+
+.edit:hover{
+    background-color: #ff5900;
+}

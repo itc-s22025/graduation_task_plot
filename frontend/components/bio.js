@@ -1,7 +1,5 @@
 import s from "../src/styles/bio.module.css";
 import {useEffect, useState} from "react";
-// import Edit from '../'
-
 
 const Bio = () => {
     const [user, setUser] = useState([])
@@ -9,7 +7,6 @@ const Bio = () => {
     const [name, setName] = useState("")
     const [userName, setUserName] = useState("")
     const [bio, setBio] = useState("")
-
 
     useEffect(() => {
         const fetchDeta = async () => {
@@ -40,38 +37,45 @@ const Bio = () => {
         return ('https://i.imgur.com/' + data + 's.jpg');
     }
 
+    const handleEditClick = () => {
+        // router.push('./edit');
+        console.log("onclick")
+        window.location.href = "/Profile/edit"
+    };
 
     return (
         <>
-            <div className={s.frame} key={user.id}>
-                <div className={s.iconNidNname}>
-                    <img
-                        src={getImage(icon)}
-                        alt={user.userName}
-                        className={s.icon}
-                    />
+            {user && (
+                <div className={s.frame} key={user.id}>
+                    <div className={s.iconNidNname}>
+                        <img
+                            src={getImage(icon)}
+                            alt={user.userName}
+                            className={s.icon}
+                        />
 
-                    <div>
-                        <div className={s.nameNidNfosNfollow}>
-                            <div className={s.nameNidNfos}>
-                                <div className={s.nameNid}>
-                                    <p className={s.userName}><b>{user.name}</b></p>
-                                    <p className={s.userId}>@{user.userName}</p>
+                        <div>
+                            <div className={s.nameNidNfosNfollow}>
+                                <div className={s.nameNidNfos}>
+                                    <div className={s.nameNid}>
+                                        <p className={s.userName}><b>{user.name}</b></p>
+                                        <p className={s.userId}>@{user.userName}</p>
+                                    </div>
+                                    <div className={s.foNwer}>
+                                        <p>12 Following</p>
+                                        <p className={s.follower}>34 Follower</p>
+                                    </div>
                                 </div>
-                                <div className={s.foNwer}>
-                                    <p>12 Following</p>
-                                    <p className={s.follower}>34 Follower</p>
-                                </div>
+                                <p className={s.edit} onClick={handleEditClick}> Edit</p>
                             </div>
-                            <p className={s.edit}> Edit</p>
+                            <p className={s.content}>{user.bio}</p>
                         </div>
-                        <p className={s.content}>{user.bio}</p>
                     </div>
                 </div>
-            </div>
 
+                )}
         </>
-    )
+    );
 }
 
 export default Bio
