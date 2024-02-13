@@ -1,17 +1,26 @@
-import s from "../src/styles/bio.module.css";
-import {useEffect, useState} from "react";
+//一旦Othersページ　時間があればこれ消してProfileページだけでできるようにする
 
-const Bio = () => {
+import s from "../styles/bio.module.css";
+import {useEffect, useState} from "react";
+import {useRouter} from "next/router";
+import Header from "../../components/header.js";
+import FrameLayout from "../../components/frameLayout.js";
+import OthersBioBar from "../../components/othersBioBar.js";
+
+const Other = () => {
+    const router = useRouter()
+
     const [user, setUser] = useState([])
     const [icon, setIcon] = useState("")
 
     useEffect(() => {
+        console.log("query:", router.query)
         fetchDeta()
     }, []);
 
     const fetchDeta = async () => {
         try {
-            const res = await fetch("http://localhost:3002/users/signin", {
+            const res = await fetch(`http://localhost:3002/users/${router.query.userName}`, {
                 method: 'GET',
                 credentials: 'include',
                 headers: {
@@ -34,9 +43,10 @@ const Bio = () => {
         return ('https://i.imgur.com/' + data + 's.jpg');
     }
 
-
-    return (
+    return(
         <>
+            <Header title={user.userName}/>
+            <FrameLayout/>
 
             <div className={s.frame} key={user.id}>
                 <div className={s.iconNidNname}>
@@ -58,15 +68,16 @@ const Bio = () => {
                                     <p className={s.follower}>34 Follower</p>
                                 </div>
                             </div>
-                            <p className={s.edit}> Edit</p>
+                            <p className={s.edit}> Follow</p>
                         </div>
                         <p className={s.content}>{user.bio}</p>
                     </div>
                 </div>
             </div>
 
+            <OthersBioBar />
         </>
     )
 }
 
-export default Bio
+export default Other
