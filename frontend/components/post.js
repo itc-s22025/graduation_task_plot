@@ -135,7 +135,7 @@ const Post = () => {
                 />
                 <div>
                     <div className={s.nameNidNconNlike}>
-                        <b className={s.userName}>{post.user.name}</b>
+                        <b className={s.userName} onClick={() => onUserClick(post.user.userName)}>{post.user.name}</b>
                         <p className={s.userId}>@{post.user.userName}</p>
                     </div>
                     <p className={s.content} onClick={() => handlePostItemClick(post)}>{post.text}</p>

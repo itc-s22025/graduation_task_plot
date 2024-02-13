@@ -1,13 +1,22 @@
+//一旦OthersBioBarコンポーネント　時間があればこれ消してBioBarだけでできるようにする
+
 import s from '../src/styles/biobar.module.css'
 import {useEffect, useState} from "react";
-import {getImageUrl} from "./utils";
 import {Tab, Tabs, TabList, TabPanel} from "react-tabs";
+import {useRouter} from "next/router";
 
-const BioBar = () => {
+
+const OthersBioBar = () => {
+    const router = useRouter()
     const [posts, setPosts] = useState([])
     const [user, setUser] = useState({})
     const [likecount, setLikecount] = useState({});
     const [rpcount, setRpcount] = useState({});
+
+    useEffect(() => {
+        console.log("query:", router.query)
+        fetchData()
+    }, []);
 
     const handleLikeClick = (postId) => {
         if (!likecount[postId]) {
@@ -37,31 +46,27 @@ const BioBar = () => {
         }
     };
 
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await fetch("http://localhost:3002/users/signin", {
-                    method: 'GET',
-                    credentials: 'include',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                }).then(
-                    response => response.json()
-                ).then(
-                    data => {
-                        console.log("DATA:", data.user)
-                        setPosts(data.user.post)
-                        setUser(data.user)
-                    }
-                )
-            } catch (e) {
-                console.log(e)
-            }
+    const fetchData = async () => {
+        try {
+            const res = await fetch(`http://localhost:3002/users/${router.query.userName}`, {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then(
+                response => response.json()
+            ).then(
+                data => {
+                    console.log("DATA:", data.user)
+                    setPosts(data.user.post)
+                    setUser(data.user)
+                }
+            )
+        } catch (e) {
+            console.log(e)
         }
-        fetchData();
-    }, [])
+    }
 
     const getImage = (data) => {
         return ('https://i.imgur.com/' + data + 's.jpg');
@@ -117,4 +122,4 @@ const BioBar = () => {
     )
 }
 
-export default BioBar
+export default OthersBioBar

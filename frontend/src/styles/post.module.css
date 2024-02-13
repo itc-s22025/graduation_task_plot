@@ -21,6 +21,7 @@
 }
 
 .icon{
+    cursor: pointer;
     width: 50px;
     height: 52px;
     margin-left: 10px;
@@ -29,6 +30,7 @@
 }
 
 .userName{
+    cursor: pointer;
     margin-left: 10px;
 }
 
@@ -44,6 +46,7 @@
     max-height: 200px;
     margin-top: 10px;
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .likeNrp{
@@ -58,12 +61,14 @@
 
 .like{
     /*border: 1px solid #ccc;*/
+    cursor: pointer;
     margin-left: 40px;
     color: #EE6E18;
 }
 
 .repost{
     /*border: 1px solid #ccc;*/
+    cursor: pointer;
     margin-left: 40px;
     color: #4a93a0;
 }

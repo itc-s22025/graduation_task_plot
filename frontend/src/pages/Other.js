@@ -1,8 +1,11 @@
+//一旦Othersページ　時間があればこれ消してProfileページだけでできるようにする
+
 import s from "../styles/bio.module.css";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import Header from "../../components/header.js";
 import FrameLayout from "../../components/frameLayout.js";
+import OthersBioBar from "../../components/othersBioBar.js";
 
 const Other = () => {
     const router = useRouter()
@@ -40,7 +43,6 @@ const Other = () => {
         return ('https://i.imgur.com/' + data + 's.jpg');
     }
 
-
     return(
         <>
             <Header title={user.userName}/>
@@ -72,6 +74,8 @@ const Other = () => {
                     </div>
                 </div>
             </div>
+
+            <OthersBioBar />
         </>
     )
 }
