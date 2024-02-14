@@ -23,6 +23,11 @@ router.get("/check", (req, res, next) => {
 router.get("/all", async (req, res, next) => {
     try {
         const latestPosts = await prisma.post.findMany({
+            where:{
+              user:{
+                  filter: false
+              }
+            },
             orderBy: {
                 updatedAt: 'desc'
             },
