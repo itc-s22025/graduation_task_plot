@@ -40,25 +40,65 @@ router.get("/all", async (req, res, next) => {
     }
 });
 
+//male
+router.get("/male", async (req, res, next) => {
+    try {
+        const MaleUsersPosts = await prisma.post.findMany({
+            where: {
+                user: {
+                    gender: "Male"
+                }
+            },
+            orderBy: {updatedAt: 'desc'},
+            include: {
+                user:true
+            }
+        });
+        res.json({MaleUsersPosts})
+    } catch (error) {
+        res.status(500).json({msg: error.msg});
+    }
+})
+
+//female
+router.get("/female", async (req, res, next) => {
+    try {
+        const FemaleUsersPosts = await prisma.post.findMany({
+            where: {
+                user: {
+                    gender: "Female"
+                }
+            },
+            orderBy: {updatedAt: 'desc'},
+            include: {
+                user:true
+            }
+        });
+        res.json({FemaleUsersPosts})
+    } catch (error) {
+        res.status(500).json({msg: error.msg});
+    }
+})
+
 router.post("/create", [
     check("text").notEmpty()
 ], async (req, res, next) => {
     try {
-    const result = validationResult(req)
-    if (!result.isEmpty()) {
-        const errors = result.array();
-        console.log(errors)
-        return res.status(400).json({message: errors});
-    }
-    // const {text} = req.body;
-    await prisma.post.create({
-        data: {
-            text: req.body.text,
-            userId: +req.user.id
+        const result = validationResult(req)
+        if (!result.isEmpty()) {
+            const errors = result.array();
+            console.log(errors)
+            return res.status(400).json({message: errors});
         }
-    });
-    res.status(201).json({message: "createできたよ〜"})}
-    catch (e) {
+        // const {text} = req.body;
+        await prisma.post.create({
+            data: {
+                text: req.body.text,
+                userId: +req.user.id
+            }
+        });
+        res.status(201).json({message: "createできたよ〜"})
+    } catch (e) {
         console.error(e)
     }
 })

@@ -33,11 +33,11 @@ const Info = () => {
                     setUserName(data.user.userName)
                     setGender(data.user.gender)
                     setFilter(data.user.filter)
-                    if (filter === false){
-                        setFilter("適応しない")
-                    }else {
-                        setFilter("適応する")
-                    }
+                    // if (filter === true){
+                    //     setFilter("適応する")
+                    // }else {
+                    //     setFilter("適応しない")
+                    // }
                 })
         } catch (e) {
             console.log(e)

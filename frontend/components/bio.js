@@ -1,5 +1,6 @@
 import s from "../src/styles/bio.module.css";
 import {useEffect, useState} from "react";
+import {getImage} from "./utils.js";
 
 const Bio = () => {
     const [user, setUser] = useState([])
@@ -21,7 +22,6 @@ const Bio = () => {
                 response => response.json()
             ).then(
                 data => {
-                    console.log("BIODATA---", data.user)
                     setUser(data.user)
                 }
             )
@@ -29,11 +29,6 @@ const Bio = () => {
             console.error(e)
         }
     }
-
-    const getImage = (data) => {
-        return ('https://i.imgur.com/' + data + 's.jpg');
-    }
-
 
     return (
         <>
