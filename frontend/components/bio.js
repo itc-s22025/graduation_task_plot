@@ -1,10 +1,11 @@
 import s from "../src/styles/bio.module.css";
 import {useEffect, useState} from "react";
 import {useRouter} from 'next/router'
+import Edit from "../src/pages/Profile/edit.js"
 
 const Bio = () => {
     const [user, setUser] = useState([])
-    const [icon, setIcon] = useState("")
+    const [icon,  newIcon] = useState("")
     const [name, setName] = useState("")
     const [userName, setUserName] = useState("")
     const [bio, setBio] = useState("")

@@ -8,7 +8,7 @@ import {useEffect, useState} from "react";
 const Index = () => {
     const router = useRouter();
     // const [user, setUser] = useState(null);
-
+    // const [newIcon, setNewIcon] = useState("")
     let user = null;
 
     if (typeof window !== 'undefined') {
@@ -33,6 +33,25 @@ const Index = () => {
         };
         fetchUserData();
     }, []);
+
+    // useEffect(() => {
+    //     const fetchIconData = async () => {
+    //         try {
+    //             const res = await fetch("http://localhost:3002/api/updateProfile", {
+    //                 method: 'PUT',
+    //                 credentials: 'include',
+    //                 headers: {
+    //                     'Content-Type': 'application/json'
+    //                 },
+    //             });
+    //             const data = await res.json();
+    //             setNewIcon(data.setNewIcon);
+    //         } catch (e)  {
+    //             console.error(e);
+    //         }
+    //     };
+    //     fetchIconData();
+    // }. []);
 
 
     return(

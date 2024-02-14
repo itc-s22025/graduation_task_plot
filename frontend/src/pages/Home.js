@@ -12,7 +12,7 @@ const Home = () => {
     const router = useRouter();
 
     const handleProfileClick = (username) => {
-        router.push('./Profile/${username}');
+        router.push('../Profile/${username}');
     };
 
     return (

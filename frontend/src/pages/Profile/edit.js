@@ -3,7 +3,7 @@ import {useRouter} from 'next/router';
 import s from '../../styles/edit.module.css';
 
 const Edit = () => {
-    const [newIcon, setNewIcon] = useState();
+    const [newIcon, setNewIcon] = useState("null");
     const [newBio, setNewBio] = useState();
     const router = useRouter();
     const [user, setUser] = useState([]);
@@ -40,7 +40,6 @@ const Edit = () => {
         }
         fetchDeta()
     }, []);
-
 
     const handleSave = async () => {
         try {
