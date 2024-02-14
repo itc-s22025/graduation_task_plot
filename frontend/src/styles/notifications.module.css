@@ -1,0 +1,87 @@
+.all{
+    background-color: #FFFFFF;
+    height: 100vh;
+}
+
+.heartbox {
+    width:56vw;
+    height: 50px;
+    padding: 150px 40px 12px;
+    position: relative;
+    top:12vh;
+    left:22vw;
+    border: 1px solid;
+    border-color: #000000;
+    text-align: center;
+}
+
+.userbox {
+    width:56vw;
+    height: 50px;
+    margin-left: -40px;
+    padding: 150px 40px 12px;
+    position: relative;
+    border: 1px solid;
+    border-color: #000000;
+    text-align: center;
+}
+
+.retweetbox {
+    width:56vw;
+    height: 50px;
+    margin-left: -450px;
+    padding: 150px 40px 12px;
+    position: relative;
+    top:12vh;
+    left:22vw;
+    border: 1px solid;
+    border-color: #000000;
+    text-align: center;
+}
+
+.heart {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    bottom: 120px;
+    right: 470px;
+}
+
+.user {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    bottom: 120px;
+    right: 470px;
+}
+
+.retweet {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    bottom: 120px;
+    right: 470px;
+}
+
+.hearttext {
+    font-size: 25px;
+    color: #333333;
+    position: relative;
+    bottom: 160px;
+    right: 100px;
+}
+.usertext {
+    font-size: 25px;
+    color: #333333;
+    position: relative;
+    bottom: 160px;
+    right: 140px;
+}
+
+.retweettext {
+    font-size: 25px;
+    color: #333333;
+    position: relative;
+    bottom: 160px;
+    right: 70px;
+}

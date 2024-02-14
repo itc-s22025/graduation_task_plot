@@ -12,7 +12,6 @@ const Index = () => {
                 pathname: '/SignUp/Detail',
                 query: {userName, password},
             },
-            undefined,
             {shallow: true});
     };
 

@@ -11,7 +11,7 @@
     border: #fff solid 1px;
     width: 34%;
     height: 50px;
-
+    outline: none;
     font-size: 1.6rem;
     color: #ff6700;
     padding-left: 10px;
@@ -32,7 +32,7 @@
     border: solid 1px #aaa;
     width: 700px;
     min-height: 100px;
-    max-height: 300px;
+    max-height: 500px;
     margin-top: 50px;
     margin-bottom: 10px;
     margin-left: 30vw;
@@ -71,7 +71,7 @@
 .content{
     /*border: 1px solid #ccc;*/
     width: 480px;
-    max-height: 100px;
+    max-height: 350px;
     margin-top: 10px;
     margin-left: 10px;
 }
@@ -79,8 +79,9 @@
 .likeNrp{
     padding-top: 0px;
     height: 100%;
-    /*margin-top: 10px;*/
-    /*margin-bottom: 5px;*/
+    width: 90%;
+    margin-top: 10px;
+    margin-bottom: 5px;
     margin-left: 30px;
 }
 

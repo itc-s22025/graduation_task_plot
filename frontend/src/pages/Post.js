@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import s from '../styles/Post.module.css';
 import SquarePhotoCard from "../component/SquarePhotoCard";
 import FrameLayout from "../../components/frameLayout";
@@ -8,7 +8,34 @@ function Post() {
     const [tweet, setTweet] = useState('');
     const [selectedImage, setSelectedImage] = useState(null);
     const [inMenuVisible, setIsMenuVisible] = useState(false);
+    //userデータ反映
+    const [name, setName] = useState('')
+
     const inputRef = useRef(null);
+
+    useEffect(() => {
+        getUserData()
+    }, []);
+
+    const getUserData = async () => {
+        try {
+            const res = await fetch("http://localhost:3002/users/signin", {
+                method: "GET",
+                credentials: "include",
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(
+                res => res.json()
+            ).then(
+                data => {
+                    setName(data.user.name)
+                }
+            )
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
     const handleTweetChange = (event) => {
         const inputText = event.target.value;
@@ -26,9 +53,30 @@ function Post() {
             const selectedImage = URL.createObjectURL(files[0]);
             setSelectedImage(selectedImage);
         }
+        console.log(files)
     };
 
-    const handleTweetSubmit = () => {
+    const handleTweetSubmit = async () => {
+        try {
+            const res = await fetch("http://localhost:3002/posts/create", {
+                method: 'POST',
+                credentials: "include",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    text: tweet, image: selectedImage,
+                })
+            })
+            if (res.status === 201) {
+                console.log("できた", res)
+                window.location.href = "/Home"
+            } else {
+                console.log("できてない", res)
+            }
+        } catch (e) {
+            console.error("エラーでてます: ".e)
+        }
         console.log('Tweet submitted:', tweet);
         console.log('Selected Images:', selectedImage);
     };
@@ -51,19 +99,22 @@ function Post() {
         const shouldDelete = window.confirm("本当に削除してもいいですか？");
         if (shouldDelete) {
             // 削除後の処理をここに追加する
-            console.log("Post deleted!");
+            window.location.href = '/Home';
         }
     };
 
 
     return (
         <>
-            <Header title="Post" />
-            <FrameLayout />
+            <Header title="Post"/>
+            <FrameLayout/>
             <div className={s.all}>
                 <div className={s.container}>
                     <div className={s.boxLarge}>
-                        <p className={s.name}>Name</p>
+                        <div className={s.iconimage}>
+                            <img src="" alt={name}/>
+                        </div>
+                        <p className={s.name}>{name}</p>
                         <textarea
                             className={s.textarea}
                             placeholder="Type today's muscle..."
@@ -89,7 +140,7 @@ function Post() {
                                         className={s.add_trainingmenu}
                                         placeholder="Add More"
                                     />
-                                    <img src='/images/add_more.png' className={s.add_more} />
+                                    <img src='/images/add_more.png' className={s.add_more}/>
                                 </div>
                             </div>
                         )}
@@ -102,8 +153,9 @@ function Post() {
                                 </div>
                             </div>
                         ) : (
-                            <SquarePhotoCard img src="/images/_ (5).jpeg" alt={"Some description"} />
-                        )}
+                             <SquarePhotoCard img src="" alt={name} />
+                         )}
+
                         <div className={s.button}>
                             <button className={s.cancel} onClick={handleRemovePost}>Cancel</button>
                             <button className={s.post} onClick={handleTweetSubmit}>Post</button>
@@ -116,13 +168,13 @@ function Post() {
                                 className={s.imageInput}
                                 onChange={handleImageSelect}
                                 ref={inputRef}
-                                style={{ display: 'none' }}
+                                style={{display: 'none'}}
                                 multiple
                             />
-                            <img src="/images/link.png" className={s.icons} />
-                            <img src="/images/dumbbell.png" className={s.icons} onClick={handleDumbbellClick} />
+                            <img src="/images/link.png" className={s.icons}/>
+                            <img src="/images/dumbbell.png" className={s.icons} onClick={handleDumbbellClick}/>
                             <label htmlFor="imageInput" className={s.icons} onClick={handleLabelClick}>
-                                <img src="/images/image.png" className={s.icons} />
+                                <img src="/images/image.png" className={s.icons}/>
                             </label>
                         </div>
                     </div>

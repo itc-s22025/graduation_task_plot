@@ -29,6 +29,7 @@
 }
 
 .box{
+    outline: none;
     font-size:16px;
     display: block;
     list-style-type: none;

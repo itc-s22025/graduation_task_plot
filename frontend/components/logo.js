@@ -1,26 +1,18 @@
 import s from '../src/styles/logo.module.css'
-import {Post}  from "../src/pages/Post.js";
-import React from 'react';
-import Link from "next/link"
+import Link from "next/link";
 
 const Logo = () => {
-    const handleClick = () => {
-        console.log('Mascle clicked')
-    }
     return (
         <>
-            <div className={s.bg}>
-                <Link href={"/Post"}>
+            <Link href="/Post" className={s.bg}>
+
                 <p className={s.pl}>＋</p>
                 <img src="/Mascle.png"
                       alt="icon"
                        height={35}
                        width={35}
-                       className={s.icon}
-                        onClick={() => handleClick()}/>
-                </Link>
-            </div>
-
+                       className={s.icon}/>
+            </Link>
         </>
     )
 }

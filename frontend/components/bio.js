@@ -1,46 +1,44 @@
 import s from "../src/styles/bio.module.css";
 import {useEffect, useState} from "react";
 import {useRouter} from 'next/router'
+import {getImage} from "./utils.js";
 
 const Bio = () => {
     const [user, setUser] = useState([])
     const [icon, setIcon] = useState("")
-    const [name, setName] = useState("")
-    const [userName, setUserName] = useState("")
-    const [bio, setBio] = useState("")
     const router = useRouter();
 
+
     useEffect(() => {
-        const fetchDeta = async () => {
-            try {
-                const res = await fetch("http://localhost:3002/api/user", {
-                    method: 'GET',
-                    credentials: 'include',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                }).then(
-                    response => response.json()
-                ).then(
-                    data => {
-                        console.log("BIODATA---", data.user)
-                        setUser(data.user)
-                    }
-                )
-            } catch (e) {
-                console.error(e)
-            }
-        }
         fetchDeta()
     }, []);
-    const getImage = (data) => {
-        return ('https://i.imgur.com/' + data + 's.jpg');
-    }
+
     const handleEditClick = () => {
         // router.push('./edit');
         console.log("onclick")
         router.push('/Profile/edit');
     };
+
+
+    const fetchDeta = async () => {
+        try {
+            const res = await fetch("http://localhost:3002/users/signin", {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then(
+                response => response.json()
+            ).then(
+                data => {
+                    setUser(data.user)
+                }
+            )
+        } catch (e) {
+            console.error(e)
+        }
+    }
 
     return (
         <>
