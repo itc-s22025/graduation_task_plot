@@ -4,6 +4,7 @@ import s from '../src/styles/biobar.module.css'
 import {useEffect, useState} from "react";
 import {Tab, Tabs, TabList, TabPanel} from "react-tabs";
 import {useRouter} from "next/router";
+import {getImage} from "./utils.js";
 
 
 const OthersBioBar = () => {
@@ -66,10 +67,6 @@ const OthersBioBar = () => {
         } catch (e) {
             console.log(e)
         }
-    }
-
-    const getImage = (data) => {
-        return ('https://i.imgur.com/' + data + 's.jpg');
     }
 
 

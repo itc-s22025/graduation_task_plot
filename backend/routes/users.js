@@ -118,10 +118,31 @@ router.get('/:uid', async (req, res, next) => {
             userName: uid
         },
         include: {
-            post: true
+            post:  {
+                orderBy: {createdAt: 'desc'}
+            }
         }
     })
     res.json({user})
+})
+
+router.get("/gender/female", async (req,res, next) => {
+    try {
+        const FemaleUsers = await prisma.user.findMany({
+            orderBy: {createdAt: 'asc'},
+            where:{
+                gender: "Female"
+            },
+            include:{
+                post: {
+                    orderBy: {createdAt: 'desc'}
+                }
+            }
+        });
+        res.json({FemaleUsers})
+    } catch (error) {
+        res.status(500).json({msg: error.msg});
+    }
 })
 
 module.exports = router;

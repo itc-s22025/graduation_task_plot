@@ -10,7 +10,7 @@ const Detail = () => {
     const [name, setName] = useState("new user");
     const [bMonth, setBMonth] = useState("Jan");
     const [bYear, setBYear] = useState(1950);
-    const [gender, setGender] = useState("male");
+    const [gender, setGender] = useState("Male");
     const [filter, setFilter] = useState(true);
 
     //useEffect

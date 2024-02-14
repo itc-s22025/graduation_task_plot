@@ -1,7 +1,7 @@
 import s from '../src/styles/biobar.module.css'
 import {useEffect, useState} from "react";
-import {getImageUrl} from "./utils";
 import {Tab, Tabs, TabList, TabPanel} from "react-tabs";
+import {getImage, handleLikeClick} from "./utils.js";
 
 const BioBar = () => {
     const [posts, setPosts] = useState([])
@@ -9,18 +9,8 @@ const BioBar = () => {
     const [likecount, setLikecount] = useState({});
     const [rpcount, setRpcount] = useState({});
 
-    const handleLikeClick = (postId) => {
-        if (!likecount[postId]) {
-            setLikecount((prevCounts) => ({
-                ...prevCounts,
-                [postId]: (prevCounts[postId] || 0) + 1
-            }));
-        } else {
-            setLikecount((prevCounts) => ({
-                ...prevCounts,
-                [postId]: 0,
-            }));
-        }
+    const handleLikeClickWrapper = (postId) => {
+        handleLikeClick(postId, likecount, setLikecount);
     };
 
     const handleRpClick = (post) => {
@@ -63,11 +53,6 @@ const BioBar = () => {
         fetchData();
     }, [])
 
-    const getImage = (data) => {
-        return ('https://i.imgur.com/' + data + 's.jpg');
-    }
-
-
     const postItems = posts.map(post =>
         <li key={post.id} className={s.frame}>
             <div className={s.iconNidNname}>
@@ -81,7 +66,7 @@ const BioBar = () => {
                 </div>
             </div>
             <div className={s.likeNrp}>
-                <span className={s.like} onClick={() => handleLikeClick(post.id)}>♡ {likecount[post.id] || 0} </span>
+                <span className={s.like} onClick={() => handleLikeClickWrapper(post.id)}>♡ {likecount[post.id] || 0} </span>
                 <span className={s.repost} onClick={() => handleRpClick(post.id)}>☆ {rpcount[post.id] || 0} </span>
             </div>
         </li>
