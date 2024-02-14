@@ -2,9 +2,7 @@ import Post from "../../components/post"
 import {useState, useEffect} from "react";
 import FrameLayout from "../../components/frameLayout";
 import Header from "../../components/header";
-import s from "../../src/styles/center.module.css"
 import {useRouter} from 'next/router.js';
-import {Link} from 'react-router-dom';
 
 const Home = () => {
     const [people, setPeople] = useState([])

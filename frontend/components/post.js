@@ -2,6 +2,8 @@ import {people} from "./data";
 import {getImageUrl} from "./utils";
 import s from "../src/styles/post.module.css"
 import {useState, useEffect} from "react";
+import {useRouter} from "next/router";
+
 
 const Post = () => {
     const [posts, setPosts] = useState([])
@@ -53,23 +55,21 @@ const Post = () => {
         }
     };
 
-
-    const handleRpClick = (posts) => {
-        if (!rpcount[posts]) {
+    const handleRpClick = (post) => {
+        if (!rpcount[post]) {
             setRpcount((prevCounts) => ({
                 ...prevCounts,
-                [posts]: (prevCounts[posts] || 0) + 1
+                [post]: (prevCounts[post] || 0) + 1
             }));
         } else {
             setRpcount((prevCounts) => ({
                 ...prevCounts,
-                [posts]: 0,
+                [post]: 0,
             }));
         }
     };
 
-    const postItems = posts && posts.length > 0 && (
-        posts.map(post =>
+    const postItems = posts.map(post =>
         <li key={post.id} className={s.frame}>
             <div className={s.iconNidNname}>
                 <img
@@ -90,43 +90,42 @@ const Post = () => {
             </div>
 
         </li>
-        )
-    );
+    )
+
 
     const listItems = people && people.length > 0 && (
         people.map(person =>
-        <li key={person.id} className={s.frame}>
-            <div className={s.iconNidNname}>
-                <img
-                    src={getImageUrl(person)}
-                    alt={person.name}
-                    className={s.icon}
-                />
-                <div>
-                    <div className={s.nameNidNconNlike}>
-                        <p className={s.userName}>
-                            <b>{person.name}</b>
-                        </p>
-                        <p className={s.userId}>@{person.id}</p>
-                    </div>
-                    <p className={s.content}>Hi,there.<br/>
-                        {/*this is {person.name}.*/}
-                    </p>
-                </div>
-                <div className={s.likeNrp}>
+                <li key={person.id} className={s.frame}>
+                    <div className={s.iconNidNname}>
+                        <img
+                            src={getImageUrl(person)}
+                            alt={person.name}
+                            className={s.icon}
+                        />
+                        <div>
+                            <div className={s.nameNidNconNlike}>
+                                <p className={s.userName}>
+                                    <b>{person.name}</b>
+                                </p>
+                                <p className={s.userId}>@{person.id}</p>
+                            </div>
+                            <p className={s.content}>Hi,there.<br/>
+                                {/*this is {person.name}.*/}
+                            </p>
+                        </div>
+                        <div className={s.likeNrp}>
                     <span className={s.like}
                           onClick={() => handleLikeClick(person.id)}>♡ {likecount[person.id] || 0} </span>
-                    <span className={s.repost}
-                          onClick={() => handleRpClick(person.id)}>☆ {rpcount[person.id] || 0} </span>
-                </div>
-            </div>
-        </li>
+                            <span className={s.repost}
+                                  onClick={() => handleRpClick(person.id)}>☆ {rpcount[person.id] || 0} </span>
+                        </div>
+                    </div>
+                </li>
         )
-);
-
-
+    );
     return (
         <>
+
             <article>
                 <ul>{postItems}</ul>
             </article>

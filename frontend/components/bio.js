@@ -1,11 +1,10 @@
 import s from "../src/styles/bio.module.css";
 import {useEffect, useState} from "react";
 import {useRouter} from 'next/router'
-import Edit from "../src/pages/Profile/edit.js"
 
 const Bio = () => {
     const [user, setUser] = useState([])
-    const [icon,  newIcon] = useState("")
+    const [icon, setIcon] = useState("")
     const [name, setName] = useState("")
     const [userName, setUserName] = useState("")
     const [bio, setBio] = useState("")
@@ -34,16 +33,12 @@ const Bio = () => {
         }
         fetchDeta()
     }, []);
-
-
     const getImage = (data) => {
         return ('https://i.imgur.com/' + data + 's.jpg');
     }
-
     const handleEditClick = () => {
         // router.push('./edit');
         console.log("onclick")
-        // window.location.href = "/Profile/edit"
         router.push('/Profile/edit');
     };
 
@@ -57,7 +52,6 @@ const Bio = () => {
                             alt={user.userName}
                             className={s.icon}
                         />
-
                         <div>
                             <div className={s.nameNidNfosNfollow}>
                                 <div className={s.nameNidNfos}>
@@ -76,10 +70,8 @@ const Bio = () => {
                         </div>
                     </div>
                 </div>
-
-                )}
+            )}
         </>
     );
 }
-
 export default Bio

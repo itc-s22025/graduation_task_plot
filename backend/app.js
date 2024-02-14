@@ -1,3 +1,4 @@
+
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -13,6 +14,7 @@ const passportConfig = config(passport);
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users').router;
 const apiRouter = require('./routes/api');
+const postsRouter = require('./routes/posts');
 
 const app = express();
 //cors
@@ -54,6 +56,7 @@ app.use(passportConfig);
 //router
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/posts', postsRouter);
 app.use('/api', apiRouter);
 
 
