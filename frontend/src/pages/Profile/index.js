@@ -7,7 +7,6 @@ import {useEffect, useState} from "react";
 
 const Index = () => {
     const router = useRouter();
-    // const [user, setUser] = useState(null);
 
     let user = null;
 
@@ -15,6 +14,7 @@ const Index = () => {
         const {user: userData} = router.query;
         user = userData? JSON.parse(userData) : null;
     }
+
     useEffect(() => {
         const fetchUserData = async () => {
             try {
@@ -41,7 +41,6 @@ const Index = () => {
             <FrameLayout></FrameLayout>
 
                 <div>
-                    {/*<Bio user={user}/>*/}
                     <Bio />
                 <BioBar/>
                 </div>

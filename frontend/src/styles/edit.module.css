@@ -1,10 +1,14 @@
 .container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
+    border: solid 2px #fff;
+    width: 704px;
+    height: 400px;
+    margin: 32px;
+    margin-top: 100px;
+    margin-left: 30vw;
+    padding: 30px;
+    list-style-type: none;
+    border-radius: 10px;
+    background-color: #F8F4F0;
 }
 
 .field {
@@ -40,7 +44,7 @@
     display: block;
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #ff6700;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -48,7 +52,7 @@
 }
 
 .saveButton:hover {
-    background-color: #0056b3;
+    background-color: #ef5400;
 }
 .edit{
     margin-left: 20px;

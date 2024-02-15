@@ -2,10 +2,13 @@ import s from "../src/styles/bio.module.css";
 import {useEffect, useState} from "react";
 import {useRouter} from 'next/router'
 import {getImage} from "./utils.js";
+import Edit from "../src/pages/Profile/edit.js";
 
 const Bio = () => {
     const [user, setUser] = useState([])
     const [icon, setIcon] = useState("")
+    const [isEditMode, setIsEditMode] = useState(false)
+
     const router = useRouter();
 
 
@@ -15,8 +18,8 @@ const Bio = () => {
 
     const handleEditClick = () => {
         // router.push('./edit');
-        console.log("onclick")
-        router.push('/Profile/edit');
+        // router.push('/Profile/edit');
+        setIsEditMode(true)
     };
 
 
@@ -42,7 +45,7 @@ const Bio = () => {
 
     return (
         <>
-            {user && (
+            {!isEditMode && user && (
                 <div className={s.frame} key={user.id}>
                     <div className={s.iconNidNname}>
                         <img
@@ -68,6 +71,10 @@ const Bio = () => {
                         </div>
                     </div>
                 </div>
+            )}
+
+            {isEditMode && (
+                <Edit />
             )}
         </>
     );
