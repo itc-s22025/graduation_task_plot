@@ -53,10 +53,11 @@ import s from '../../styles/edit.module.css';
                         body: JSON.stringify({userId: user.id, newIcon: newIcon, newBio: newBio}),
                     });
                     if (response.ok) {
-                    router.push({
-                        pathname: '/Profile',
-                        query: {user: JSON.stringify({...user, icon: newIcon, bio: newBio}) },
-                    });
+                    // router.push({
+                    //     pathname: '/Profile',
+                    //     query: {user: JSON.stringify({...user, icon: newIcon, bio: newBio}) },
+                    // });
+                    window.location.href = '/Profile'
                 } else {
                     console.error('Failed to update profile data');
                 }
@@ -93,7 +94,7 @@ import s from '../../styles/edit.module.css';
                             placeholder="Enter your bio..."
                         />
                     </div>
-                    <button onClick={handleSave}>Save</button>
+                    <button onClick={handleSave} className={s.saveButton}>Save</button>
                 </div>
             );
         };
