@@ -76,6 +76,17 @@ const FemalePost = () => {
                         <p className={s.userId}>@{post.user.userName}</p>
                     </div>
                     <p className={s.content} onClick={() => handlePostItemClick(post)}>{post.text}</p>
+                    {post.menu && (
+                        <div className={s.dumbbell}>
+                            <p className={s.menu}>{post.menu}</p>
+                            {post.time && (
+                                <div className={s.timeNtimeUnit}>
+                                    <p className={s.time}>{post.time}</p>
+                                    <p className={s.timeUnit}>{post.timeUnit}</p>
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
             </div>
             <div className={s.likeNrp}>
@@ -111,6 +122,17 @@ const FemalePost = () => {
                                     <p className={s.selectedUserId}>@{selectedPost.user.userName}</p>
                                 </div>
                                 <p className={s.selectedContent}>{selectedPost.text}</p>
+                                {selectedPost.menu && (
+                                    <div className={s.dumbbell}>
+                                        <p className={s.menu}>{selectedPost.menu}</p>
+                                        {selectedPost.time && (
+                                            <div className={s.timeNtimeUnit}>
+                                                <p className={s.time}>{selectedPost.time}</p>
+                                                <p className={s.timeUnit}>{selectedPost.timeUnit}</p>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         </div>
                         <div className={s.likeNrp}>

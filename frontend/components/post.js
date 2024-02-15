@@ -72,11 +72,22 @@ const Post = () => {
                                     <p className={s.selectedUserId}>@{selectedPost.user.userName}</p>
                                 </div>
                                 <p className={s.selectedContent}>{selectedPost.text}</p>
+                                {selectedPost.menu && (
+                                    <div className={s.dumbbell}>
+                                        <p className={s.menu}>{selectedPost.menu}</p>
+                                        {selectedPost.time && (
+                                            <div className={s.timeNtimeUnit}>
+                                                <p className={s.time}>{selectedPost.time}</p>
+                                                <p className={s.timeUnit}>{selectedPost.timeUnit}</p>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         </div>
                         <div className={s.likeNrp}>
-                    <span className={s.selectedLike}
-                          onClick={() => handleLikeClick(selectedPost.id)}>♡ {likecount[selectedPost.id] || 0} </span>
+                            <span className={s.selectedLike}
+                                  onClick={() => handleLikeClick(selectedPost.id)}>♡ {likecount[selectedPost.id] || 0} </span>
                             <span className={s.selectedRepost}
                                   onClick={() => handleRpClick(selectedPost.id)}>☆ {rpcount[selectedPost.id] || 0} </span>
                         </div>
