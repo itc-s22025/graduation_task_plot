@@ -10,6 +10,9 @@ function Post() {
     const [inMenuVisible, setIsMenuVisible] = useState(false);
     //userデータ反映
     const [name, setName] = useState('')
+    const [menu, setMenu] = useState('')
+    const [time, setTime] = useState()
+    const [timeUnit, setTimeUnit] = useState('')
 
     const inputRef = useRef(null);
 
@@ -46,6 +49,7 @@ function Post() {
         }
     };
 
+
     const handleImageSelect = (event) => {
         const files = event.target.files;
 
@@ -65,7 +69,7 @@ function Post() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    text: tweet, image: selectedImage,
+                    text: tweet, image: selectedImage, menu: menu, time: time, timeUnit: timeUnit
                 })
             })
             if (res.status === 201) {
@@ -126,15 +130,33 @@ function Post() {
                                 <textarea
                                     className={s.trainingmenu}
                                     placeholder="Training Menu..."
+                                    value={menu}
+                                    onChange={(e) => setMenu(e.target.value)}
                                 />
                                 <div className={s.menu_container}>
-                                    <select className={s.number}>
+                                    <select className={s.number} value={time}
+                                            onChange={(e) => setTime(parseInt(e.target.value))}>
                                         <option>num</option>
+                                        <option>1</option>
+                                        <option>5</option>
+                                        <option>10</option>
                                         <option>15</option>
+                                        <option>20</option>
+                                        <option>25</option>
+                                        <option>30</option>
+                                        <option>35</option>
+                                        <option>40</option>
+                                        <option>45</option>
+                                        <option>50</option>
+                                        <option>55</option>
+                                        <option>60</option>
                                     </select>
-                                    <select className={s.time}>
+                                    <select className={s.time} value={timeUnit}
+                                            onChange={(e) => setTimeUnit(e.target.value)}>
+                                        <option>unit</option>
                                         <option>times</option>
-                                        <option>minute</option>
+                                        <option>seconds</option>
+                                        <option>minutes</option>
                                     </select>
                                     <textarea
                                         className={s.add_trainingmenu}
@@ -147,14 +169,14 @@ function Post() {
 
                         {selectedImage ? (
                             <div className={s.imageContainer}>
-                                <img src={selectedImage} alt="Selected Image" className={s.selectedImage} />
+                                <img src={selectedImage} alt="Selected Image" className={s.selectedImage}/>
                                 <div className={s.removeButton} onClick={handleRemoveImage}>
-                                    <img src='/images/crossline.png' className={s.cross} />
+                                    <img src='/images/crossline.png' className={s.cross}/>
                                 </div>
                             </div>
                         ) : (
-                             <SquarePhotoCard img src="" alt={name} />
-                         )}
+                            <SquarePhotoCard img src="" alt={name}/>
+                        )}
 
                         <div className={s.button}>
                             <button className={s.cancel} onClick={handleRemovePost}>Cancel</button>
