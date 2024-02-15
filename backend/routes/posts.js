@@ -99,6 +99,10 @@ router.post("/create", [
         await prisma.post.create({
             data: {
                 text: req.body.text,
+                image: req.body.image,
+                menu: req.body.menu,
+                time: req.body.time,
+                timeUnit: req.body.timeUnit,
                 userId: +req.user.id
             }
         });

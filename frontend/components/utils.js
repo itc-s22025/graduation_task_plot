@@ -107,6 +107,17 @@ export const generatePostItems = (posts, handleLikeClick, likecount, rpcount, ha
                         <p className={s.userId}>@{post.user.userName}</p>
                     </div>
                     <p className={s.content} onClick={() => handlePostItemClick(post)}>{post.text}</p>
+                    {post.menu && (
+                        <div className={s.dumbbell}>
+                            <p className={s.menu}>{post.menu}</p>
+                            {post.time && (
+                                <div className={s.timeNtimeUnit}>
+                                    <p className={s.time}>{post.time}</p>
+                                    <p className={s.timeUnit}>{post.timeUnit}</p>
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
             </div>
             <div className={s.likeNrp}>

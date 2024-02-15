@@ -80,10 +80,21 @@ const OthersBioBar = () => {
                         <p className={s.userId}>@{user.userName}</p>
                     </div>
                     <p className={s.content}>{post.text}</p>
+                    {post.menu && (
+                        <div className={s.dumbbell}>
+                            <p className={s.menu}>{post.menu}</p>
+                            {post.time && (
+                                <div className={s.timeNtimeUnit}>
+                                    <p className={s.time}>{post.time}</p>
+                                    <p className={s.timeUnit}>{post.timeUnit}</p>
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
             </div>
             <div className={s.likeNrp}>
-                <span className={s.like} onClick={() => handleLikeClick(post.id)}>♡ {likecount[post.id] || 0} </span>
+                <span className={s.like} onClick={() => handleLikeClickWrapper(post.id)}>♡ {likecount[post.id] || 0} </span>
                 <span className={s.repost} onClick={() => handleRpClick(post.id)}>☆ {rpcount[post.id] || 0} </span>
             </div>
         </li>

@@ -63,6 +63,17 @@ const BioBar = () => {
                         <p className={s.userId}>@{user.userName}</p>
                     </div>
                     <p className={s.content}>{post.text}</p>
+                    {post.menu && (
+                        <div className={s.dumbbell}>
+                            <p className={s.menu}>{post.menu}</p>
+                            {post.time && (
+                                <div className={s.timeNtimeUnit}>
+                                    <p className={s.time}>{post.time}</p>
+                                    <p className={s.timeUnit}>{post.timeUnit}</p>
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
             </div>
             <div className={s.likeNrp}>
