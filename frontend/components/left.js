@@ -25,7 +25,7 @@ const Nav = () => {
                          width={38}
                          className={s.icon}/>
                     <Link href="/Profile" legacyBehavior>
-                        <a>Index</a>
+                        <a>Profile</a>
                     </Link>
                 </li>
 
