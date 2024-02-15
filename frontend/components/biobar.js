@@ -77,11 +77,12 @@ const BioBar = () => {
                 </div>
             </div>
             <div className={s.likeNrp}>
-                <span className={s.like} onClick={() => handleLikeClickWrapper(post.id)}>♡ {likecount[post.id] || 0} </span>
+                <span className={s.like}
+                      onClick={() => handleLikeClickWrapper(post.id)}>♡ {likecount[post.id] || 0} </span>
                 <span className={s.repost} onClick={() => handleRpClick(post.id)}>☆ {rpcount[post.id] || 0} </span>
             </div>
         </li>
-    );
+    )
 
 
     return (

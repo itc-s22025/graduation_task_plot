@@ -5,6 +5,7 @@ const Logo = () => {
     return (
         <>
             <Link href="/Post" className={s.bg}>
+
                 <p className={s.pl}>＋</p>
                 <img src="/Mascle.png"
                       alt="icon"

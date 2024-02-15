@@ -145,4 +145,17 @@ router.get("/gender/female", async (req,res, next) => {
     }
 })
 
-module.exports = router;
+ async function updateUser(id, newData) {
+  try {
+    const updateUser = await prisma.user.update({
+      where: {id},
+      data: newData,
+    });
+    return updateUser;
+  } catch (error) {
+    console.error('Error updating user data:', error);
+    throw new Error('Failed to update user data');
+  }
+}
+
+module.exports = {router, updateUser};

@@ -2,7 +2,6 @@ import s from "../src/styles/post.module.css"
 import {useState, useEffect} from "react";
 import {fetchAllPosts, fetchMyName, onUserClick, handleLikeClick, generatePostItems} from "./utils.js";
 
-
 const Post = () => {
     const [posts, setPosts] = useState([]);
     const [myName, setMyName] = useState("");

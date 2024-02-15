@@ -61,6 +61,7 @@ const Home = () => {
         filterCheck()
     }, []);
 
+
     return (
         <>
             <Header title="HOME" />
@@ -70,7 +71,7 @@ const Home = () => {
             {displayFemalePost && <FemalePost/>}
             {/*<Post />*/}
         </>
-    )
-}
+    );
+};
 
 export default Home

@@ -45,6 +45,8 @@ router.get("/all", async (req, res, next) => {
     }
 });
 
+router.put('/updateProfile', require('../pages/api/updateProfile'));
+
 //male
 router.get("/male", async (req, res, next) => {
     try {
@@ -121,4 +123,5 @@ router.get("/create", async (req, res, next) => {
         res.status(500).json({msg: error.msg});
     }
 })
+
 module.exports = router;
