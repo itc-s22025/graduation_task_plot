@@ -1,66 +1,110 @@
-//一旦Othersページ　時間があればこれ消してProfileページだけでできるようにする
-
 import s from "../styles/bio.module.css";
-import {useEffect, useState} from "react";
-import {useRouter} from "next/router";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Header from "../../components/header.js";
 import FrameLayout from "../../components/frameLayout.js";
 import OthersBioBar from "../../components/othersBioBar.js";
+import { getUserData } from "../../components/utils.js";
 
 const Other = () => {
-    const router = useRouter()
+    const router = useRouter();
 
-    const [user, setUser] = useState([])
-    const [icon, setIcon] = useState("")
+    const [user, setUser] = useState([]);
+    const [myId, setMyId] = useState();
+    const [isFollowing, setIsFollowing] = useState(false);
 
     useEffect(() => {
-        console.log("query:", router.query)
-        fetchDeta()
+        fetchUserData();
     }, []);
 
-    const fetchDeta = async () => {
+    const fetchUserData = async () => {
         try {
-            const res = await fetch(`http://localhost:3002/users/${router.query.userName}`, {
-                method: 'GET',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            }).then(
-                response => response.json()
-            ).then(
-                data => {
-                    console.log("BIODATA---", data.user)
-                    setUser(data.user)
+            const userData = await getUserData();
+            setMyId(userData.id);
+
+            const res = await fetch(
+                `http://localhost:3002/users/${router.query.userName}`,
+                {
+                    method: "GET",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
                 }
-            )
-        } catch (e) {
-            console.error(e)
+            );
+            const data = await res.json();
+            setUser(data.user);
+            checkIfFollowing(userData.id, data.user.id);
+        } catch (error) {
+            console.error(error);
         }
-    }
+    };
+
+    const checkIfFollowing = async (followerId, followeeId) => {
+        try {
+            const res = await fetch(
+                `http://localhost:3002/users/${followerId}/follow/${followeeId}`,
+                {
+                    method: "GET",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            setIsFollowing(res.status === 200);
+        } catch (error) {
+            console.error("Error checking follow status:", error);
+        }
+    };
+
+    const handleFollow = async () => {
+        try {
+            const res = await fetch(
+                `http://localhost:3002/users/${myId}/follow/${user.id}`,
+                {
+                    method: "POST",
+                    credentials: "include",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        follower_id: myId,
+                        followee_id: user.id,
+                    }),
+                }
+            );
+            if (res.status === 201) {
+                setIsFollowing(true);
+                console.log("Follow successful");
+            } else {
+                console.log("Failed to follow user");
+            }
+        } catch (error) {
+            console.error("Error following user:", error);
+        }
+    };
 
     const getImage = (data) => {
-        return ('https://i.imgur.com/' + data + 's.jpg');
-    }
+        return "https://i.imgur.com/" + data + "s.jpg";
+    };
 
-    return(
+    return (
         <>
-            <Header title={user.userName}/>
-            <FrameLayout/>
+            <Header title={user.userName} />
+            <FrameLayout />
 
             <div className={s.frame} key={user.id}>
                 <div className={s.iconNidNname}>
-                    <img
-                        src={getImage(icon)}
-                        alt={user.userName}
-                        className={s.icon}
-                    />
+                    <img src={getImage(user.icon)} alt={user.userName} className={s.icon} />
 
                     <div>
                         <div className={s.nameNidNfosNfollow}>
                             <div className={s.nameNidNfos}>
                                 <div className={s.nameNid}>
-                                    <p className={s.userName}><b>{user.name}</b></p>
+                                    <p className={s.userName}>
+                                        <b>{user.name}</b>
+                                    </p>
                                     <p className={s.userId}>@{user.userName}</p>
                                 </div>
                                 <div className={s.foNwer}>
@@ -68,7 +112,7 @@ const Other = () => {
                                     <p className={s.follower}>34 Follower</p>
                                 </div>
                             </div>
-                            <p className={s.edit}> Follow</p>
+                            {!isFollowing && <p className={s.edit} onClick={handleFollow}>Follow</p>}
                         </div>
                         <p className={s.content}>{user.bio}</p>
                     </div>
@@ -77,7 +121,7 @@ const Other = () => {
 
             <OthersBioBar />
         </>
-    )
-}
+    );
+};
 
-export default Other
+export default Other;

@@ -10,8 +10,8 @@ datasource db {
 }
 
 model User {
-  id         Int      @id @default(autoincrement())
-  userName   String   @unique @db.VarChar(64)
+  id         Int       @id @default(autoincrement())
+  userName   String    @unique @db.VarChar(64)
   name       String
   password   Bytes
   salt       Bytes
@@ -20,11 +20,12 @@ model User {
   bYear      Int
   filter     Boolean
   profileImg String?
-  bio        String   @default("Hello, Guys! Let's work out with me!") @db.VarChar(300)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  bio        String    @default("Hello, Guys! Let's work out with me!") @db.VarChar(300)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
   post       Post[]
   likes      Likes[]
+  follows    Follows[]
 }
 
 model Post {
@@ -47,4 +48,12 @@ model Likes {
   userId Int
   post   Post @relation(fields: [postId], references: [id])
   postId Int
+}
+
+model Follows {
+  id          Int   @id @default(autoincrement())
+  follower_id Int
+  followee_id Int
+  User        User? @relation(fields: [userId], references: [id])
+  userId      Int?
 }

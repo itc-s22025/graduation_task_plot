@@ -125,7 +125,6 @@ router.get('/:uid', async (req, res, next) => {
     })
     res.json({user})
 })
-
 router.get("/gender/female", async (req,res, next) => {
     try {
         const FemaleUsers = await prisma.user.findMany({
@@ -144,9 +143,8 @@ router.get("/gender/female", async (req,res, next) => {
         res.status(500).json({msg: error.msg});
     }
 })
-
- async function updateUser(id, newData) {
-  try {
+async function updateUser(id, newData) {
+     try {
     const updateUser = await prisma.user.update({
       where: {id},
       data: newData,
@@ -156,6 +154,25 @@ router.get("/gender/female", async (req,res, next) => {
     console.error('Error updating user data:', error);
     throw new Error('Failed to update user data');
   }
+
 }
+// ユーザーをフォローするエンドポイント
+
+router.post('/users/:followerId/follow/:followeeId', async (req, res) => {
+    const { followerId, followeeId } = req.params;
+    try {
+        // フォローを作成する
+        await prisma.follows.create({
+            data: {
+                follower_id: parseInt(followerId),
+                followee_id: parseInt(followeeId)
+            }
+        });
+        return res.status(201).json({ message: 'Successfully followed user' });
+    } catch (error) {
+        console.error('Error following user:', error);
+        return res.status(500).json({ error: 'Failed to follow user' });
+    }
+});
 
 module.exports = {router, updateUser};
