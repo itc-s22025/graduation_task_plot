@@ -1,51 +1,44 @@
 import s from "../src/styles/bio.module.css";
 import {useEffect, useState} from "react";
 import {useRouter} from 'next/router'
+import {getImage} from "./utils.js";
 
 const Bio = () => {
     const [user, setUser] = useState([])
     const [icon, setIcon] = useState("")
-    const [name, setName] = useState("")
-    const [userName, setUserName] = useState("")
-    const [bio, setBio] = useState("")
     const router = useRouter();
 
+
     useEffect(() => {
-        const fetchDeta = async () => {
-            // 'http://localhost:3002/profile/1'
-            try {
-                const res = await fetch("http://localhost:3002/users/signin", {
-                    method: 'GET',
-                    credentials: 'include',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                }).then(
-                    response => response.json()
-                ).then(
-                    data => {
-                        console.log("BIODATA---", data.user)
-                        setUser(data.user)
-                    }
-                )
-            } catch (e) {
-                console.error(e)
-            }
-        }
         fetchDeta()
     }, []);
-
-
-    const getImage = (data) => {
-        return ('https://i.imgur.com/' + data + 's.jpg');
-    }
 
     const handleEditClick = () => {
         // router.push('./edit');
         console.log("onclick")
-        // window.location.href = "/Profile/edit"
         router.push('/Profile/edit');
     };
+
+
+    const fetchDeta = async () => {
+        try {
+            const res = await fetch("http://localhost:3002/users/signin", {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then(
+                response => response.json()
+            ).then(
+                data => {
+                    setUser(data.user)
+                }
+            )
+        } catch (e) {
+            console.error(e)
+        }
+    }
 
     return (
         <>
@@ -57,7 +50,6 @@ const Bio = () => {
                             alt={user.userName}
                             className={s.icon}
                         />
-
                         <div>
                             <div className={s.nameNidNfosNfollow}>
                                 <div className={s.nameNidNfos}>
@@ -76,10 +68,8 @@ const Bio = () => {
                         </div>
                     </div>
                 </div>
-
-                )}
+            )}
         </>
     );
 }
-
 export default Bio

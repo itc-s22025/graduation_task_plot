@@ -15,16 +15,16 @@ const SquarePhotoCard = (props: PropsType2) => {
     const { src, altText, imgWrapperStyle, imgStyle } = props;
 
         const defaultStyle = {
-        width: "50px",
-        height: "50px",
-        border: "none",
+        width: "60px",
+        height: "62px",
+        border: "1px solid #ccc",
         position: "absolute",
-        top: "18px",
-        left: "10px",
+        top: "20px",
+        left: "20px",
         bottom: "150px",
-        borderRadius: "8px",
+        borderRadius: "100%",
         cursor: "pointer",
-        objectFit: "cover",
+        // objectFit: "cover",
     } as CSSProperties;
 
     return (

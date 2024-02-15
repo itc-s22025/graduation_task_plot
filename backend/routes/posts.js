@@ -7,8 +7,8 @@ const prisma = new PrismaClient();
 
 // ログインしてるか　してなかったら他のデータ取れない
 router.use((req, res, next) => {
-    if (!req.user){
-        res.status(400).json({message: "ログインしてないです"});
+    if (!req.user) {
+        res.status(400).json({message: "ログインしてないですけど"});
         return
     }
     next();
@@ -19,29 +19,15 @@ router.get("/check", (req, res, next) => {
 // ここまで
 
 
-//userデータ取得
-router.get("/user", async (req, res, next) => {
-    try {
-        const user = await prisma.user.findUnique({
-            where: {
-                id: +req.user.id
-            },
-            include: {
-                post: true
-            }
-        });
-        res.json({user})
-    }catch (e) {
-        console.log(e)
-    } finally {
-        await prisma.$disconnect();
-    }
-})
-
 //直近データ取得
 router.get("/all", async (req, res, next) => {
     try {
         const latestPosts = await prisma.post.findMany({
+            where:{
+              user:{
+                  filter: false
+              }
+            },
             orderBy: {
                 updatedAt: 'desc'
             },
@@ -61,5 +47,81 @@ router.get("/all", async (req, res, next) => {
 
 router.put('/updateProfile', require('../pages/api/updateProfile'));
 
+//male
+router.get("/male", async (req, res, next) => {
+    try {
+        const MaleUsersPosts = await prisma.post.findMany({
+            where: {
+                user: {
+                    gender: "Male"
+                }
+            },
+            orderBy: {updatedAt: 'desc'},
+            include: {
+                user:true
+            }
+        });
+        res.json({MaleUsersPosts})
+    } catch (error) {
+        res.status(500).json({msg: error.msg});
+    }
+})
+
+//female
+router.get("/female", async (req, res, next) => {
+    try {
+        const FemaleUsersPosts = await prisma.post.findMany({
+            where: {
+                user: {
+                    gender: "Female"
+                }
+            },
+            orderBy: {updatedAt: 'desc'},
+            include: {
+                user:true
+            }
+        });
+        res.json({FemaleUsersPosts})
+    } catch (error) {
+        res.status(500).json({msg: error.msg});
+    }
+})
+
+router.post("/create", [
+    check("text").notEmpty()
+], async (req, res, next) => {
+    try {
+        const result = validationResult(req)
+        if (!result.isEmpty()) {
+            const errors = result.array();
+            console.log(errors)
+            return res.status(400).json({message: errors});
+        }
+        // const {text} = req.body;
+        await prisma.post.create({
+            data: {
+                text: req.body.text,
+                image: req.body.image,
+                menu: req.body.menu,
+                time: req.body.time,
+                timeUnit: req.body.timeUnit,
+                userId: +req.user.id
+            }
+        });
+        res.status(201).json({message: "createできたよ〜"})
+    } catch (e) {
+        console.error(e)
+    }
+})
+
+//表示　とりあえず
+router.get("/create", async (req, res, next) => {
+    try {
+        const users = await prisma.post.findMany();
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({msg: error.msg});
+    }
+})
 
 module.exports = router;
