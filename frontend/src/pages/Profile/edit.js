@@ -65,6 +65,11 @@ import s from '../../styles/edit.module.css';
                     console.error('Error updating profile data:', error);
                 }
             };
+
+        const handleCancel = () => {
+            window.location.href = '/Profile'
+        }
+
             console.log('New Icon:', newIcon);
             console.log('New Bio:', newBio);
             return (
@@ -94,7 +99,10 @@ import s from '../../styles/edit.module.css';
                             placeholder="Enter your bio..."
                         />
                     </div>
-                    <button onClick={handleSave} className={s.saveButton}>Save</button>
+                    <div className={s.ButtonFlex}>
+                        <button onClick={handleCancel} className={s.cancelButton}>Cancel</button>
+                        <button onClick={handleSave} className={s.saveButton}>Save</button>
+                    </div>
                 </div>
             );
         };
