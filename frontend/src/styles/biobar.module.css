@@ -1,4 +1,4 @@
-.all{
+.all {
     display: flex;
     list-style-type: none;
     width: 800px;
@@ -7,7 +7,7 @@
     background-color: #F8F4F0;
 }
 
-.box{
+.box {
     border: #fff solid 1px;
     width: 34%;
     height: 50px;
@@ -18,17 +18,17 @@
     padding-top: 5px;
 }
 
-.box:hover{
+.box:hover {
     /*background-color: rgba(255, 99, 0, 0.76);*/
     /*color: #F8F4F0;*/
 }
 
-.box:focus{
+.box:focus {
     background-color: #ff6700;
     color: #F8F4F0;
 }
 
-.frame{
+.frame {
     border: solid 1px #aaa;
     width: 700px;
     min-height: 100px;
@@ -42,15 +42,15 @@
     background-color: #FFFFFF;
 }
 
-.iconNidNname{
+.iconNidNname {
     display: flex;
 }
 
-.nameNidNconNlike{
+.nameNidNconNlike {
     display: flex;
 }
 
-.icon{
+.icon {
     width: 50px;
     height: 52px;
     margin-left: 10px;
@@ -58,17 +58,17 @@
     border-radius: 100%;
 }
 
-.userName{
+.userName {
     margin-left: 10px;
 }
 
-.userId{
+.userId {
     color: #666666;
     font-size: 0.8rem;
     margin-left: 10px;
 }
 
-.content{
+.content {
     /*border: 1px solid #ccc;*/
     width: 480px;
     max-height: 350px;
@@ -76,7 +76,53 @@
     margin-left: 10px;
 }
 
-.likeNrp{
+.dumbbell {
+    border-radius: 5px;
+    height: 40px;
+    width: 580px;
+    margin-top: 15px;
+    margin-left: 5px;
+    padding-top: 4px;
+    padding-left: 5px;
+    background-color: #F8F4F0;
+    display: flex;
+}
+
+.menu {
+    /*border: 1px solid;*/
+    padding-top: 2px;
+    height: 1.8rem;
+    width: 300px;
+    margin-left: 20px;
+    color: #6e665c;
+}
+
+.timeNtimeUnit{
+    display: flex;
+}
+
+.time {
+    /*border: 1px solid;*/
+    border-radius: 5px;
+    height: 1.5rem;
+    width: 50px;
+    text-align: center;
+    margin-top: 3px;
+    background-color: #FFFFFF;
+    margin-left: 100px;
+    color: #6e665c;
+}
+
+.timeUnit {
+    /*border: 1px solid;*/
+    padding-top: 2px;
+    height: 1.8rem;
+    width: 100px;
+    margin-left: 10px;
+    color: #6e665c;
+}
+
+.likeNrp {
     padding-top: 0px;
     height: 100%;
     width: 90%;
@@ -85,12 +131,12 @@
     margin-left: 30px;
 }
 
-.like{
+.like {
     margin-left: 40px;
     color: #EE6E18;
 }
 
-.repost{
+.repost {
     margin-left: 40px;
     color: #4a93a0;
 }

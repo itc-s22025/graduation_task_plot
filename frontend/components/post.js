@@ -7,6 +7,7 @@ const Post = () => {
     const [posts, setPosts] = useState([]);
     const [myName, setMyName] = useState("");
     const [selectedPost, setSelectedPost] = useState(null); //追加
+    const [hasMenu, setHasMenu] = useState(null) //メニューあれば
     const [likecount, setLikecount] = useState({});
     const [rpcount, setRpcount] = useState({});
 
@@ -40,6 +41,10 @@ const Post = () => {
     const handlePostItemClick = (post) => {
         setSelectedPost(post);
     };
+
+    const handleHasMenu = (menu) => {
+        setHasMenu(menu)
+    }
 
     const postItems = generatePostItems(posts, handleLikeClickWrapper, likecount, rpcount, handleRpClick, handlePostItemClick, onUserClick, myName, s);
 
