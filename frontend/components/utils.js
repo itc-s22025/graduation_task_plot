@@ -77,7 +77,19 @@ export const fetchMyName = async () => {
 };
 
 
-export const handleLikeClick = (postId, likecount, setLikecount) => {
+export const handleLikeClick = async (postId, likecount, setLikecount) => {
+    try {
+        const response = await fetch(`http://localhost:3002/posts/like`, {
+            method: 'POST',
+            credentials: "include",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                postId: postId,
+            }),
+        });
+
     if (!likecount[postId]) {
         setLikecount((prevCounts) => ({
             ...prevCounts,
@@ -89,7 +101,13 @@ export const handleLikeClick = (postId, likecount, setLikecount) => {
             [postId]: 0,
         }));
     }
+        const data = await response.json();
+        console.log(data.message);
+    } catch (error) {
+        console.error('Error:', error);
+    }
 };
+
 
 export const generatePostItems = (posts, handleLikeClick, likecount, rpcount, handleRpClick, handlePostItemClick, onUserClick, myName, s) => {
     return posts.map(post =>

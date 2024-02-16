@@ -51,7 +51,7 @@ const SignIn = () => {
                         <input
                             type="password"
                             minLength="4"
-                            placeholder="ChangePwd"
+                            placeholder="Password"
                             required
                             className={s.box}
                             value={password}

@@ -124,4 +124,41 @@ router.get("/create", async (req, res, next) => {
     }
 })
 
+// いいねの追加または削除のエンドポイント
+router.post("/like", async (req, res, next) => {
+    const { postId } = req.body;
+    const userId = req.user.id;
+    try {
+        // いいねが既に存在するかチェック
+        const existingLike = await prisma.likes.findFirst({
+            where: {
+                userId: userId,
+                postId: postId,
+            },
+        });
+        if (existingLike) {
+            // いいねが既に存在する場合は削除
+            await prisma.likes.delete({
+                where: {
+                    id: existingLike.id,
+                },
+            });
+            res.status(200).json({ message: 'いいねを取り消しました。' });
+        } else {
+            // いいねが存在しない場合は追加
+            await prisma.likes.create({
+                data: {
+                    userId: userId,
+                    postId: postId,
+                },
+            });
+            res.status(201).json({ message: 'いいねを追加しました。' });
+        }
+    } catch (error) {
+        console.error('エラー:', error);
+        res.status(500).json({ message: 'サーバーエラーが発生しました。' });
+    }
+});
+
+
 module.exports = router;

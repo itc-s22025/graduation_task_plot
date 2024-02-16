@@ -4,7 +4,7 @@ import s from '../src/styles/biobar.module.css'
 import {useEffect, useState} from "react";
 import {Tab, Tabs, TabList, TabPanel} from "react-tabs";
 import {useRouter} from "next/router";
-import {getImage} from "./utils.js";
+import {getImage, handleLikeClick} from "./utils.js";
 
 
 const OthersBioBar = () => {
@@ -19,18 +19,8 @@ const OthersBioBar = () => {
         fetchData()
     }, []);
 
-    const handleLikeClick = (postId) => {
-        if (!likecount[postId]) {
-            setLikecount((prevCounts) => ({
-                ...prevCounts,
-                [postId]: (prevCounts[postId] || 0) + 1
-            }));
-        } else {
-            setLikecount((prevCounts) => ({
-                ...prevCounts,
-                [postId]: 0,
-            }));
-        }
+    const handleLikeClickWrapper = async (postId) => {
+        await handleLikeClick(postId, likecount, setLikecount);
     };
 
     const handleRpClick = (post) => {
