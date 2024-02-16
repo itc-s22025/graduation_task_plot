@@ -128,7 +128,7 @@
         position: relative;
         margin-right: 550px;
         top: -260px;
-        left: 80px;
+        left: 50px;
         cursor: pointer;
         z-index: 1;
 }
@@ -206,6 +206,6 @@
         width: 25px;
         height: 25px;
         position: relative;
-        bottom: 43px;
-        left: 330px;
+        bottom: 13px;
+        left: -50px;
 }
