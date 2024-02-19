@@ -7,7 +7,7 @@ export const getImage = (data) => {
 
 export const onUserClick = async (userName, myName) => {
     try {
-        const res = await fetch(`http://localhost:3002/users/${userName}`, {
+        const res = await fetch(`http://${location.hostname}:3002/users/${userName}`, {
             method: 'GET',
             credentials: "include"
         }).then(
@@ -33,7 +33,7 @@ export const onUserClick = async (userName, myName) => {
 
 export const fetchAllPosts = async () => {
     try {
-        const res = await fetch("http://localhost:3002/posts/all", {
+        const res = await fetch(`http://${location.hostname}:3002/posts/all`, {
             method: 'GET',
             credentials: 'include',
             headers: {
@@ -56,7 +56,7 @@ export const fetchAllPosts = async () => {
 
 export const fetchMyName = async () => {
     try {
-        const res = await fetch("http://localhost:3002/users/signin", {
+        const res = await fetch(`http://${location.hostname}:3002/users/signin`, {
             method: 'GET',
             credentials: 'include',
             headers: {
@@ -79,7 +79,7 @@ export const fetchMyName = async () => {
 
 export const handleLikeClick = async (postId, likecount, setLikecount) => {
     try {
-        const response = await fetch(`http://localhost:3002/posts/like`, {
+        const response = await fetch(`http://${location.hostname}:3002/posts/like`, {
             method: 'POST',
             credentials: "include",
             headers: {
@@ -90,7 +90,7 @@ export const handleLikeClick = async (postId, likecount, setLikecount) => {
             }),
         });
 
-    if (!likecount[postId]) {
+    if (!likecount[postId] || likecount[postId] === 0) {
         setLikecount((prevCounts) => ({
             ...prevCounts,
             [postId]: (prevCounts[postId] || 0) + 1
@@ -98,7 +98,7 @@ export const handleLikeClick = async (postId, likecount, setLikecount) => {
     } else {
         setLikecount((prevCounts) => ({
             ...prevCounts,
-            [postId]: 0,
+            [postId]: prevCounts[postId] - 1,
         }));
     }
         const data = await response.json();

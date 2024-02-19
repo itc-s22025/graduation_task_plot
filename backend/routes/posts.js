@@ -32,7 +32,8 @@ router.get("/all", async (req, res, next) => {
                 updatedAt: 'desc'
             },
             include: {
-                user: true
+                user: true,
+                likes: true
             },
             // take: 5,
         });
@@ -160,5 +161,20 @@ router.post("/like", async (req, res, next) => {
     }
 });
 
+//
+router.get("/likecount/:postId", async (req, res, next) => {
+    const { postId } = req.params;
+    try {
+        const likeCount = await prisma.likes.count({
+            where: {
+                postId: parseInt(postId),
+            },
+        });
+        res.status(200).json({ likeCount });
+    } catch (error) {
+        console.error('エラー:', error);
+        res.status(500).json({ message: 'サーバーエラーが発生しました。' });
+    }
+});
 
 module.exports = router;

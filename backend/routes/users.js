@@ -119,7 +119,10 @@ router.get('/:uid', async (req, res, next) => {
         },
         include: {
             post:  {
-                orderBy: {createdAt: 'desc'}
+                orderBy: {createdAt: 'desc'},
+                include:{
+                    likes: true
+                }
             }
         }
     })

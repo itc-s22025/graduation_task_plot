@@ -18,7 +18,7 @@ const Index = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const res = await fetch("http://localhost:3002/api/user", {
+                const res = await fetch(`http://${location.hostname}:3002/api/user`, {
                     method: 'GET',
                     credentials: 'include',
                     headers: {

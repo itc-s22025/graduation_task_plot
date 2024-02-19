@@ -19,7 +19,7 @@ const MalePost = () => {
 
     const fetchMalePosts = async () => {
         try {
-            const res = await fetch("http://localhost:3002/posts/male", {
+            const res = await fetch(`http://${location.hostname}:3002/posts/male`, {
                 method: 'GET',
                 credentials: 'include',
                 headers: {

@@ -31,7 +31,7 @@ const BioBar = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch("http://localhost:3002/users/signin", {
+                const res = await fetch(`http://${location.hostname}:3002/users/signin`, {
                     method: 'GET',
                     credentials: 'include',
                     headers: {

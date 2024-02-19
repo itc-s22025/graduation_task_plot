@@ -39,7 +39,7 @@ const OthersBioBar = () => {
 
     const fetchData = async () => {
         try {
-            const res = await fetch(`http://localhost:3002/users/${router.query.userName}`, {
+            const res = await fetch(`http://${location.hostname}:3002/users/${router.query.userName}`, {
                 method: 'GET',
                 credentials: 'include',
                 headers: {
@@ -49,9 +49,19 @@ const OthersBioBar = () => {
                 response => response.json()
             ).then(
                 data => {
-                    console.log("DATA:", data.user)
                     setPosts(data.user.post)
                     setUser(data.user)
+                    let likeCounts = 0;
+                    for (const post of data.user.post){
+                        if (post.likes.length > 0){
+                            likeCounts = likeCounts + 1
+                        }else {
+                            likeCounts = 0
+                        }
+                        console.log("COUNTRES", likeCounts)
+                    }
+                    setLikecount(likeCounts)
+                    console.log("a")
                 }
             )
         } catch (e) {
