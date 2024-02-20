@@ -40,10 +40,10 @@ const Other = () => {
         }
     };
 
-    const checkIfFollowing = async (followerId, followeeId) => {
+    const checkIfFollowing = async () => {
         try {
             const res = await fetch(
-                `http://${location.hostname}/users/follow`,
+                `http://${location.hostname}:3002/users/follow`,
                 {
                     method: "GET",
                     credentials: "include",
@@ -51,8 +51,9 @@ const Other = () => {
                         "Content-Type": "application/json",
                     },
                 }
+            ).then(
+                res => setIsFollowing(res.status === 200)
             );
-            setIsFollowing(res.status === 200);
         } catch (error) {
             console.error("Error checking follow status:", error);
         }
