@@ -43,17 +43,21 @@ model Post {
 }
 
 model Likes {
-  id     Int  @id @default(autoincrement())
-  user   User @relation(fields: [userId], references: [id])
-  userId Int
-  post   Post @relation(fields: [postId], references: [id])
-  postId Int
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Follows {
-  id          Int   @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   follower_id Int
   followee_id Int
-  User        User? @relation(fields: [userId], references: [id])
+  User        User?    @relation(fields: [userId], references: [id])
   userId      Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
