@@ -109,6 +109,38 @@ router.get("/logout", (req, res, next) => {
     res.json({message: "これが見れるならまだログインしてるよ", result: req.user.name});
 });
 
+// ユーザーをフォローするエンドポイント
+// router.post('/users/:followerId/follow/:followeeId', async (req, res, next) => {
+//     const { followerId, followeeId } = req.params;
+
+router.post('/follow', async (req, res, next) =>{
+    try {
+        // フォローを作成する
+        await prisma.follows.create({
+            data: {
+                follower_id: +req.body.follower_id,
+                followee_id: +req.body.followee_id
+            }
+        });
+        return res.status(201).json({ message: 'Successfully followed user' });
+    } catch (error) {
+        console.error('Error following user:', error);
+        return res.status(500).json({ error: 'Failed to follow user' });
+    }
+});
+
+router.get('/follow', async (req, res, next) => {
+    const followlist = await prisma.follows.findMany({
+        where: {
+            id: +req.user.id
+        },
+        orderBy:{
+            updatedAt: 'desc'
+        }
+    })
+    res.json({followlist})
+})
+
 
 //post内容とりあえず表示するだけ
 router.get('/:uid', async (req, res, next) => {
@@ -143,6 +175,7 @@ router.get("/gender/female", async (req,res, next) => {
         res.status(500).json({msg: error.msg});
     }
 })
+
 async function updateUser(id, newData) {
      try {
     const updateUser = await prisma.user.update({
@@ -156,23 +189,5 @@ async function updateUser(id, newData) {
   }
 
 }
-// ユーザーをフォローするエンドポイント
-
-router.post('/users/:followerId/follow/:followeeId', async (req, res) => {
-    const { followerId, followeeId } = req.params;
-    try {
-        // フォローを作成する
-        await prisma.follows.create({
-            data: {
-                follower_id: parseInt(followerId),
-                followee_id: parseInt(followeeId)
-            }
-        });
-        return res.status(201).json({ message: 'Successfully followed user' });
-    } catch (error) {
-        console.error('Error following user:', error);
-        return res.status(500).json({ error: 'Failed to follow user' });
-    }
-});
 
 module.exports = {router, updateUser};

@@ -43,7 +43,7 @@ const Other = () => {
     const checkIfFollowing = async (followerId, followeeId) => {
         try {
             const res = await fetch(
-                `http://localhost:3002/users/${followerId}/follow/${followeeId}`,
+                `http://localhost:3002/users/follow`,
                 {
                     method: "GET",
                     credentials: "include",
@@ -61,7 +61,7 @@ const Other = () => {
     const handleFollow = async () => {
         try {
             const res = await fetch(
-                `http://localhost:3002/users/${myId}/follow/${user.id}`,
+                `http://localhost:3002/users/follow`,
                 {
                     method: "POST",
                     credentials: "include",
@@ -113,6 +113,7 @@ const Other = () => {
                                 </div>
                             </div>
                             {!isFollowing && <p className={s.edit} onClick={handleFollow}>Follow</p>}
+                            {isFollowing && <p className={s.edit} onClick={handleFollow}>Following</p>}
                         </div>
                         <p className={s.content}>{user.bio}</p>
                     </div>
