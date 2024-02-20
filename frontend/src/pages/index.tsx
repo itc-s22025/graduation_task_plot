@@ -4,7 +4,8 @@ import SignIn from "./SignIn"
 const Home = () => {
     const check = async () => {
         try {
-            const res = await fetch("http://localhost:3002/users/check", {
+            console.dir(location)
+            const res = await fetch(`http://${location.hostname}:3002/users/check`, {
                 method: 'GET',
                 credentials: 'include',
             }).then(

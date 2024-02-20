@@ -22,7 +22,7 @@ function Post() {
 
     const getUserData = async () => {
         try {
-            const res = await fetch("http://localhost:3002/users/signin", {
+            const res = await fetch(`http://${location.hostname}:3002/users/signin`, {
                 method: "GET",
                 credentials: "include",
                 headers: {
@@ -62,7 +62,7 @@ function Post() {
 
     const handleTweetSubmit = async () => {
         try {
-            const res = await fetch("http://localhost:3002/posts/create", {
+            const res = await fetch(`http://${location.hostname}:3002/posts/create`, {
                 method: 'POST',
                 credentials: "include",
                 headers: {

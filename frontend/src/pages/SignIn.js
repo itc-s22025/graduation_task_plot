@@ -11,10 +11,12 @@ const SignIn = () => {
 
     const handleSubmit = async () => {
         try {
-            const res = await fetch("http://localhost:3002/users/signin", {
+            const res = await fetch(`http://${location.hostname}:3002/users/signin`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
+                    //これ
+                    // 'Host': '172.16.41.168: 3000',
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
@@ -51,7 +53,7 @@ const SignIn = () => {
                         <input
                             type="password"
                             minLength="4"
-                            placeholder="ChangePwd"
+                            placeholder="Password"
                             required
                             className={s.box}
                             value={password}

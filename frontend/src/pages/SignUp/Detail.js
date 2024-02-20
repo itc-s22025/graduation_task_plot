@@ -59,7 +59,7 @@ const Detail = () => {
     const handleSubmit = async () => {
         // ここで入力された値を利用して処理を行う（例：APIへの送信等）
         try {
-            const res = await fetch("http://localhost:3002/users/signup", {
+            const res = await fetch(`http://${location.hostname}:3002/users/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

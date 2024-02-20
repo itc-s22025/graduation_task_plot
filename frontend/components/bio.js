@@ -25,7 +25,7 @@ const Bio = () => {
 
     const fetchDeta = async () => {
         try {
-            const res = await fetch("http://localhost:3002/users/signin", {
+            const res = await fetch(`http://${location.hostname}:3002/users/signin`, {
                 method: 'GET',
                 credentials: 'include',
                 headers: {
@@ -49,7 +49,7 @@ const Bio = () => {
                 <div className={s.frame} key={user.id}>
                     <div className={s.iconNidNname}>
                         <img
-                            src={getImage(icon)}
+                            src="/フリーアイコン.png"
                             alt={user.userName}
                             className={s.icon}
                         />

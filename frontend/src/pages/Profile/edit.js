@@ -18,7 +18,7 @@ import s from '../../styles/edit.module.css';
         useEffect(() => {
             const fetchDeta = async () => {
                 try {
-                    const res = await fetch("http://localhost:3002/api/user", {
+                    const res = await fetch(`http://${location.hostname}:3002/api/user`, {
                         method: 'GET',
                         credentials: 'include',
                         headers: {
@@ -44,7 +44,7 @@ import s from '../../styles/edit.module.css';
 
         const handleSave = async () => {
             try {
-                const response = await fetch('http://localhost:3002/api/updateProfile', {
+                const response = await fetch(`http://${location.hostname}:3002/api/updateProfile`, {
                     method: 'PUT',
                     credentials: 'include',
                         headers: {
@@ -65,6 +65,11 @@ import s from '../../styles/edit.module.css';
                     console.error('Error updating profile data:', error);
                 }
             };
+
+        const handleCancel = () => {
+            window.location.href = '/Profile'
+        }
+
             console.log('New Icon:', newIcon);
             console.log('New Bio:', newBio);
             return (
@@ -94,7 +99,10 @@ import s from '../../styles/edit.module.css';
                             placeholder="Enter your bio..."
                         />
                     </div>
-                    <button onClick={handleSave} className={s.saveButton}>Save</button>
+                    <div className={s.ButtonFlex}>
+                        <button onClick={handleCancel} className={s.cancelButton}>Cancel</button>
+                        <button onClick={handleSave} className={s.saveButton}>Save</button>
+                    </div>
                 </div>
             );
         };

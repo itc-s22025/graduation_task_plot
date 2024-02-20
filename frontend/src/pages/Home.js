@@ -12,7 +12,7 @@ const Home = () => {
 
     const check = async () => {
         try {
-            const res = await fetch("http://localhost:3002/users/check", {
+            const res = await fetch(`http://${location.hostname}:3002/users/check`, {
                 method: 'GET',
                 credentials: 'include',
             }).then(
@@ -28,7 +28,7 @@ const Home = () => {
 
     const filterCheck = async () => {
         try {
-            const res = await fetch("http://localhost:3002/users/signin", {
+            const res = await fetch(`http://${location.hostname}:3002/users/signin`, {
                 method: "GET",
                 credentials: "include",
             }).then(
@@ -57,7 +57,7 @@ const Home = () => {
 
 
     useEffect(() => {
-        check()
+        // check()
         filterCheck()
     }, []);
 

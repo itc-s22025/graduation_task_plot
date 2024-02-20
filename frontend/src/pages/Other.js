@@ -23,7 +23,7 @@ const Other = () => {
             setMyId(userData.id);
 
             const res = await fetch(
-                `http://localhost:3002/users/${router.query.userName}`,
+                `http://${location.hostname}:3002/users/${router.query.userName}`,
                 {
                     method: "GET",
                     credentials: "include",
@@ -43,7 +43,7 @@ const Other = () => {
     const checkIfFollowing = async (followerId, followeeId) => {
         try {
             const res = await fetch(
-                `http://localhost:3002/users/follow`,
+                `http://${location.hostname}/users/follow`,
                 {
                     method: "GET",
                     credentials: "include",
@@ -61,7 +61,7 @@ const Other = () => {
     const handleFollow = async () => {
         try {
             const res = await fetch(
-                `http://localhost:3002/users/follow`,
+                `http://${location.hostname}:3002/users/follow`,
                 {
                     method: "POST",
                     credentials: "include",
@@ -96,8 +96,11 @@ const Other = () => {
 
             <div className={s.frame} key={user.id}>
                 <div className={s.iconNidNname}>
-                    <img src={getImage(user.icon)} alt={user.userName} className={s.icon} />
-
+                    <img
+                        src="/フリーアイコン.png"
+                        alt={user.userName}
+                        className={s.icon}
+                    />
                     <div>
                         <div className={s.nameNidNfosNfollow}>
                             <div className={s.nameNidNfos}>

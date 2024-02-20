@@ -1,4 +1,3 @@
-
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -19,14 +18,15 @@ const apiRouter = require('./routes/api');
 const app = express();
 //cors
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "http://172.16.41.168:3000"],
     credentials: true,
     sameSite: "None",
+    secure: true
 }));
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -46,7 +46,10 @@ app.use(session({
     secret: "/wbvHDsvnvfJjUgemOv2w87wXINT7buKwm9ZwrAa2cgKcHmk",
     resave: false,
     saveUninitialized: false,
-    cookie: {maxAge: 60 * 60 * 1000}
+    cookie: {
+        maxAge: 60 * 60 * 1000,
+        // sameSite: "none"
+    },
 }))
 //passport
 app.use(passport.authenticate("session"));
@@ -58,7 +61,6 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
 app.use('/api', apiRouter);
-
 
 
 module.exports = app;
