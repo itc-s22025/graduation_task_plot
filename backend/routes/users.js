@@ -84,7 +84,8 @@ router.get("/signin", async (req, res, next) => {
             include: {
                 post: {
                     orderBy: {createdAt: 'desc'}
-                }
+                },
+                follows: true
             }
         });
         res.json({user})
@@ -113,28 +114,29 @@ router.get("/logout", (req, res, next) => {
 // router.post('/users/:followerId/follow/:followeeId', async (req, res, next) => {
 //     const { followerId, followeeId } = req.params;
 
-router.post('/follow', async (req, res, next) =>{
+router.post('/follow', async (req, res, next) => {
     try {
         // フォローを作成する
         await prisma.follows.create({
             data: {
                 follower_id: +req.body.follower_id,
-                followee_id: +req.body.followee_id
+                followee_id: +req.body.followee_id,
+                userId: +req.user.id
             }
         });
-        return res.status(201).json({ message: 'Successfully followed user' });
+        return res.status(201).json({message: 'Successfully followed user'});
     } catch (error) {
         console.error('Error following user:', error);
-        return res.status(500).json({ error: 'Failed to follow user' });
+        return res.status(500).json({error: 'Failed to follow user'});
     }
 });
 
 router.get('/follow', async (req, res, next) => {
     const followlist = await prisma.follows.findMany({
         where: {
-            id: +req.user.id
+            userId: +req.user.id
         },
-        orderBy:{
+        orderBy: {
             updatedAt: 'desc'
         }
     })
@@ -144,14 +146,14 @@ router.get('/follow', async (req, res, next) => {
 
 router.get("/likes", async (req, res, next) => {
     const likes = await prisma.likes.findMany({
-        where:{
+        where: {
             userId: +req.user.id
         },
-        include:{
+        include: {
             post: {
-                include:{
+                include: {
                     user: {
-                        select:{
+                        select: {
                             id: true,
                             name: true,
                             userName: true,
@@ -161,7 +163,7 @@ router.get("/likes", async (req, res, next) => {
                 }
             }
         }
-        })
+    })
     res.json({likes})
 })
 
