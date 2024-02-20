@@ -145,3 +145,21 @@ export const generatePostItems = (posts, handleLikeClick, likecount, rpcount, ha
         </li>
     );
 };
+
+export const getUserData = async () => {
+    try {
+        const res = await fetch("http://localhost:3002/users/signin", {
+            method: "GET",
+            credentials: "include",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(
+            res => res.json()
+        );
+        return res.user;
+    } catch (e) {
+        console.log(e);
+        return "";
+    }
+};
