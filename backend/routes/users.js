@@ -110,6 +110,29 @@ router.get("/logout", (req, res, next) => {
 });
 
 
+router.get("/likes", async (req, res, next) => {
+    const likes = await prisma.likes.findMany({
+        where:{
+            userId: +req.user.id
+        },
+        include:{
+            post: {
+                include:{
+                    user: {
+                        select:{
+                            id: true,
+                            name: true,
+                            userName: true,
+                            gender: true
+                        }
+                    }
+                }
+            }
+        }
+        })
+    res.json({likes})
+})
+
 //post内容とりあえず表示するだけ
 router.get('/:uid', async (req, res, next) => {
     const uid = req.params.uid;
@@ -118,22 +141,25 @@ router.get('/:uid', async (req, res, next) => {
             userName: uid
         },
         include: {
-            post:  {
-                orderBy: {createdAt: 'desc'}
+            post: {
+                orderBy: {createdAt: 'desc'},
+                include: {
+                    likes: true
+                }
             }
         }
     })
     res.json({user})
 })
 
-router.get("/gender/female", async (req,res, next) => {
+router.get("/gender/female", async (req, res, next) => {
     try {
         const FemaleUsers = await prisma.user.findMany({
             orderBy: {createdAt: 'asc'},
-            where:{
+            where: {
                 gender: "Female"
             },
-            include:{
+            include: {
                 post: {
                     orderBy: {createdAt: 'desc'}
                 }
@@ -145,17 +171,17 @@ router.get("/gender/female", async (req,res, next) => {
     }
 })
 
- async function updateUser(id, newData) {
-  try {
-    const updateUser = await prisma.user.update({
-      where: {id},
-      data: newData,
-    });
-    return updateUser;
-  } catch (error) {
-    console.error('Error updating user data:', error);
-    throw new Error('Failed to update user data');
-  }
+async function updateUser(id, newData) {
+    try {
+        const updateUser = await prisma.user.update({
+            where: {id},
+            data: newData,
+        });
+        return updateUser;
+    } catch (error) {
+        console.error('Error updating user data:', error);
+        throw new Error('Failed to update user data');
+    }
 }
 
 module.exports = {router, updateUser};

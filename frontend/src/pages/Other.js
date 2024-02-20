@@ -20,7 +20,7 @@ const Other = () => {
 
     const fetchDeta = async () => {
         try {
-            const res = await fetch(`http://localhost:3002/users/${router.query.userName}`, {
+            const res = await fetch(`http://${location.hostname}:3002/users/${router.query.userName}`, {
                 method: 'GET',
                 credentials: 'include',
                 headers: {
@@ -51,7 +51,7 @@ const Other = () => {
             <div className={s.frame} key={user.id}>
                 <div className={s.iconNidNname}>
                     <img
-                        src={getImage(icon)}
+                        src="/フリーアイコン.png"
                         alt={user.userName}
                         className={s.icon}
                     />

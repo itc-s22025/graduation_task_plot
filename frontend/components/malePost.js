@@ -19,7 +19,7 @@ const MalePost = () => {
 
     const fetchMalePosts = async () => {
         try {
-            const res = await fetch("http://localhost:3002/posts/male", {
+            const res = await fetch(`http://${location.hostname}:3002/posts/male`, {
                 method: 'GET',
                 credentials: 'include',
                 headers: {
@@ -65,7 +65,7 @@ const MalePost = () => {
         <li key={post.id} className={s.frame}>
             <div className={s.iconNidNname}>
                 <img
-                    src={getImage(post.user)}
+                    src="/フリーアイコン.png"
                     alt={post.user.userName}
                     className={s.icon}
                     onClick={() => onUserClick(post.user.userName, myName)}
@@ -112,7 +112,7 @@ const MalePost = () => {
                         <span className={s.close} onClick={() => setSelectedPost(null)}>&times;</span>
                         <div className={s.iconNidNname}>
                             <img
-                                src=""
+                                src="/フリーアイコン.png"
                                 alt={selectedPost.user.userName}
                                 className={s.selectedIcon}
                             />
