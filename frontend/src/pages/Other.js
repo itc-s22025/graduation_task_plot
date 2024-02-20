@@ -12,6 +12,7 @@ const Other = () => {
     const [user, setUser] = useState([]);
     const [myId, setMyId] = useState();
     const [isFollowing, setIsFollowing] = useState(false);
+    const [following, setFollowing] = useState(0)
 
     useEffect(() => {
         fetchUserData();
@@ -34,6 +35,16 @@ const Other = () => {
             );
             const data = await res.json();
             setUser(data.user);
+            console.log("kore->", data.user.follows)
+            for (const follow of data.user.follows){
+                let followCount = 0
+                if (data.follows.length > 0){
+                    followCount = followCount + 1
+                }else {
+                    followCount = 0
+                }
+                setFollowing(followCount)
+            }
             checkIfFollowing(userData.id, data.user.id);
         } catch (error) {
             console.error(error);
@@ -112,7 +123,7 @@ const Other = () => {
                                     <p className={s.userId}>@{user.userName}</p>
                                 </div>
                                 <div className={s.foNwer}>
-                                    <p>12 Following</p>
+                                    <p>{following} Following</p>
                                     <p className={s.follower}>34 Follower</p>
                                 </div>
                             </div>
