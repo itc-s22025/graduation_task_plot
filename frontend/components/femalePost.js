@@ -65,7 +65,7 @@ const FemalePost = () => {
         <li key={post.id} className={s.frame}>
             <div className={s.iconNidNname}>
                 <img
-                    src={getImage(post.user)}
+                    src="/フリーアイコン.png"
                     alt={post.user.userName}
                     className={s.icon}
                     onClick={() => onUserClick(post.user.userName, myName)}
@@ -112,7 +112,7 @@ const FemalePost = () => {
                         <span className={s.close} onClick={() => setSelectedPost(null)}>&times;</span>
                         <div className={s.iconNidNname}>
                             <img
-                                src=""
+                                src="/フリーアイコン.png"
                                 alt={selectedPost.user.userName}
                                 className={s.selectedIcon}
                             />

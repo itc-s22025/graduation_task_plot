@@ -61,7 +61,7 @@ const Post = () => {
                         <span className={s.close} onClick={() => setSelectedPost(null)}>&times;</span>
                         <div className={s.iconNidNname}>
                             <img
-                                src=""
+                                src="/フリーアイコン.png"
                                 alt={selectedPost.user.userName}
                                 className={s.selectedIcon}
                             />

@@ -114,7 +114,7 @@ export const generatePostItems = (posts, handleLikeClick, likecount, rpcount, ha
         <li key={post.id} className={s.frame}>
             <div className={s.iconNidNname}>
                 <img
-                    src={getImage(post.user)}
+                    src="/フリーアイコン.png"
                     alt={post.user.userName}
                     className={s.icon}
                     onClick={() => onUserClick(post.user.userName, myName)}

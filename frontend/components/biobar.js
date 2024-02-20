@@ -6,6 +6,8 @@ import {getImage, handleLikeClick} from "./utils.js";
 const BioBar = () => {
     const [posts, setPosts] = useState([])
     const [user, setUser] = useState({})
+    const [likedPosts, setLikedPosts] = useState([])
+    const [userHaveLike, setUserHaveLike] = useState({})
     const [likecount, setLikecount] = useState({});
     const [rpcount, setRpcount] = useState({});
 
@@ -41,7 +43,6 @@ const BioBar = () => {
                     response => response.json()
                 ).then(
                     data => {
-                        console.log("DATA:", data.user)
                         setPosts(data.user.post)
                         setUser(data.user)
                     }
@@ -51,12 +52,36 @@ const BioBar = () => {
             }
         }
         fetchData();
+        fetchLikes()
     }, [])
+
+    const fetchLikes = async () => {
+        try {
+            const res = await fetch(`http://${location.hostname}:3002/users/likes`, {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then(
+                response => response.json()
+            ).then(
+                data => {
+                    setLikedPosts(data.likes)
+                    // setUserHaveLike(data.likes.user)
+                    console.log("フェッチしたいいねのデータ：", data.likes)
+                    // console.log("setLikePosts：", data.likes[0].post)
+                }
+            )
+        }catch (e) {
+            console.log("biobarいいねのフェッチエラー->",e)
+        }
+    }
 
     const postItems = posts.map(post =>
         <li key={post.id} className={s.frame}>
             <div className={s.iconNidNname}>
-                <img src={getImage(post.user)} alt={user.userName} className={s.icon}/>
+                <img src="/フリーアイコン.png" alt={user.userName} className={s.icon}/>
                 <div>
                     <div className={s.nameNidNconNlike}>
                         <b className={s.userName}>{user.name}</b>
@@ -84,6 +109,37 @@ const BioBar = () => {
         </li>
     )
 
+    const likedItems = likedPosts.map(post =>
+        <li key={post.post.id} className={s.frame}>
+            <div className={s.iconNidNname}>
+                <img src="/フリーアイコン.png" alt={post.post.user.userName} className={s.icon}/>
+                <div>
+                    <div className={s.nameNidNconNlike}>
+                        <b className={s.userName}>{post.post.user.name}</b>
+                        <p className={s.userId}>@{post.post.user.userName}</p>
+                    </div>
+                    <p className={s.content}>{post.post.text}</p>
+                    {post.menu && (
+                        <div className={s.dumbbell}>
+                            <p className={s.menu}>{post.post.menu}</p>
+                            {post.time && (
+                                <div className={s.timeNtimeUnit}>
+                                    <p className={s.time}>{post.post.time}</p>
+                                    <p className={s.timeUnit}>{post.post.timeUnit}</p>
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
+            </div>
+            <div className={s.likeNrp}>
+                <span className={s.like}
+                      onClick={() => handleLikeClickWrapper(post.post.id)}>♡ {likecount[post.post.id] || 0} </span>
+                <span className={s.repost} onClick={() => handleRpClick(post.post.id)}>☆ {rpcount[post.post.id] || 0} </span>
+            </div>
+         </li>
+    )
+
 
     return (
         <>
@@ -106,7 +162,7 @@ const BioBar = () => {
                 </TabPanel>
                 <TabPanel>
                     <article>
-                        <h1>LIKES</h1>
+                        {likedItems}
                     </article>
                 </TabPanel>
             </Tabs>

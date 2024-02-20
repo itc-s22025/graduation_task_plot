@@ -18,7 +18,7 @@ const Index = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const res = await fetch(`http://${location.hostname}:3002/api/user`, {
+                const res = await fetch(`http://${location.hostname}:3002/users/signin`, {
                     method: 'GET',
                     credentials: 'include',
                     headers: {
@@ -26,7 +26,8 @@ const Index = () => {
                     },
                 });
                 const data = await res.json();
-                setUser(data.user);
+                // setUser(data.user);
+                console.log("data->", data)
             } catch (e) {
                 console.error(e);
             }

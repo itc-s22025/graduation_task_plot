@@ -51,7 +51,7 @@ const Other = () => {
             <div className={s.frame} key={user.id}>
                 <div className={s.iconNidNname}>
                     <img
-                        src={getImage(icon)}
+                        src="/フリーアイコン.png"
                         alt={user.userName}
                         className={s.icon}
                     />

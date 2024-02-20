@@ -32,7 +32,14 @@ router.get("/all", async (req, res, next) => {
                 updatedAt: 'desc'
             },
             include: {
-                user: true,
+                user: {
+                    select:{
+                        id: true,
+                        name: true,
+                        userName: true,
+                        gender: true
+                    }
+                },
                 likes: true
             },
             // take: 5,
@@ -59,7 +66,15 @@ router.get("/male", async (req, res, next) => {
             },
             orderBy: {updatedAt: 'desc'},
             include: {
-                user:true
+                user: {
+                    select:{
+                        id: true,
+                        name: true,
+                        userName: true,
+                        gender: true
+                    }
+                },
+                likes: true
             }
         });
         res.json({MaleUsersPosts})
@@ -79,7 +94,15 @@ router.get("/female", async (req, res, next) => {
             },
             orderBy: {updatedAt: 'desc'},
             include: {
-                user:true
+                user: {
+                    select:{
+                        id: true,
+                        name: true,
+                        userName: true,
+                        gender: true
+                    }
+                },
+                likes: true
             }
         });
         res.json({FemaleUsersPosts})

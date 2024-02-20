@@ -73,7 +73,7 @@ const OthersBioBar = () => {
     const postItems = posts.map(post =>
         <li key={post.id} className={s.frame}>
             <div className={s.iconNidNname}>
-                <img src={getImage(post.user)} alt={user.userName} className={s.icon}/>
+                <img src="/フリーアイコン.png" alt={user.userName} className={s.icon}/>
                 <div>
                     <div className={s.nameNidNconNlike}>
                         <b className={s.userName}>{user.name}</b>
