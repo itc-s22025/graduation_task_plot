@@ -68,9 +68,7 @@ const BioBar = () => {
             ).then(
                 data => {
                     setLikedPosts(data.likes)
-                    // setUserHaveLike(data.likes.user)
                     console.log("フェッチしたいいねのデータ：", data.likes)
-                    // console.log("setLikePosts：", data.likes[0].post)
                 }
             )
         }catch (e) {
