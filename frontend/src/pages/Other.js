@@ -13,7 +13,7 @@ const Other = () => {
     const [user, setUser] = useState([]);
     const [myId, setMyId] = useState();
     const [isFollowing, setIsFollowing] = useState(false);
-    const [following, setFollowing] = useState(0)
+    const [following, setFollowing] = useState(0);
 
     useEffect(() => {
         fetchUserData();
@@ -35,10 +35,9 @@ const Other = () => {
             );
             const data = res.data;
             setUser(data.user);
-            console.log("kore->", data.user.follows)
             let followCount = 0;
-            for (const follow of data.user.follows){
-                if (data.follows.length > 0){
+            for (const follow of data.user.follows) {
+                if (data.user.follows.length > 0) {
                     followCount++;
                 }
             }
@@ -49,7 +48,13 @@ const Other = () => {
         }
     };
 
-    const checkIfFollowing = async () => {
+    useEffect(() => {
+        if (user.id) {
+            checkIfFollowing(myId, user.id);
+        }
+    }, [user]);
+
+    const checkIfFollowing = async (followerId, followeeId) => {
         try {
             const res = await axios.get(
                 `http://${location.hostname}:3002/users/follow`,
@@ -60,7 +65,16 @@ const Other = () => {
                     },
                 }
             );
-            setIsFollowing(res.status === 200);
+
+            const data = res.data;
+
+            for (const i of data.followlist) {
+                if (i.follower_id === followerId && i.followee_id === followeeId) {
+                    setIsFollowing(true);
+                    return;
+                }
+            }
+            setIsFollowing(false);
         } catch (error) {
             console.error("Error checking follow status:", error);
         }
@@ -98,8 +112,8 @@ const Other = () => {
 
     return (
         <>
-            <Header title={user.userName} />
-            <FrameLayout />
+            <Header title={user.userName}/>
+            <FrameLayout/>
 
             <div className={s.frame} key={user.id}>
                 <div className={s.iconNidNname}>
@@ -123,14 +137,14 @@ const Other = () => {
                                 </div>
                             </div>
                             {!isFollowing && <p className={s.edit} onClick={handleFollow}>Follow</p>}
-                            {isFollowing && <p className={s.edit} onClick={handleFollow}>Following</p>}
+                            {isFollowing && <p className={s.following} onClick={handleFollow}>Following</p>}
                         </div>
                         <p className={s.content}>{user.bio}</p>
                     </div>
                 </div>
             </div>
 
-            <OthersBioBar />
+            <OthersBioBar/>
         </>
     );
 };
