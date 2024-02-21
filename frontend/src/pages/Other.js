@@ -38,7 +38,7 @@ const Other = () => {
             console.log("kore->", data.user.follows)
             let followCount = 0;
             for (const follow of data.user.follows){
-                if (data.follows.length > 0){
+                if (data.user.follows.length > 0){
                     followCount++;
                 }
             }
@@ -123,7 +123,7 @@ const Other = () => {
                                 </div>
                             </div>
                             {!isFollowing && <p className={s.edit} onClick={handleFollow}>Follow</p>}
-                            {isFollowing && <p className={s.edit} onClick={handleFollow}>Following</p>}
+                            {isFollowing && <p className={s.following} onClick={handleFollow}>Following</p>}
                         </div>
                         <p className={s.content}>{user.bio}</p>
                     </div>

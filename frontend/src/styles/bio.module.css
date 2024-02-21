@@ -90,3 +90,14 @@
     margin-left: 15px;
 }
 
+.following{
+    margin-left: 20px;
+    margin-top: 6px;
+    height: 40px;
+    width: 150px;
+    text-align: center;
+    background-color: #ef5400;
+    color: #fff;
+    border-radius: 10px;
+    padding: 7px;
+}

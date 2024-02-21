@@ -16,13 +16,14 @@ const Bio = () => {
     useEffect(() => {
         getUserData().then(
             data => {setUser(data)
+                let followCount = 0
                 for (const follow of data.follows){
-                    let followCount = 0
                     if (data.follows.length > 0){
                         followCount = followCount + 1
                     }else {
                         followCount = 0
                     }
+                    console.log(followCount)
                     setFollowing(followCount)
                 }}
         )
