@@ -16,7 +16,6 @@ const Detail = () => {
 
     //useEffect
     useEffect(() => {
-        console.log("router.query::::", router.query)
         if (router.query.userName) {
             setUserName(router.query.userName);
         }
@@ -42,19 +41,10 @@ const Detail = () => {
         setGender(event.target.value);
     };
 
-
+    // handleFilterChange
     const handleFilterChange = (event) => {
-        setFilter(event.target.value);
+        setFilter(event.target.value === "Apply");
     };
-
-    useEffect(() => {
-        // filter の値が変更されたときに実行する処理
-        if (filter === "Apply") {
-            setFilter(true);
-        } else if (filter === "Remove") {
-            setFilter(false);
-        }
-    }, [filter]); // filter が変更されたときだけ useEffect 内の処理が実行される
 
 
     const handleSubmit = async () => {
@@ -198,7 +188,7 @@ const Detail = () => {
                     <div className={s.ul}>
                         <label className={s.li}>Filter</label>
                         <label className={s.selectbox}>
-                            <select value={filter} onChange={handleFilterChange}>
+                            <select value={filter ? "Apply" : "Remove"} onChange={handleFilterChange}>
                                 <option>Apply</option>
                                 <option>Remove</option>
                             </select>
