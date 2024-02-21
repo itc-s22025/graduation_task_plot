@@ -1,8 +1,8 @@
-
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import s from '../styles/signIn.module.css';
 import Link from 'next/link';
+import axios from 'axios';
 
 const SignIn = () => {
     const router = useRouter();
@@ -11,26 +11,23 @@ const SignIn = () => {
 
     const handleSubmit = async () => {
         try {
-            const res = await fetch("http://localhost:3002/users/signin", {
-                method: 'POST',
-                credentials: 'include',
+            const res = await axios.post(`http://${location.hostname}:3002/users/signin`, {
+                userName, password
+            }, {
+                withCredentials: true,
                 headers: {
                     'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    userName, password
-                })
-            })
+                }
+            });
             if (res.status === 200) {
-                console.log("ろぐいんできた!!!!!!!!")
-                router.push("/Home")
+                console.log("ろぐいんできた!!!!!!!!");
+                router.push("/Home");
             } else {
-                console.log("できなかった........")
-                // router.push("/SignIn")
+                console.log("できなかった........");
+
             }
         } catch (e) {
-            console.error("ERRORRRRRRR:::: ".e)
-
+            console.error("ERRORRRRRRR:::: ", e);
         }
     };
 
@@ -41,24 +38,24 @@ const SignIn = () => {
                 <div className={s.boxLarge}>
                     <h1 className={s.SignIn}>SignIn</h1>
 
-                        <input
-                            type="text"
-                            placeholder="User ID"
-                            className={s.box}
-                            value={userName}
-                            onChange={(e) => setUserName(e.target.value)}
-                        />
-                        <input
-                            type="password"
-                            minLength="4"
-                            placeholder="ChangePwd"
-                            required
-                            className={s.box}
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                        <input type="submit" value="SIGN IN" onClick={handleSubmit} className={s.signin}/>
-    
+                    <input
+                        type="text"
+                        placeholder="User ID"
+                        className={s.box}
+                        value={userName}
+                        onChange={(e) => setUserName(e.target.value)}
+                    />
+                    <input
+                        type="password"
+                        minLength="4"
+                        placeholder="Password"
+                        required
+                        className={s.box}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <input type="submit" value="SIGN IN" onClick={handleSubmit} className={s.signin}/>
+
                 </div>
                 <div className={s.or}>
                     <p>OR</p>

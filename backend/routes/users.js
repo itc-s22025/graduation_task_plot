@@ -84,7 +84,8 @@ router.get("/signin", async (req, res, next) => {
             include: {
                 post: {
                     orderBy: {createdAt: 'desc'}
-                }
+                },
+                follows: true
             }
         });
         res.json({user})
@@ -109,6 +110,62 @@ router.get("/logout", (req, res, next) => {
     res.json({message: "これが見れるならまだログインしてるよ", result: req.user.name});
 });
 
+// ユーザーをフォローするエンドポイント
+// router.post('/users/:followerId/follow/:followeeId', async (req, res, next) => {
+//     const { followerId, followeeId } = req.params;
+
+router.post('/follow', async (req, res, next) => {
+    try {
+        // フォローを作成する
+        await prisma.follows.create({
+            data: {
+                follower_id: +req.body.follower_id,
+                followee_id: +req.body.followee_id,
+                userId: +req.user.id
+            }
+        });
+        return res.status(201).json({message: 'Successfully followed user'});
+    } catch (error) {
+        console.error('Error following user:', error);
+        return res.status(500).json({error: 'Failed to follow user'});
+    }
+});
+
+router.get('/follow', async (req, res, next) => {
+    const followlist = await prisma.follows.findMany({
+        where: {
+            userId: +req.user.id
+        },
+        orderBy: {
+            updatedAt: 'desc'
+        }
+    })
+    res.json({followlist})
+})
+
+
+router.get("/likes", async (req, res, next) => {
+    const likes = await prisma.likes.findMany({
+        where: {
+            userId: +req.user.id
+        },
+        include: {
+            post: {
+                include: {
+                    user: {
+                        select: {
+                            id: true,
+                            name: true,
+                            userName: true,
+                            gender: true
+                        }
+                    }
+                }
+            }
+        }
+    })
+    res.json({likes})
+})
 
 //post内容とりあえず表示するだけ
 router.get('/:uid', async (req, res, next) => {
@@ -118,22 +175,27 @@ router.get('/:uid', async (req, res, next) => {
             userName: uid
         },
         include: {
-            post:  {
-                orderBy: {createdAt: 'desc'}
-            }
+            post: {
+                orderBy: {createdAt: 'desc'},
+                include: {
+                    likes: true,
+                }
+            },
+            follows: true
         }
     })
     res.json({user})
 })
 
-router.get("/gender/female", async (req,res, next) => {
+
+router.get("/gender/female", async (req, res, next) => {
     try {
         const FemaleUsers = await prisma.user.findMany({
             orderBy: {createdAt: 'asc'},
-            where:{
+            where: {
                 gender: "Female"
             },
-            include:{
+            include: {
                 post: {
                     orderBy: {createdAt: 'desc'}
                 }
@@ -145,17 +207,17 @@ router.get("/gender/female", async (req,res, next) => {
     }
 })
 
- async function updateUser(id, newData) {
-  try {
-    const updateUser = await prisma.user.update({
-      where: {id},
-      data: newData,
-    });
-    return updateUser;
-  } catch (error) {
-    console.error('Error updating user data:', error);
-    throw new Error('Failed to update user data');
-  }
+async function updateUser(id, newData) {
+    try {
+        const updateUser = await prisma.user.update({
+            where: {id},
+            data: newData,
+        });
+        return updateUser;
+    } catch (error) {
+        console.error('Error updating user data:', error);
+        throw new Error('Failed to update user data');
+    }
 }
 
 module.exports = {router, updateUser};

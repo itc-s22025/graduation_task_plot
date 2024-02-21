@@ -1,8 +1,9 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import s from '../styles/Post.module.css';
 import SquarePhotoCard from "../component/SquarePhotoCard";
 import FrameLayout from "../../components/frameLayout";
 import Header from "../../components/header";
+import axios from 'axios';
 
 function Post() {
     const [tweet, setTweet] = useState('');
@@ -17,26 +18,15 @@ function Post() {
     const inputRef = useRef(null);
 
     useEffect(() => {
-        getUserData()
+        getUserData();
     }, []);
 
     const getUserData = async () => {
         try {
-            const res = await fetch("http://localhost:3002/users/signin", {
-                method: "GET",
-                credentials: "include",
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(
-                res => res.json()
-            ).then(
-                data => {
-                    setName(data.user.name)
-                }
-            )
-        } catch (e) {
-            console.log(e)
+            const response = await axios.get(`http://${location.hostname}:3002/users/signin`, { withCredentials: true });
+            setName(response.data.user.name);
+        } catch (error) {
+            console.log(error);
         }
     }
 
@@ -49,7 +39,6 @@ function Post() {
         }
     };
 
-
     const handleImageSelect = (event) => {
         const files = event.target.files;
 
@@ -57,32 +46,26 @@ function Post() {
             const selectedImage = URL.createObjectURL(files[0]);
             setSelectedImage(selectedImage);
         }
-        console.log(files)
     };
 
     const handleTweetSubmit = async () => {
         try {
-            const res = await fetch("http://localhost:3002/posts/create", {
-                method: 'POST',
-                credentials: "include",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    text: tweet, image: selectedImage, menu: menu, time: time, timeUnit: timeUnit
-                })
-            })
-            if (res.status === 201) {
-                console.log("できた", res)
-                window.location.href = "/Home"
+            const response = await axios.post(`http://${location.hostname}:3002/posts/create`, {
+                text: tweet,
+                image: selectedImage,
+                menu: menu,
+                time: time,
+                timeUnit: timeUnit
+            }, { withCredentials: true });
+            if (response.status === 201) {
+                console.log("できた", response);
+                window.location.href = "/Home";
             } else {
-                console.log("できてない", res)
+                console.log("できてない", response);
             }
-        } catch (e) {
-            console.error("エラーでてます: ".e)
+        } catch (error) {
+            console.error("エラーでてます: ", error);
         }
-        console.log('Tweet submitted:', tweet);
-        console.log('Selected Images:', selectedImage);
     };
 
     const handleDumbbellClick = () => {
@@ -106,7 +89,6 @@ function Post() {
             window.location.href = '/Home';
         }
     };
-
 
     return (
         <>
@@ -134,8 +116,7 @@ function Post() {
                                     onChange={(e) => setMenu(e.target.value)}
                                 />
                                 <div className={s.menu_container}>
-                                    <select className={s.number} value={time}
-                                            onChange={(e) => setTime(parseInt(e.target.value))}>
+                                    <select className={s.number} value={time} onChange={(e) => setTime(parseInt(e.target.value))}>
                                         <option>num</option>
                                         <option>1</option>
                                         <option>5</option>
@@ -151,22 +132,17 @@ function Post() {
                                         <option>55</option>
                                         <option>60</option>
                                     </select>
-                                    <select className={s.time} value={timeUnit}
-                                            onChange={(e) => setTimeUnit(e.target.value)}>
+                                    <select className={s.time} value={timeUnit} onChange={(e) => setTimeUnit(e.target.value)}>
                                         <option>unit</option>
                                         <option>times</option>
                                         <option>seconds</option>
                                         <option>minutes</option>
                                     </select>
-                                    <textarea
-                                        className={s.add_trainingmenu}
-                                        placeholder="Add More"
-                                    />
+                                    <textarea className={s.add_trainingmenu} placeholder="Add More"/>
                                     <img src='/images/add_more.png' className={s.add_more}/>
                                 </div>
                             </div>
                         )}
-
                         {selectedImage ? (
                             <div className={s.imageContainer}>
                                 <img src={selectedImage} alt="Selected Image" className={s.selectedImage}/>
@@ -177,7 +153,6 @@ function Post() {
                         ) : (
                             <SquarePhotoCard img src="" alt={name}/>
                         )}
-
                         <div className={s.button}>
                             <button className={s.cancel} onClick={handleRemovePost}>Cancel</button>
                             <button className={s.post} onClick={handleTweetSubmit}>Post</button>

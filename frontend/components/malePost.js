@@ -1,7 +1,7 @@
-import s from "../src/styles/post.module.css"
-import {useState, useEffect} from "react";
-import {fetchMyName, getImage, onUserClick, handleLikeClick} from "./utils.js";
-
+import axios from 'axios';
+import s from "../src/styles/post.module.css";
+import { useState, useEffect } from "react";
+import { fetchMyName, getImage, onUserClick, handleLikeClick } from "./utils.js";
 
 const MalePost = () => {
     const [posts, setPosts] = useState([]);
@@ -13,46 +13,40 @@ const MalePost = () => {
     useEffect(() => {
         fetchMalePosts();
         fetchMyName().then(name => {
-            setMyName(name)
+            setMyName(name);
         });
     }, []);
 
     const fetchMalePosts = async () => {
         try {
-            const res = await fetch("http://localhost:3002/posts/male", {
-                method: 'GET',
-                credentials: 'include',
+            const response = await axios.get(`http://${location.hostname}:3002/posts/male`, {
+                withCredentials: true,
                 headers: {
                     'Content-Type': 'application/json'
-                },
-            }).then(
-                response => response.json()
-            ).then(
-                data => {
-                    console.log("DATA", data)
-                    setPosts(data.MaleUsersPosts)
                 }
-            )
-        } catch (e) {
-            console.log(e)
+            });
+            const data = response.data;
+            console.log("DATA", data);
+            setPosts(data.MaleUsersPosts);
+        } catch (error) {
+            console.log(error);
         }
-    }
-
+    };
 
     const handleLikeClickWrapper = (postId) => {
         handleLikeClick(postId, likecount, setLikecount);
     };
 
-    const handleRpClick = (post) => {
-        if (!rpcount[post]) {
+    const handleRpClick = (postId) => {
+        if (!rpcount[postId]) {
             setRpcount((prevCounts) => ({
                 ...prevCounts,
-                [post]: (prevCounts[post] || 0) + 1
+                [postId]: (prevCounts[postId] || 0) + 1
             }));
         } else {
             setRpcount((prevCounts) => ({
                 ...prevCounts,
-                [post]: 0,
+                [postId]: 0,
             }));
         }
     };
@@ -65,7 +59,7 @@ const MalePost = () => {
         <li key={post.id} className={s.frame}>
             <div className={s.iconNidNname}>
                 <img
-                    src={getImage(post.user)}
+                    src="/フリーアイコン.png"
                     alt={post.user.userName}
                     className={s.icon}
                     onClick={() => onUserClick(post.user.userName, myName)}
@@ -90,18 +84,14 @@ const MalePost = () => {
                 </div>
             </div>
             <div className={s.likeNrp}>
-                    <span className={s.like}
-                          onClick={() => handleLikeClickWrapper(post.id)}>♡ {likecount[post.id] || 0} </span>
-                <span className={s.repost}
-                      onClick={() => handleRpClick(post.id)}>☆ {rpcount[post.id] || 0} </span>
+                <span className={s.like} onClick={() => handleLikeClickWrapper(post.id)}>♡ {likecount[post.id] || 0} </span>
+                <span className={s.repost} onClick={() => handleRpClick(post.id)}>☆ {rpcount[post.id] || 0} </span>
             </div>
-
         </li>
     );
+
     return (
         <>
-
-
             <article>
                 <ul>{postItems}</ul>
             </article>
@@ -112,7 +102,7 @@ const MalePost = () => {
                         <span className={s.close} onClick={() => setSelectedPost(null)}>&times;</span>
                         <div className={s.iconNidNname}>
                             <img
-                                src=""
+                                src="/フリーアイコン.png"
                                 alt={selectedPost.user.userName}
                                 className={s.selectedIcon}
                             />
@@ -136,18 +126,14 @@ const MalePost = () => {
                             </div>
                         </div>
                         <div className={s.likeNrp}>
-                    <span className={s.selectedLike}
-                          onClick={() => handleLikeClick(selectedPost.id)}>♡ {likecount[selectedPost.id] || 0} </span>
-                            <span className={s.selectedRepost}
-                                  onClick={() => handleRpClick(selectedPost.id)}>☆ {rpcount[selectedPost.id] || 0} </span>
+                            <span className={s.selectedLike} onClick={() => handleLikeClickWrapper(selectedPost.id)}>♡ {likecount[selectedPost.id] || 0} </span>
+                            <span className={s.selectedRepost} onClick={() => handleRpClick(selectedPost.id)}>☆ {rpcount[selectedPost.id] || 0} </span>
                         </div>
                     </div>
                 </div>
             )}
-
-
         </>
-    )
+    );
 }
 
-export default MalePost
+export default MalePost;

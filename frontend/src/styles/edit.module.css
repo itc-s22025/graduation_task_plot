@@ -40,9 +40,14 @@
 
 }
 
+.ButtonFlex{
+    display: flex;
+    margin-left: 35px;
+}
+
 .saveButton {
     display: block;
-    width: 100%;
+    width: 45%;
     padding: 10px;
     background-color: #ff6700;
     color: #fff;
@@ -51,9 +56,27 @@
     cursor: pointer;
 }
 
+.cancelButton {
+    display: block;
+    width: 45%;
+    margin-right: 20px;
+    padding: 10px;
+    background-color: #ff6700;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cancelButton:hover{
+    background-color: #ef5400;
+}
+
 .saveButton:hover {
     background-color: #ef5400;
 }
+
+
 .edit{
     margin-left: 20px;
     margin-top: 6px;

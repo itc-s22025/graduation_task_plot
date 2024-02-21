@@ -1,47 +1,37 @@
 import s from "../src/styles/bio.module.css";
 import {useEffect, useState} from "react";
 import {useRouter} from 'next/router'
-import {getImage} from "./utils.js";
+import {getImage, getUserData} from "./utils.js";
 import Edit from "../src/pages/Profile/edit.js";
 
 const Bio = () => {
     const [user, setUser] = useState([])
     const [icon, setIcon] = useState("")
     const [isEditMode, setIsEditMode] = useState(false)
+    const [following, setFollowing] = useState(0)
 
     const router = useRouter();
 
 
     useEffect(() => {
-        fetchDeta()
+        getUserData().then(
+            data => {setUser(data)
+                for (const follow of data.follows){
+                    let followCount = 0
+                    if (data.follows.length > 0){
+                        followCount = followCount + 1
+                    }else {
+                        followCount = 0
+                    }
+                    setFollowing(followCount)
+                }}
+        )
     }, []);
 
     const handleEditClick = () => {
-        // router.push('./edit');
-        // router.push('/Profile/edit');
         setIsEditMode(true)
     };
 
-
-    const fetchDeta = async () => {
-        try {
-            const res = await fetch("http://localhost:3002/users/signin", {
-                method: 'GET',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            }).then(
-                response => response.json()
-            ).then(
-                data => {
-                    setUser(data.user)
-                }
-            )
-        } catch (e) {
-            console.error(e)
-        }
-    }
 
     return (
         <>
@@ -49,7 +39,7 @@ const Bio = () => {
                 <div className={s.frame} key={user.id}>
                     <div className={s.iconNidNname}>
                         <img
-                            src={getImage(icon)}
+                            src="/フリーアイコン.png"
                             alt={user.userName}
                             className={s.icon}
                         />
@@ -61,7 +51,7 @@ const Bio = () => {
                                         <p className={s.userId}>@{user.userName}</p>
                                     </div>
                                     <div className={s.foNwer}>
-                                        <p>12 Following</p>
+                                        <p>{following} Following</p>
                                         <p className={s.follower}>34 Follower</p>
                                     </div>
                                 </div>

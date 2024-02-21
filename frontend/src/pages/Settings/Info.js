@@ -16,7 +16,7 @@ const Info = () => {
 
     const main = async () => {
         try {
-            fetch("http://localhost:3002/users/signin", {
+            fetch(`http://${location.hostname}:3002/users/signin`, {
                 method: 'GET',
                 credentials: 'include',
                 headers: {
@@ -46,7 +46,7 @@ const Info = () => {
 
     const handleLogout = async () => {
         try {
-            const res = await fetch("http://localhost:3002/users/logout", {
+            const res = await fetch(`http://${location.hostname}:3002/users/logout`, {
                 method: 'POST',
                 credentials: 'include',
             }).then(

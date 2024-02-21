@@ -19,8 +19,8 @@ const Post = () => {
         });
     }, []);
 
-    const handleLikeClickWrapper = (postId) => {
-        handleLikeClick(postId, likecount, setLikecount);
+    const handleLikeClickWrapper = async (postId) => {
+        await handleLikeClick(postId, likecount, setLikecount);
     };
 
     const handleRpClick = (post) => {
@@ -61,7 +61,7 @@ const Post = () => {
                         <span className={s.close} onClick={() => setSelectedPost(null)}>&times;</span>
                         <div className={s.iconNidNname}>
                             <img
-                                src=""
+                                src="/フリーアイコン.png"
                                 alt={selectedPost.user.userName}
                                 className={s.selectedIcon}
                             />
@@ -86,7 +86,7 @@ const Post = () => {
                         </div>
                         <div className={s.likeNrp}>
                             <span className={s.selectedLike}
-                                  onClick={() => handleLikeClick(selectedPost.id)}>♡ {likecount[selectedPost.id] || 0} </span>
+                                  onClick={() => handleLikeClickWrapper(selectedPost.id)}>♡ {likecount[selectedPost.id] || 0} </span>
                             <span className={s.selectedRepost}
                                   onClick={() => handleRpClick(selectedPost.id)}>☆ {rpcount[selectedPost.id] || 0} </span>
                         </div>
