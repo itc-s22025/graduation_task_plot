@@ -85,7 +85,9 @@ router.get("/signin", async (req, res, next) => {
                 post: {
                     orderBy: {createdAt: 'desc'}
                 },
-                follows: true
+                follows:{
+                    orderBy:{createdAt: 'desc'}
+                }
             }
         });
         res.json({user})
