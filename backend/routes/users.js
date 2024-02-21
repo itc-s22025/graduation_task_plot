@@ -178,9 +178,10 @@ router.get('/:uid', async (req, res, next) => {
             post: {
                 orderBy: {createdAt: 'desc'},
                 include: {
-                    likes: true
+                    likes: true,
                 }
-            }
+            },
+            follows: true
         }
     })
     res.json({user})

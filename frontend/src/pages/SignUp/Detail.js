@@ -1,6 +1,7 @@
 import s from '../../styles/signUpDetail.module.css'
 import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
+import axios from "axios";
 
 const Detail = () => {
     const router = useRouter();
@@ -59,24 +60,18 @@ const Detail = () => {
     const handleSubmit = async () => {
         // ここで入力された値を利用して処理を行う（例：APIへの送信等）
         try {
-            const res = await fetch(`http://${location.hostname}:3002/users/signup`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    userName, password, name, bMonth, bYear, gender, filter
-                })
-            })
-            if (res.status === 200){
-                console.log("新規登録せいこう!!!!!!!!")
-                router.push("/SignIn")
-            }else {
-                console.log("できなかった........")
-                router.push("/SignUp")
+            const res = await axios.post(`http://${location.hostname}:3002/users/signup`, {
+                userName, password, name, bMonth, bYear, gender, filter
+            });
+            if (res.status === 200) {
+                console.log("新規登録せいこう!!!!!!!!");
+                router.push("/SignIn");
+            } else {
+                console.log("できなかった........");
+                router.push("/SignUp");
             }
         } catch (e) {
-            console.error("エラーでてます: ".e)
+            console.error("エラーでてます: ", e);
         }
     };
 

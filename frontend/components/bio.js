@@ -24,7 +24,6 @@ const Bio = () => {
                         followCount = 0
                     }
                     setFollowing(followCount)
-                    // console.log("COUNTRES", followCount)
                 }}
         )
     }, []);

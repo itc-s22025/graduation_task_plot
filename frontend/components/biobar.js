@@ -1,13 +1,13 @@
 import s from '../src/styles/biobar.module.css'
-import {useEffect, useState} from "react";
-import {Tab, Tabs, TabList, TabPanel} from "react-tabs";
-import {getImage, handleLikeClick} from "./utils.js";
+import { useEffect, useState } from "react";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import axios from 'axios';
+import { getImage, handleLikeClick, getLikeCount } from "./utils.js";
 
 const BioBar = () => {
-    const [posts, setPosts] = useState([])
-    const [user, setUser] = useState({})
-    const [likedPosts, setLikedPosts] = useState([])
-    const [userHaveLike, setUserHaveLike] = useState({})
+    const [posts, setPosts] = useState([]);
+    const [user, setUser] = useState({});
+    const [likedPosts, setLikedPosts] = useState([]);
     const [likecount, setLikecount] = useState({});
     const [rpcount, setRpcount] = useState({});
 
@@ -29,52 +29,44 @@ const BioBar = () => {
         }
     };
 
-
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch(`http://${location.hostname}:3002/users/signin`, {
-                    method: 'GET',
-                    credentials: 'include',
+                const res = await axios.get(`http://${location.hostname}:3002/users/signin`, {
+                    withCredentials: true,
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                }).then(
-                    response => response.json()
-                ).then(
-                    data => {
-                        setPosts(data.user.post)
-                        setUser(data.user)
-                    }
-                )
+                });
+                const data = res.data;
+                setPosts(data.user.post);
+                setUser(data.user);
             } catch (e) {
-                console.log(e)
+                console.log(e);
             }
-        }
+        };
         fetchData();
-        fetchLikes()
-    }, [])
+        fetchLikes();
+        getLikeCount().then(
+            data => console.log("getlikecount->", data)
+        );
+    }, []);
 
     const fetchLikes = async () => {
         try {
-            const res = await fetch(`http://${location.hostname}:3002/users/likes`, {
-                method: 'GET',
-                credentials: 'include',
+            const res = await axios.get(`http://${location.hostname}:3002/users/likes`, {
+                withCredentials: true,
                 headers: {
                     'Content-Type': 'application/json'
                 },
-            }).then(
-                response => response.json()
-            ).then(
-                data => {
-                    setLikedPosts(data.likes)
-                    console.log("フェッチしたいいねのデータ：", data.likes)
-                }
-            )
-        }catch (e) {
-            console.log("biobarいいねのフェッチエラー->",e)
+            });
+            const data = res.data;
+            setLikedPosts(data.likes);
+            console.log("フェッチしたいいねのデータ：", data.likes);
+        } catch (e) {
+            console.log("biobarいいねのフェッチエラー->", e);
         }
-    }
+    };
 
     const postItems = posts.map(post =>
         <li key={post.id} className={s.frame}>
@@ -105,7 +97,7 @@ const BioBar = () => {
                 <span className={s.repost} onClick={() => handleRpClick(post.id)}>☆ {rpcount[post.id] || 0} </span>
             </div>
         </li>
-    )
+    );
 
     const likedItems = likedPosts.map(post =>
         <li key={post.post.id} className={s.frame}>
@@ -135,9 +127,8 @@ const BioBar = () => {
                       onClick={() => handleLikeClickWrapper(post.post.id)}>♡ {likecount[post.post.id] || 0} </span>
                 <span className={s.repost} onClick={() => handleRpClick(post.post.id)}>☆ {rpcount[post.post.id] || 0} </span>
             </div>
-         </li>
-    )
-
+        </li>
+    );
 
     return (
         <>
@@ -165,7 +156,7 @@ const BioBar = () => {
                 </TabPanel>
             </Tabs>
         </>
-    )
+    );
 }
 
-export default BioBar
+export default BioBar;
