@@ -1,11 +1,11 @@
 import s from "../styles/bio.module.css";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import {useEffect, useState} from "react";
+import {useRouter} from "next/router";
 import axios from 'axios';
 import Header from "../../components/header.js";
 import FrameLayout from "../../components/frameLayout.js";
 import OthersBioBar from "../../components/othersBioBar.js";
-import { getUserData } from "../../components/utils.js";
+import {getUserData} from "../../components/utils.js";
 
 const Other = () => {
     const router = useRouter();
@@ -37,8 +37,8 @@ const Other = () => {
             setUser(data.user);
             console.log("kore->", data.user.follows)
             let followCount = 0;
-            for (const follow of data.user.follows){
-                if (data.user.follows.length > 0){
+            for (const follow of data.user.follows) {
+                if (data.user.follows.length > 0) {
                     followCount++;
                 }
             }
@@ -60,7 +60,6 @@ const Other = () => {
                     },
                 }
             );
-            setIsFollowing(res.status === 200);
         } catch (error) {
             console.error("Error checking follow status:", error);
         }
@@ -98,8 +97,8 @@ const Other = () => {
 
     return (
         <>
-            <Header title={user.userName} />
-            <FrameLayout />
+            <Header title={user.userName}/>
+            <FrameLayout/>
 
             <div className={s.frame} key={user.id}>
                 <div className={s.iconNidNname}>
@@ -130,7 +129,7 @@ const Other = () => {
                 </div>
             </div>
 
-            <OthersBioBar />
+            <OthersBioBar/>
         </>
     );
 };
