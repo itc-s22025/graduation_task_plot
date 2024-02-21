@@ -1,6 +1,6 @@
 //一旦ページごと作って時間あればコンポーネント化
 
-import s from '../src/styles/biobar.module.css'
+import s from '../src/styles/othersbiobar.module.css'
 import { useEffect, useState } from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { useRouter } from "next/router";
@@ -100,7 +100,6 @@ const OthersBioBar = () => {
                 <TabList className={s.all}>
                     <Tab className={s.box}>POST</Tab>
                     <Tab className={s.box}>MEDIA</Tab>
-                    <Tab className={s.box}>LIKES</Tab>
                 </TabList>
 
                 <TabPanel>
@@ -108,14 +107,10 @@ const OthersBioBar = () => {
                         {postItems}
                     </article>
                 </TabPanel>
+
                 <TabPanel>
                     <article>
                         <h1>MEDIA</h1>
-                    </article>
-                </TabPanel>
-                <TabPanel>
-                    <article>
-                        <h1>LIKES</h1>
                     </article>
                 </TabPanel>
             </Tabs>
