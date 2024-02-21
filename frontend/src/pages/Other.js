@@ -1,11 +1,11 @@
 import s from "../styles/bio.module.css";
-import {useEffect, useState} from "react";
-import {useRouter} from "next/router";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import axios from 'axios';
 import Header from "../../components/header.js";
 import FrameLayout from "../../components/frameLayout.js";
 import OthersBioBar from "../../components/othersBioBar.js";
-import {getUserData} from "../../components/utils.js";
+import { getUserData } from "../../components/utils.js";
 
 const Other = () => {
     const router = useRouter();
@@ -13,7 +13,7 @@ const Other = () => {
     const [user, setUser] = useState([]);
     const [myId, setMyId] = useState();
     const [isFollowing, setIsFollowing] = useState(false);
-    const [following, setFollowing] = useState(0)
+    const [following, setFollowing] = useState(0);
 
     useEffect(() => {
         fetchUserData();
@@ -35,7 +35,6 @@ const Other = () => {
             );
             const data = res.data;
             setUser(data.user);
-            console.log("kore->", data.user.follows)
             let followCount = 0;
             for (const follow of data.user.follows) {
                 if (data.user.follows.length > 0) {
@@ -49,7 +48,13 @@ const Other = () => {
         }
     };
 
-    const checkIfFollowing = async () => {
+    useEffect(() => {
+        if (user.id) {
+            checkIfFollowing(myId, user.id);
+        }
+    }, [user]);
+
+    const checkIfFollowing = async (followerId, followeeId) => {
         try {
             const res = await axios.get(
                 `http://${location.hostname}:3002/users/follow`,
@@ -60,6 +65,16 @@ const Other = () => {
                     },
                 }
             );
+
+            const data = res.data;
+
+            for (const i of data.followlist) {
+                if (i.follower_id === followerId && i.followee_id === followeeId) {
+                    setIsFollowing(true);
+                    return;
+                }
+            }
+            setIsFollowing(false);
         } catch (error) {
             console.error("Error checking follow status:", error);
         }
