@@ -85,7 +85,9 @@ router.get("/signin", async (req, res, next) => {
                 post: {
                     orderBy: {createdAt: 'desc'}
                 },
-                follows: true
+                follows:{
+                    orderBy:{createdAt: 'desc'}
+                }
             }
         });
         res.json({user})
@@ -221,3 +223,8 @@ async function updateUser(id, newData) {
 }
 
 module.exports = {router, updateUser};
+router.get('/user/:userId', async (req, res, next) => {
+  console.log(req.query.userId)
+})
+
+module.exports = router;
