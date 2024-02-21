@@ -1,54 +1,45 @@
+import axios from 'axios';
 import Bio from "../../../components/bio.js";
 import BioBar from "../../../components/biobar.js";
 import FrameLayout from "../../../components/frameLayout.js";
 import Header from "../../../components/header.js";
-import {useRouter} from "next/router";
-import {useEffect, useState} from "react";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const Index = () => {
     const router = useRouter();
 
-    let user = null;
-
-    if (typeof window !== 'undefined') {
-        const {user: userData} = router.query;
-        user = userData? JSON.parse(userData) : null;
-    }
-
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const res = await fetch(`http://${location.hostname}:3002/users/signin`, {
-                    method: 'GET',
-                    credentials: 'include',
+                const response = await axios.get(`http://${location.hostname}:3002/users/signin`, {
+                    withCredentials: true,
                     headers: {
                         'Content-Type': 'application/json'
                     },
                 });
-                const data = await res.json();
+                const data = response.data;
                 // setUser(data.user);
-                console.log("data->", data)
-            } catch (e) {
-                console.error(e);
+                console.log("data->", data);
+            } catch (error) {
+                console.error(error);
             }
         };
         fetchUserData();
     }, []);
 
 
-    return(
+    return (
         <>
             <Header title="Profile"/>
             <FrameLayout></FrameLayout>
 
-                <div>
-                    <Bio />
+            <div>
+                <Bio />
                 <BioBar/>
-                </div>
-            )
-
+            </div>
         </>
-    )
+    );
 }
 
-export default Index
+export default Index;

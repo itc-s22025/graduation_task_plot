@@ -184,6 +184,16 @@ router.post("/like", async (req, res, next) => {
     }
 });
 
+//表示
+router.get("/like/all", async (req, res, next) => {
+    try {
+        const likes = await prisma.likes.findMany();
+        res.status(200).json(likes);
+    } catch (error) {
+        res.status(500).json({msg: error.msg});
+    }
+})
+
 //
 router.get("/likecount/:postId", async (req, res, next) => {
     const { postId } = req.params;

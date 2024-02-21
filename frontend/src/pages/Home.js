@@ -1,3 +1,4 @@
+import axios from 'axios';
 import Post from "../../components/post"
 import {useState, useEffect} from "react";
 import FrameLayout from "../../components/frameLayout";
@@ -12,55 +13,44 @@ const Home = () => {
 
     const check = async () => {
         try {
-            const res = await fetch(`http://${location.hostname}:3002/users/check`, {
-                method: 'GET',
-                credentials: 'include',
-            }).then(
-                res => {
-                    if (!res.ok) {
-                        window.location.href = "/SignIn"
-                    }
-                })
+            const res = await axios.get(`http://${location.hostname}:3002/users/check`, {
+                withCredentials: true,
+            });
+            if (!res.data.ok) {
+                window.location.href = "/SignIn";
+            }
         } catch (e) {
-            console.log('error--->', e)
+            console.log('error--->', e);
         }
     };
 
     const filterCheck = async () => {
         try {
-            const res = await fetch(`http://${location.hostname}:3002/users/signin`, {
-                method: "GET",
-                credentials: "include",
-            }).then(
-                res => res.json()
-            ).then(
-                data => {
-                    console.log("HOMEDATA--->", data)
-                    if (data.user.filter === false){
-                        console.log("SHOW ALL POSTS")
-                        setDisplayPost(true)
-                    }if (data.user.gender === "Male" && data.user.filter === true){
-                        console.log("MALE FILTER")
-                        setDisplayMalePost(true)
-                    }if (data.user.gender === "Female" && data.user.filter === true){
-                        console.log("FEMALE FILTER")
-                        setDisplayFemalePost(true)
-                    }else {
-                        console.log("NOT FEMALE FILTER")
-                    }
-                }
-            )
-        }catch (e) {
-            console.log(e)
+            const res = await axios.get(`http://${location.hostname}:3002/users/signin`, {
+                withCredentials: true,
+            });
+            const data = res.data;
+            if (data.user.filter === false){
+                console.log("SHOW ALL POSTS");
+                setDisplayPost(true);
+            } else if (data.user.gender === "Male" && data.user.filter === true){
+                console.log("MALE FILTER");
+                setDisplayMalePost(true);
+            } else if (data.user.gender === "Female" && data.user.filter === true){
+                console.log("FEMALE FILTER");
+                setDisplayFemalePost(true);
+            } else {
+                console.log("NOT FEMALE FILTER");
+            }
+        } catch (e) {
+            console.log(e);
         }
-    }
-
+    };
 
     useEffect(() => {
         // check()
-        filterCheck()
+        filterCheck();
     }, []);
-
 
     return (
         <>
@@ -69,9 +59,8 @@ const Home = () => {
             {displayPost && <Post/>}
             {displayMalePost && <MalePost/>}
             {displayFemalePost && <FemalePost/>}
-            {/*<Post />*/}
         </>
     );
 };
 
-export default Home
+export default Home;

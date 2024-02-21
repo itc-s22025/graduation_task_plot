@@ -1,6 +1,7 @@
 import s from "../styles/bio.module.css";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import axios from 'axios';
 import Header from "../../components/header.js";
 import FrameLayout from "../../components/frameLayout.js";
 import OthersBioBar from "../../components/othersBioBar.js";
@@ -23,28 +24,25 @@ const Other = () => {
             const userData = await getUserData();
             setMyId(userData.id);
 
-            const res = await fetch(
+            const res = await axios.get(
                 `http://${location.hostname}:3002/users/${router.query.userName}`,
                 {
-                    method: "GET",
-                    credentials: "include",
+                    withCredentials: true,
                     headers: {
                         "Content-Type": "application/json",
                     },
                 }
             );
-            const data = await res.json();
+            const data = res.data;
             setUser(data.user);
             console.log("kore->", data.user.follows)
+            let followCount = 0;
             for (const follow of data.user.follows){
-                let followCount = 0
                 if (data.follows.length > 0){
-                    followCount = followCount + 1
-                }else {
-                    followCount = 0
+                    followCount++;
                 }
-                setFollowing(followCount)
             }
+            setFollowing(followCount);
             checkIfFollowing(userData.id, data.user.id);
         } catch (error) {
             console.error(error);
@@ -53,18 +51,16 @@ const Other = () => {
 
     const checkIfFollowing = async () => {
         try {
-            const res = await fetch(
+            const res = await axios.get(
                 `http://${location.hostname}:3002/users/follow`,
                 {
-                    method: "GET",
-                    credentials: "include",
+                    withCredentials: true,
                     headers: {
                         "Content-Type": "application/json",
                     },
                 }
-            ).then(
-                res => setIsFollowing(res.status === 200)
             );
+            setIsFollowing(res.status === 200);
         } catch (error) {
             console.error("Error checking follow status:", error);
         }
@@ -72,18 +68,17 @@ const Other = () => {
 
     const handleFollow = async () => {
         try {
-            const res = await fetch(
+            const res = await axios.post(
                 `http://${location.hostname}:3002/users/follow`,
                 {
-                    method: "POST",
-                    credentials: "include",
+                    follower_id: myId,
+                    followee_id: user.id,
+                },
+                {
+                    withCredentials: true,
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({
-                        follower_id: myId,
-                        followee_id: user.id,
-                    }),
                 }
             );
             if (res.status === 201) {

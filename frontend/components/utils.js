@@ -1,5 +1,5 @@
 import Router from 'next/router'
-import s from "../src/styles/biobar.module.css";
+import axios from 'axios';
 
 export const getImage = (data) => {
     return ('https://i.imgur.com/' + data + 's.jpg');
@@ -7,47 +7,37 @@ export const getImage = (data) => {
 
 export const onUserClick = async (userName, myName) => {
     try {
-        const res = await fetch(`http://${location.hostname}:3002/users/${userName}`, {
-            method: 'GET',
-            credentials: "include"
-        }).then(
-            response => response.json()
-        ).then(
-            data => {
-                console.log(data)
-            }
-        )
-        if (userName === myName){
-            window.location.href = '/Profile'
-        }else {
-            console.log(userName)
+        const res = await axios.get(`http://${location.hostname}:3002/users/${userName}`, {
+            withCredentials: true
+        });
+        const data = res.data;
+        console.log(data);
+
+        if (userName === myName) {
+            window.location.href = '/Profile';
+        } else {
+            console.log(userName);
             Router.push({
-                    pathname: '/Other',
-                    query: {userName},
-                },
-                {shallow: true});
+                pathname: '/Other',
+                query: { userName },
+            }, { shallow: true });
         }
     } catch (e) {
-        console.log(e)
-    }};
+        console.log(e);
+    }
+};
 
 export const fetchAllPosts = async () => {
     try {
-        const res = await fetch(`http://${location.hostname}:3002/posts/all`, {
-            method: 'GET',
-            credentials: 'include',
+        const res = await axios.get(`http://${location.hostname}:3002/posts/all`, {
+            withCredentials: true,
             headers: {
                 'Content-Type': 'application/json'
             },
-        }).then(
-            response => response.json()
-        ).then(
-            data => {
-                console.log("DATA", data)
-                return data.latestPosts;
-            }
-        );
-        return res;
+        });
+        const data = res.data;
+        console.log("DATA", data);
+        return data.latestPosts;
     } catch (e) {
         console.log(e);
         return [];
@@ -56,58 +46,63 @@ export const fetchAllPosts = async () => {
 
 export const fetchMyName = async () => {
     try {
-        const res = await fetch(`http://${location.hostname}:3002/users/signin`, {
-            method: 'GET',
-            credentials: 'include',
+        const res = await axios.get(`http://${location.hostname}:3002/users/signin`, {
+            withCredentials: true,
             headers: {
                 'Content-Type': 'application/json'
             },
-        }).then(
-            response => response.json()
-        ).then(
-            data => {
-                return data.user.userName;
-            }
-        );
-        return res;
+        });
+        const data = res.data;
+        return data.user.userName;
     } catch (e) {
         console.log(e);
         return "";
     }
 };
 
-
 export const handleLikeClick = async (postId, likecount, setLikecount) => {
     try {
-        const response = await fetch(`http://${location.hostname}:3002/posts/like`, {
-            method: 'POST',
-            credentials: "include",
+        const response = await axios.post(`http://${location.hostname}:3002/posts/like`, {
+            postId: postId
+        }, {
+            withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                postId: postId,
-            }),
         });
 
-    if (!likecount[postId] || likecount[postId] === 0) {
-        setLikecount((prevCounts) => ({
-            ...prevCounts,
-            [postId]: (prevCounts[postId] || 0) + 1
-        }));
-    } else {
-        setLikecount((prevCounts) => ({
-            ...prevCounts,
-            [postId]: prevCounts[postId] - 1,
-        }));
-    }
-        const data = await response.json();
+        if (!likecount[postId] || likecount[postId] === 0) {
+            setLikecount((prevCounts) => ({
+                ...prevCounts,
+                [postId]: (prevCounts[postId] || 0) + 1
+            }));
+        } else {
+            setLikecount((prevCounts) => ({
+                ...prevCounts,
+                [postId]: prevCounts[postId] - 1,
+            }));
+        }
+
+        const data = response.data;
         console.log(data.message);
     } catch (error) {
         console.error('Error:', error);
     }
 };
 
+export const getLikeCount = async (postId) => {
+    try {
+        const response = await axios.get(`http://${location.hostname}:3002/posts/like/all`, {
+            withCredentials: true,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        return response.data;
+    } catch (e) {
+        console.log(e);
+    }
+}
 
 export const generatePostItems = (posts, handleLikeClick, likecount, rpcount, handleRpClick, handlePostItemClick, onUserClick, myName, s) => {
     return posts.map(post =>
@@ -148,16 +143,14 @@ export const generatePostItems = (posts, handleLikeClick, likecount, rpcount, ha
 
 export const getUserData = async () => {
     try {
-        const res = await fetch(`http://${location.hostname}:3002/users/signin`, {
-            method: "GET",
-            credentials: "include",
+        const res = await axios.get(`http://${location.hostname}:3002/users/signin`, {
+            withCredentials: true,
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(
-            res => res.json()
-        );
-        return res.user;
+        });
+        const data = res.data;
+        return data.user;
     } catch (e) {
         console.log(e);
         return "";

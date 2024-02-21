@@ -1,12 +1,12 @@
 import s from "../src/styles/post.module.css"
-import {useState, useEffect} from "react";
-import {fetchMyName, getImage, onUserClick, handleLikeClick} from "./utils.js";
-
+import { useState, useEffect } from "react";
+import { fetchMyName, getImage, onUserClick, handleLikeClick } from "./utils.js";
+import axios from 'axios';
 
 const FemalePost = () => {
     const [posts, setPosts] = useState([]);
     const [myName, setMyName] = useState("");
-    const [selectedPost, setSelectedPost] = useState(null); //追加
+    const [selectedPost, setSelectedPost] = useState(null);
     const [likecount, setLikecount] = useState({});
     const [rpcount, setRpcount] = useState({});
 
@@ -19,40 +19,34 @@ const FemalePost = () => {
 
     const fetchFemalePosts = async () => {
         try {
-            const res = await fetch(`http://${location.hostname}:3002/posts/female`, {
-                method: 'GET',
-                credentials: 'include',
+            const response = await axios.get(`http://${location.hostname}:3002/posts/female`, {
+                withCredentials: true,
                 headers: {
                     'Content-Type': 'application/json'
                 },
-            }).then(
-                response => response.json()
-            ).then(
-                data => {
-                    console.log("DATA", data)
-                    setPosts(data.FemaleUsersPosts)
-                }
-            )
+            });
+            const data = response.data;
+            console.log("DATA", data)
+            setPosts(data.FemaleUsersPosts);
         } catch (e) {
-            console.log(e)
+            console.log(e);
         }
     }
-
 
     const handleLikeClickWrapper = (postId) => {
         handleLikeClick(postId, likecount, setLikecount);
     };
 
     const handleRpClick = (post) => {
-        if (!rpcount[post]) {
+        if (!rpcount[post.id]) {
             setRpcount((prevCounts) => ({
                 ...prevCounts,
-                [post]: (prevCounts[post] || 0) + 1
+                [post.id]: (prevCounts[post.id] || 0) + 1
             }));
         } else {
             setRpcount((prevCounts) => ({
                 ...prevCounts,
-                [post]: 0,
+                [post.id]: 0,
             }));
         }
     };
@@ -90,18 +84,14 @@ const FemalePost = () => {
                 </div>
             </div>
             <div className={s.likeNrp}>
-                    <span className={s.like}
-                          onClick={() => handleLikeClickWrapper(post.id)}>♡ {likecount[post.id] || 0} </span>
-                <span className={s.repost}
-                      onClick={() => handleRpClick(post.id)}>☆ {rpcount[post.id] || 0} </span>
+                <span className={s.like} onClick={() => handleLikeClickWrapper(post.id)}>♡ {likecount[post.id] || 0} </span>
+                <span className={s.repost} onClick={() => handleRpClick(post)}>☆ {rpcount[post.id] || 0} </span>
             </div>
-
         </li>
     );
+
     return (
         <>
-
-
             <article>
                 <ul>{postItems}</ul>
             </article>
@@ -136,16 +126,12 @@ const FemalePost = () => {
                             </div>
                         </div>
                         <div className={s.likeNrp}>
-                    <span className={s.selectedLike}
-                          onClick={() => handleLikeClick(selectedPost.id)}>♡ {likecount[selectedPost.id] || 0} </span>
-                            <span className={s.selectedRepost}
-                                  onClick={() => handleRpClick(selectedPost.id)}>☆ {rpcount[selectedPost.id] || 0} </span>
+                            <span className={s.selectedLike} onClick={() => handleLikeClick(selectedPost.id)}>♡ {likecount[selectedPost.id] || 0} </span>
+                            <span className={s.selectedRepost} onClick={() => handleRpClick(selectedPost)}>☆ {rpcount[selectedPost.id] || 0} </span>
                         </div>
                     </div>
                 </div>
             )}
-
-
         </>
     )
 }
