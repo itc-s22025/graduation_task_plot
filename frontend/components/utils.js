@@ -11,12 +11,10 @@ export const onUserClick = async (userName, myName) => {
             withCredentials: true
         });
         const data = res.data;
-        console.log(data);
 
         if (userName === myName) {
             window.location.href = '/Profile';
         } else {
-            console.log(userName);
             Router.push({
                 pathname: '/Other',
                 query: {userName},
@@ -36,7 +34,6 @@ export const fetchAllPosts = async () => {
             },
         });
         const data = res.data;
-        console.log("DATA", data);
         return data.latestPosts;
     } catch (e) {
         console.log(e);
@@ -84,7 +81,6 @@ export const handleLikeClick = async (postId, likecount, setLikecount) => {
         }
 
         const data = response.data;
-        console.log(data.message);
     } catch (error) {
         console.error('Error:', error);
     }

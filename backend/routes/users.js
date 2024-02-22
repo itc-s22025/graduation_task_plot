@@ -159,6 +159,22 @@ router.get("/follow/all", async (req, res, next) => {
     }
 })
 
+router.post('/unFollow', async (req, res, next) => {
+    try {
+        //フォローを外す
+        await prisma.follows.deleteMany({
+            where:{
+                follower_id: +req.body.follower_id,
+                followee_id: +req.body.followee_id,
+                userId: +req.user.id
+            }
+        });
+        return res.status(200).json({ message: 'Successfully unfollowed user' });
+    }catch (e) {
+        console.error('Error unfollowing user:', error);
+        return res.status(500).json({ error: 'Failed to unfollow user' });
+    }
+})
 
 router.get("/likes", async (req, res, next) => {
     const likes = await prisma.likes.findMany({

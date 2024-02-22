@@ -22,7 +22,6 @@ const Bio = () => {
                     if (data.follows.length > 0) {
                         followCount++;
                     }
-                    console.log(followCount)
                     setFollowing(followCount)
                 }
             })

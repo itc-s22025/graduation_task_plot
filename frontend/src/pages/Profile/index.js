@@ -19,8 +19,6 @@ const Index = () => {
                     },
                 });
                 const data = response.data;
-                // setUser(data.user);
-                console.log("data->", data);
             } catch (error) {
                 console.error(error);
             }
