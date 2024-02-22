@@ -1,33 +1,44 @@
 import s from "../src/styles/bio.module.css";
 import {useEffect, useState} from "react";
 import {useRouter} from 'next/router'
-import {getImage, getUserData} from "./utils.js";
+import {getImage, getUserData, fetchFollower} from "./utils.js";
 import Edit from "../src/pages/Profile/edit.js";
 
 const Bio = () => {
     const [user, setUser] = useState([])
-    const [icon, setIcon] = useState("")
     const [isEditMode, setIsEditMode] = useState(false)
     const [following, setFollowing] = useState(0)
+    const [follower, setFollower] = useState(0);
 
     const router = useRouter();
 
 
     useEffect(() => {
         getUserData().then(
-            data => {setUser(data)
+            data => {
+                setUser(data)
                 let followCount = 0
-                for (const follow of data.follows){
-                    if (data.follows.length > 0){
-                        followCount = followCount + 1
-                    }else {
-                        followCount = 0
+                for (const follow of data.follows) {
+                    if (data.follows.length > 0) {
+                        followCount++;
                     }
                     console.log(followCount)
                     setFollowing(followCount)
-                }}
+                }
+            })
+        fetchFollower().then(
+            data => {
+                let followerCount = 0;
+                for (const follow of data){
+                    if (follow.followee_id === user.id){
+                        followerCount++;
+                    }
+                    setFollower(followerCount);
+                }
+            }
         )
-    }, []);
+    }, [user]);
+
 
     const handleEditClick = () => {
         setIsEditMode(true)
@@ -53,7 +64,7 @@ const Bio = () => {
                                     </div>
                                     <div className={s.foNwer}>
                                         <p>{following} Following</p>
-                                        <p className={s.follower}>34 Follower</p>
+                                        <p className={s.follower}>{follower} Followers</p>
                                     </div>
                                 </div>
                                 <p className={s.edit} onClick={handleEditClick}> Edit</p>
@@ -65,7 +76,7 @@ const Bio = () => {
             )}
 
             {isEditMode && (
-                <Edit />
+                <Edit/>
             )}
         </>
     );
