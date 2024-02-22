@@ -1,6 +1,6 @@
 import s from "../styles/bio.module.css";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import {useEffect, useState} from "react";
+import {useRouter} from "next/router";
 import axios from 'axios';
 import Header from "../../components/header.js";
 import FrameLayout from "../../components/frameLayout.js";
@@ -21,8 +21,8 @@ const Other = () => {
         fetchFollower().then(
             data => {
                 let followerCount = 0;
-                for (const follow of data){
-                    if (follow.followee_id === user.id){
+                for (const follow of data) {
+                    if (follow.followee_id === user.id) {
                         followerCount++;
                     }
                     setFollower(followerCount);
@@ -117,6 +117,32 @@ const Other = () => {
         }
     };
 
+    const handleUnFollow = async () => {
+        try {
+            const res = await axios.post(
+                `http://${location.hostname}:3002/users/unfollow`,
+                {
+                    follower_id: myId,
+                    followee_id: user.id,
+                },
+                {
+                    withCredentials: true,
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            if (res.status === 200) {
+                setIsFollowing(false);
+                console.log("Unfollow successful");
+            } else {
+                console.log("Failed to unfollow user");
+            }
+        } catch (error) {
+            console.error("Error unfollowing user:", error);
+        }
+    }
+
     const getImage = (data) => {
         return "https://i.imgur.com/" + data + "s.jpg";
     };
@@ -148,7 +174,7 @@ const Other = () => {
                                 </div>
                             </div>
                             {!isFollowing && <p className={s.edit} onClick={handleFollow}>Follow</p>}
-                            {isFollowing && <p className={s.following} onClick={handleFollow}>Following</p>}
+                            {isFollowing && <p className={s.following} onClick={handleUnFollow}>Following</p>}
                         </div>
                         <p className={s.content}>{user.bio}</p>
                     </div>
