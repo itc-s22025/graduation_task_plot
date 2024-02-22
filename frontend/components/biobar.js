@@ -62,7 +62,6 @@ const BioBar = () => {
             });
             const data = res.data;
             setLikedPosts(data.likes);
-            console.log("フェッチしたいいねのデータ：", data.likes);
         } catch (e) {
             console.log("biobarいいねのフェッチエラー->", e);
         }

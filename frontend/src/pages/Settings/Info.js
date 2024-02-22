@@ -2,47 +2,29 @@ import {useEffect, useState} from "react";
 import s from "../../styles/accountInfo.module.css"
 import Header from "../../../components/header";
 import FrameLayout from "../../../components/frameLayout";
+import axios from "axios";
+import {getUserData} from "../../../components/utils.js";
 
 const Info = () => {
-    const [info, setInfo] = useState([])
+    const [user, setUser] = useState([])
     const [name, setName] = useState("")
     const [userName, setUserName] = useState("")
     const [gender, setGender] = useState("")
-    const [filter, setFilter] = useState(false)
+    const [filter, setFilter] = useState(true)
 
     useEffect(() => {
-        main()
+        getUserData().then(
+            data => {
+                console.log(data)
+                setUser(data)
+                setName(data.name)
+                setUserName(data.userName)
+                setGender(data.gender)
+                setFilter(data.filter === true)
+            }
+        )
     }, []);
 
-    const main = async () => {
-        try {
-            fetch(`http://${location.hostname}:3002/users/signin`, {
-                method: 'GET',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-            })
-                .then(
-                    res => res.json()
-                ).then(
-                data => {
-                    console.log(data)
-                    // setInfo(data)
-                    setName(data.user.name)
-                    setUserName(data.user.userName)
-                    setGender(data.user.gender)
-                    setFilter(data.user.filter)
-                    // if (filter === true){
-                    //     setFilter("適応する")
-                    // }else {
-                    //     setFilter("適応しない")
-                    // }
-                })
-        } catch (e) {
-            console.log(e)
-        }
-    }
 
     const handleLogout = async () => {
         try {
@@ -55,7 +37,6 @@ const Info = () => {
                         window.location.href = "/"
                     } else {
                         throw new Error('ログアウト失敗した...')
-                        console.log(res)
                     }
                 })
         } catch (e) {
@@ -74,19 +55,20 @@ const Info = () => {
                 <div className={s.frame}>
                     <div className={s.box}>
                         <p className={s.each}><b>name:</b></p>
-                        <input type="text" name="name" value={name} className={s.input}/>
+                        <input type="text" name="name" defaultValue={name} className={s.input}/>
                     </div>
                     <div className={s.box}>
-                        <p className={s.each}><b>user ID:</b>　　　@</p>
-                        <input type="text" name="username" value={userName} className={s.input}/>
+                        <p className={s.each}><b>user ID:</b> @</p>
+                        <input type="text" name="username" defaultValue={userName} className={s.input}/>
                     </div>
                     <div className={s.box}>
                         <p className={s.each}><b>gender:</b></p>
-                        <input type="text" name="gender" value={gender} className={s.input}/>
+                        <input type="text" name="gender" defaultValue={gender} className={s.input}/>
                     </div>
                     <div className={s.box}>
                         <p className={s.each}><b>filter:</b></p>
-                        <input type="text" name="gender" value={filter} className={s.input}/>
+                        <input type="text" name="filter" value={filter ? "Apply" : "Remove"}
+                               className={s.input}/>
                     </div>
                 </div>
                 <input type="submit" value="SAVE" className={s.save}/>

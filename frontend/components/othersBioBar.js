@@ -1,11 +1,11 @@
 //一旦ページごと作って時間あればコンポーネント化
 
 import s from '../src/styles/othersbiobar.module.css'
-import { useEffect, useState } from "react";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import { useRouter } from "next/router";
+import {useEffect, useState} from "react";
+import {Tab, Tabs, TabList, TabPanel} from "react-tabs";
+import {useRouter} from "next/router";
 import axios from 'axios';
-import { getImage, handleLikeClick } from "./utils.js";
+import {getImage, handleLikeClick} from "./utils.js";
 
 const OthersBioBar = () => {
     const router = useRouter();
@@ -15,7 +15,6 @@ const OthersBioBar = () => {
     const [rpcount, setRpcount] = useState({});
 
     useEffect(() => {
-        console.log("query:", router.query);
         fetchData();
     }, []);
 
@@ -51,14 +50,12 @@ const OthersBioBar = () => {
             let likeCounts = 0;
             for (const post of data.user.post) {
                 if (post.likes.length > 0) {
-                    likeCounts = likeCounts + 1;
+                    likeCounts++;
                 } else {
                     likeCounts = 0;
                 }
-                console.log("COUNTRES", likeCounts);
             }
             setLikecount(likeCounts);
-            console.log("a");
         } catch (e) {
             console.log(e);
         }
@@ -67,7 +64,7 @@ const OthersBioBar = () => {
     const postItems = posts.map(post =>
         <li key={post.id} className={s.frame}>
             <div className={s.iconNidNname}>
-                <img src="/フリーアイコン.png" alt={user.userName} className={s.icon} />
+                <img src="/フリーアイコン.png" alt={user.userName} className={s.icon}/>
                 <div>
                     <div className={s.nameNidNconNlike}>
                         <b className={s.userName}>{user.name}</b>
@@ -88,7 +85,8 @@ const OthersBioBar = () => {
                 </div>
             </div>
             <div className={s.likeNrp}>
-                <span className={s.like} onClick={() => handleLikeClickWrapper(post.id)}>♡ {likecount[post.id] || 0} </span>
+                <span className={s.like}
+                      onClick={() => handleLikeClickWrapper(post.id)}>♡ {likecount[post.id] || 0} </span>
                 <span className={s.repost} onClick={() => handleRpClick(post.id)}>☆ {rpcount[post.id] || 0} </span>
             </div>
         </li>
