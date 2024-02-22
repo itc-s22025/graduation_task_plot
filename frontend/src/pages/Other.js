@@ -5,7 +5,7 @@ import axios from 'axios';
 import Header from "../../components/header.js";
 import FrameLayout from "../../components/frameLayout.js";
 import OthersBioBar from "../../components/othersBioBar.js";
-import { getUserData } from "../../components/utils.js";
+import {fetchFollower, getUserData} from "../../components/utils.js";
 
 const Other = () => {
     const router = useRouter();
@@ -14,10 +14,21 @@ const Other = () => {
     const [myId, setMyId] = useState();
     const [isFollowing, setIsFollowing] = useState(false);
     const [following, setFollowing] = useState(0);
+    const [follower, setFollower] = useState(0);
 
     useEffect(() => {
         fetchUserData();
-    }, []);
+        fetchFollower().then(
+            data => {
+                let followerCount = 0;
+                for (const follow of data){
+                    if (follow.followee_id === user.id){
+                        followerCount++;
+                    }
+                    setFollower(followerCount);
+                }
+            })
+    }, [user]);
 
     const fetchUserData = async () => {
         try {
@@ -133,7 +144,7 @@ const Other = () => {
                                 </div>
                                 <div className={s.foNwer}>
                                     <p>{following} Following</p>
-                                    <p className={s.follower}>34 Followers</p>
+                                    <p className={s.follower}>{follower} Followers</p>
                                 </div>
                             </div>
                             {!isFollowing && <p className={s.edit} onClick={handleFollow}>Follow</p>}
