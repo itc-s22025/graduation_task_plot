@@ -133,7 +133,7 @@ const Other = () => {
                                 </div>
                                 <div className={s.foNwer}>
                                     <p>{following} Following</p>
-                                    <p className={s.follower}>34 Follower</p>
+                                    <p className={s.follower}>34 Followers</p>
                                 </div>
                             </div>
                             {!isFollowing && <p className={s.edit} onClick={handleFollow}>Follow</p>}

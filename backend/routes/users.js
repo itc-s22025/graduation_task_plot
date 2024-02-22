@@ -85,8 +85,8 @@ router.get("/signin", async (req, res, next) => {
                 post: {
                     orderBy: {createdAt: 'desc'}
                 },
-                follows:{
-                    orderBy:{createdAt: 'desc'}
+                follows: {
+                    orderBy: {createdAt: 'desc'}
                 }
             }
         });
@@ -143,6 +143,20 @@ router.get('/follow', async (req, res, next) => {
         }
     })
     res.json({followlist})
+})
+
+//follower
+router.get("/follow/all", async (req, res, next) => {
+    try {
+        const followerList = await prisma.follows.findMany({
+            orderBy: {
+                updatedAt: 'desc'
+            }
+        })
+        res.json({followerList})
+    }catch (e) {
+        console.log(e)
+    }
 })
 
 
@@ -224,7 +238,7 @@ async function updateUser(id, newData) {
 
 module.exports = {router, updateUser};
 router.get('/user/:userId', async (req, res, next) => {
-  console.log(req.query.userId)
+    console.log(req.query.userId)
 })
 
 module.exports = router;

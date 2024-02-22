@@ -19,8 +19,8 @@ export const onUserClick = async (userName, myName) => {
             console.log(userName);
             Router.push({
                 pathname: '/Other',
-                query: { userName },
-            }, { shallow: true });
+                query: {userName},
+            }, {shallow: true});
         }
     } catch (e) {
         console.log(e);
@@ -143,7 +143,8 @@ export const generatePostItems = (posts, handleLikeClick, likecount, rpcount, ha
 
 export const getUserData = async () => {
     try {
-        const res = await axios.get(`http://${location.hostname}:3002/users/signin`, {
+        const res = await axios.get(`http://${location.hostname}:3002/users/signin`,
+            {
             withCredentials: true,
             headers: {
                 'Content-Type': 'application/json'
@@ -153,6 +154,22 @@ export const getUserData = async () => {
         return data.user;
     } catch (e) {
         console.log(e);
-        return "";
+    }
+};
+
+export const fetchFollower = async () => {
+    try {
+        const res = await axios.get(
+            `http://${location.hostname}:3002/users/follow/all`,
+            {
+                withCredentials: true,
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            });
+        const data = res.data;
+        return data.followerList;
+    } catch (e) {
+        console.log(e)
     }
 };
